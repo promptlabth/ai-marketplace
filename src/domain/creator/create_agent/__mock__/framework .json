@@ -1,0 +1,82 @@
+[
+    {
+        "framework ": "RICEE",
+        "component": [
+            {
+                "type": "dropdown",
+                "lable": "(Action) บทของ Agent"
+            },
+            {
+                "type": "dropdown",
+                "label": "(Role) บทของ Agent",
+                "role": [
+                    "นักกฏหมาย"
+                ]
+            }
+        ]
+    },
+    {
+        "framework ": "APE",
+        "component": [
+            {
+                "type": "dropdown",
+                "lable": "(Action) บทของ Agent"
+            },
+            {
+                "type": "dropdown",
+                "label": "(Role) บทของ Agent",
+                "role": [
+                    "นักกฏหมาย"
+                ]
+            }
+        ]
+    },
+    {
+        "framework ": "TAG",
+        "component": [
+            {
+                "type": "dropdown",
+                "lable": "(Action) บทของ Agent"
+            },
+            {
+                "type": "dropdown",
+                "label": "(Role) บทของ Agent",
+                "role": [
+                    "นักกฏหมาย"
+                ]
+            }
+        ]
+    },
+    {
+        "framework ": "ERA",
+        "component": [
+            {
+                "type": "dropdown",
+                "lable": "(Action) บทของ Agent"
+            },
+            {
+                "type": "dropdown",
+                "label": "(Role) บทของ Agent",
+                "role": [
+                    "นักกฏหมาย"
+                ]
+            }
+        ]
+    },
+    {
+        "framework ": "RRRR",
+        "component": [
+            {
+                "type": "dropdown",
+                "lable": "(Action) บทของ Agent"
+            },
+            {
+                "type": "dropdown",
+                "label": "(Role) บทของ Agent",
+                "role": [
+                    "นักกฏหมาย"
+                ]
+            }
+        ]
+    }
+]
