@@ -1,10 +1,10 @@
 import React from 'react';
 
-interface MyComponentProps {
+interface ComponentProps {
     rows?: number; 
 }
 
-const MyComponent: React.FC<MyComponentProps> = ({ rows = 4 }) => { 
+const MyComponent: React.FC<ComponentProps> = ({ rows = 4 }) => { 
     return (
         <div className="flex flex-col h-full">
             <form className="w-full">

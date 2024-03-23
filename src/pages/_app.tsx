@@ -1,18 +1,18 @@
 import { AppProps } from "next/app";
 import "../styles/globals.css";
-import { Metadata } from "next";
+import Head from 'next/head';
 
-export const metadata: Metadata = {
-  title: "Prompt Marketplac",
-  description: "",
-};
 
 function App({ Component, pageProps }: AppProps) {
-  
+
   return (
-     <main>
-           <Component {...pageProps} />
-     </main>
+    <main>
+      <Head>
+        <title>Prompt Marketplace</title>
+        <meta name="description" content="" />
+      </Head>
+      <Component {...pageProps} />
+    </main>
   );
 }
 
