@@ -14,12 +14,12 @@ const createAgent = () => {
       </Head>
       <div className="flex flex-col w-full h-lvh bg-[#33393F] rounded-xl py-4 gap-4">
         <div className="flex flex-col gap-4 h-[80%] px-6 pt-6">
-          <InputNameAgent />
+          <InputNameAgent name_label="ตั้งชื่อ AI ของคุณ"/>
           <ImageUpload />
-          <InputDetial />
+          <InputDetial detail="อธิบายเกี่ยวกับ AI ของคุณ"/>
         </div>
         <div className="flex justify-around sm:flex-col items-center w-full h-[20%] gap-4 px-6">
-          <ButtonNext name_button="ถัดไป" />
+          <ButtonNext name_button="ถัดไป"/>
           <ButtonCancle name_button="ย้อนกลับ" />
         </div>
       </div>

@@ -1,14 +1,15 @@
 import React from 'react';
 
 interface ComponentProps {
-    rows?: number; 
+    rows?: number;
+    detail: string
 }
 
-const MyComponent: React.FC<ComponentProps> = ({ rows = 4 }) => { 
+const MyComponent: React.FC<ComponentProps> = ({ rows = 4, detail }) => {
     return (
         <div className="flex flex-col h-full">
             <form className="w-full">
-                <label htmlFor="message" className="block mb-2 text-sm font-medium text-white">อธิบายเกี่ยวกับ AI ของคุณ</label>
+                <label htmlFor="message" className="block mb-2 text-sm font-medium text-white">{detail}</label>
                 <textarea
                     id="message"
                     rows={rows}

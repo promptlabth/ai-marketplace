@@ -1,8 +1,12 @@
-const InputNameAgent = () => {
+interface InputNameprops {
+    name_label: string;
+}
+
+const InputNameAgent: React.FC<InputNameprops> = ({ name_label }) => {
     return (
         <div className="flex flex-col">
             <label htmlFor="aiName" className="text-white">
-                ตั้งชื่อ AI ของคุณ
+                {name_label}
             </label>
             <input
                 type="text"
