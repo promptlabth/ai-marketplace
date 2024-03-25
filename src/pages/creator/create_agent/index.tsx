@@ -18,8 +18,8 @@ const createAgent = () => {
           <ImageUpload />
           <InputDetial detail="อธิบายเกี่ยวกับ AI ของคุณ"/>
         </div>
-        <div className="flex justify-around sm:flex-col items-center w-full h-[20%] gap-4 px-6">
-          <ButtonNext name_button="ถัดไป"/>
+        <div className="flex justify-around items-center w-full h-[20%] gap-4 px-6">
+          <ButtonNext name_button="ถัดไป" route_page="/creator/edit_agent"/>
           <ButtonCancle name_button="ย้อนกลับ" />
         </div>
       </div>

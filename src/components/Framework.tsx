@@ -1,52 +1,53 @@
-import React, { useState } from 'react';
-import APE from "@/pages/creator/edit_agent/ape";
-import ERA from '@/pages/creator/edit_agent/era';
-import TAG from '@/pages/creator/edit_agent/tag';
-import RICEE from '@/pages/creator/edit_agent/ricee';
-import RPPPP from '@/pages/creator/edit_agent/rpppp';
+import React, { useState, useEffect } from 'react';
+import Dropdown from '@/components/Dropdown_framework'
+import InputDetial from "@/components/InputDetial"
+import data from '@/domain/creator/create_agent/__mock__/framework .json';
 
-interface ButtonConfig {
-    label: string;
-    component: React.FC<any>;
-}
+const FrameworkComponent = () => {
+    const [nameframework, setNameframework] = useState<string>(data[0].framework);
+    const [selectedFrameworkDetails, setSelectedFrameworkDetails] = useState(data[0]);
 
-const Framework: React.FC = () => {
-    const [activeButton, setActiveButton] = useState<number>(0);
-    const buttons: ButtonConfig[] = [
-        { label: 'APE', component: APE },
-        { label: 'ERA', component: ERA },
-        { label: 'TAG', component: TAG },
-        { label: 'RICEE', component: RICEE },
-        { label: 'RPPPP', component: RPPPP },
-    ];
-
-    const RenderComponent = () => {
-        if (activeButton !== null) {
-            const Component = buttons[activeButton].component;
-            return <Component />;
+    useEffect(() => {
+        const frameworkDetails = data.find(framework => framework.framework === nameframework);
+        if (frameworkDetails) {
+            setSelectedFrameworkDetails(frameworkDetails);
         }
-        return null;
-    };
+    }, [nameframework]);
 
     return (
         <div className='flex flex-col w-full h-full'>
             <p className='text-white'>เลือก Framework ของ AI</p>
             <div className="overflow-x-auto">
-                <div className="flex flex-row xl:justify-center snap-mandatory space-x-2 p-2">
-                    {buttons.map((button, index) => (
+                <div className="flex flex-row xl:justify-center snap-x space-x-2 p-2 ">
+                    {data.map((framework, index) => (
                         <button
                             key={index}
-                            className={`flex-none w-[90px] h-[40px] sm:w-[220px] snap-center items-center flex justify-center ${activeButton === index ? 'bg-transparent text-white' : 'bg-[#03FFAB] text-black'} font-bold rounded-xl`}
-                            onClick={() => setActiveButton(index)}
+                            className={`flex-none snap-center w-[90px] h-[40px] sm:w-[220px] items-center flex justify-center ${nameframework === framework.framework ? 'bg-transparent text-white' : 'bg-[#03FFAB] text-black'} font-bold rounded-xl`}
+                            onClick={() => {
+                                setNameframework(framework.framework);
+                            }}
                         >
-                            {button.label}
+                            {framework.framework}
                         </button>
                     ))}
                 </div>
             </div>
-            <RenderComponent />
+
+            <div className='flex w-full flex-col gap-3 overflow-x-auto'>
+                <p className='p-1 text-[#6C757D] text-[15px]'>{selectedFrameworkDetails.detail}</p>
+                {selectedFrameworkDetails.component.map((comp, index) => {
+                    switch (comp.type) {
+                        case 'dropdown':
+                            return <Dropdown key={index} json_data={nameframework}/>;
+                        case 'add_text':
+                            return <InputDetial key={index} detail={comp.label} />;
+                        default:
+                            return null;
+                    }
+                })}
+            </div>
         </div>
     );
 };
 
-export default Framework;
+export default FrameworkComponent;

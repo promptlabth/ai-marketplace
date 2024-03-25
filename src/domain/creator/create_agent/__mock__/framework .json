@@ -1,81 +1,127 @@
 [
     {
-        "framework ": "RICEE",
+        "framework": "RICEE",
+        "detail": "อธิบาย:  APE เป็น เหมาะกับงานที่ต้องการการสร้างเนื้อหา, การวิเคราะห์, การแก้ไขปัญหา, การเรียนรู้, และการสร้างสื่อโต้ตอบด้วยความชัดเจนในเป้าหมายและความคาดหวัง",
         "component": [
             {
                 "type": "dropdown",
-                "lable": "(Action) บทของ Agent"
+                "label": "(Action) บทของ Agent",
+                "role": [
+                    "นักกฏหมาย",
+                    "นักการเมือง",
+                    "นักดนตรี"
+                ]
             },
             {
-                "type": "dropdown",
-                "label": "(Role) บทของ Agent",
-                "role": [
-                    "นักกฏหมาย"
-                ]
+                "type": "add_text",
+                "label": "(Instruction) ระดับภาษาที่ต้องการให้ AI ตอบ"
+            },
+            {
+                "type": "add_text",
+                "label": "(Context) อธิบายเป้าหมายสุดท้ายที่ต้องการ"
+            },
+            {
+                "type": "add_text",
+                "label": "Example"
+            },
+            {
+                "type": "add_text",
+                "label": "Execute"
             }
         ]
     },
     {
-        "framework ": "APE",
+        "framework": "APE",
+        "detail": "อธิบาย:  APE เป็น เหมาะกับงานที่ต้องการการสร้างเนื้อหา, การวิเคราะห์, การแก้ไขปัญหา, การเรียนรู้, และการสร้างสื่อโต้ตอบด้วยความชัดเจนในเป้าหมายและความคาดหวัง",
         "component": [
             {
                 "type": "dropdown",
-                "lable": "(Action) บทของ Agent"
+                "label": "(Action) บทของ Agent",
+                "role": [
+                    "นักกฏหมาย",
+                    "นักการเมือง",
+                    "นักดนตรี"
+                ]
             },
             {
-                "type": "dropdown",
-                "label": "(Role) บทของ Agent",
-                "role": [
-                    "นักกฏหมาย"
-                ]
+                "type": "add_text",
+                "label": "(Propose) เป้าหมายของ Agent"
+            },
+            {
+                "type": "add_text",
+                "label": "(Expectation) ผลลัพธ์/สิ่งที่คาดหวังของ Agent"
             }
         ]
     },
     {
-        "framework ": "TAG",
+        "framework": "TAG",
+        "detail": "อธิบาย:  APE เป็น เหมาะกับงานที่ต้องการการสร้างเนื้อหา, การวิเคราะห์, การแก้ไขปัญหา, การเรียนรู้, และการสร้างสื่อโต้ตอบด้วยความชัดเจนในเป้าหมายและความคาดหวัง",
         "component": [
             {
-                "type": "dropdown",
-                "lable": "(Action) บทของ Agent"
+                "type": "add_text",
+                "label": "(Task)  กำหนดงานที่ต้องการให้ AI ทำ"
             },
             {
-                "type": "dropdown",
-                "label": "(Role) บทของ Agent",
-                "role": [
-                    "นักกฏหมาย"
-                ]
+                "type": "add_text",
+                "label": "(Action) ระบุงานที่อยากให้ AI ทำ"
+            },
+            {
+                "type": "add_text",
+                "label": "(Goal) อธิบายเป้าหมายสุดท้ายที่ต้องการ"
             }
         ]
     },
     {
-        "framework ": "ERA",
+        "framework": "ERA",
+        "detail": "อธิบาย:  APE เป็น เหมาะกับงานที่ต้องการการสร้างเนื้อหา, การวิเคราะห์, การแก้ไขปัญหา, การเรียนรู้, และการสร้างสื่อโต้ตอบด้วยความชัดเจนในเป้าหมายและความคาดหวัง",
         "component": [
             {
-                "type": "dropdown",
-                "lable": "(Action) บทของ Agent"
+                "type": "add_text",
+                "label": "(Expectation)ผลลัพธ์/สิ่งที่คาดหวังของ Agent (นักกฏหมาย)"
             },
             {
                 "type": "dropdown",
                 "label": "(Role) บทของ Agent",
                 "role": [
-                    "นักกฏหมาย"
+                    "นักกฏหมาย",
+                    "นักการเมือง",
+                    "นักดนตรี"
                 ]
+            },
+            {
+                "type": "add_text",
+                "label": "(Action) ระบุงานที่อยากให้ AI ทำ (นักกฏหมาย)"
             }
         ]
     },
     {
-        "framework ": "RRRR",
+        "framework": "RPPPP",
+        "detail": "อธิบาย:  APE เป็น เหมาะกับงานที่ต้องการการสร้างเนื้อหา, การวิเคราะห์, การแก้ไขปัญหา, การเรียนรู้, และการสร้างสื่อโต้ตอบด้วยความชัดเจนในเป้าหมายและความคาดหวัง",
         "component": [
-            {
-                "type": "dropdown",
-                "lable": "(Action) บทของ Agent"
-            },
             {
                 "type": "dropdown",
                 "label": "(Role) บทของ Agent",
                 "role": [
-                    "นักกฏหมาย"
+                    "นักกฏหมาย",
+                    "นักการเมือง",
+                    "นักดนตรี"
                 ]
+            },
+            {
+                "type": "add_text",
+                "label": "(Problem)"
+            },
+            {
+                "type": "add_text",
+                "label": "(Promise)"
+            },
+            {
+                "type": "add_text",
+                "label": "(Prove)"
+            },
+            {
+                "type": "add_text",
+                "label": "(Proposal)"
             }
         ]
     }

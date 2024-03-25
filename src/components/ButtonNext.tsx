@@ -3,13 +3,14 @@ import { useRouter } from 'next/navigation';
 
 interface ButtonProps {
     name_button: string;
+    route_page: string;
 }
 
-const ButtonNext: React.FC<ButtonProps> = ({ name_button }) => {
+const ButtonNext: React.FC<ButtonProps> = ({ name_button, route_page }) => {
 
     const router = useRouter();
     const GotoEditAgent = () => {
-        router.push("/creator/edit_agent")
+        router.push(`${route_page}`)
     }
 
     return (
