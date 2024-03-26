@@ -24,7 +24,7 @@ const CreateAgent = () => {
             <h3 className="text-lg font-bold text-white">{item.category}</h3>
             <div className="flex gap-4 overflow-x-auto">
               {item.agents.map((agent, agentIndex) => (
-                <div key={agentIndex} className="flex items-center flex-col flex-none border-2 rounded-[30px] w-[170px] p-2 bg-[#697179]">
+                <div key={agentIndex} className="flex items-center justify-center flex-col flex-none border-2 rounded-[30px] w-[170px] h-[300px] p-2 bg-[#697179]">
                   <div key={agentIndex} className="flex items-center justify-center w-[100px] h-[100px] border-2 rounded-full bg-blue-500">{agent.image_url}</div>
                   <div key={agentIndex} className="text-[#FFFFFF] font-bold text-[16px]">{agent.name_agent}</div>
                   <div key={agentIndex} className="text-[#FFFFFF] text-[14px]">{agent.agent_detail}</div>
