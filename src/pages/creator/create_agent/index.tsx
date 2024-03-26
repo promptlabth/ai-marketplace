@@ -7,7 +7,7 @@ import Head from 'next/head';
 
 const createAgent = () => {
   return (
-    <div className="bg-[#212529] p-6">
+    <main className="bg-[#212529] p-6">
       <Head>
         <title>Prompt Marketplace</title>
         <meta name="description" content="" />
@@ -23,7 +23,7 @@ const createAgent = () => {
           <ButtonCancle name_button="ย้อนกลับ" />
         </div>
       </div>
-    </div>
+    </main>
   );
 }
 

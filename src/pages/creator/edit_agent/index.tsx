@@ -9,7 +9,7 @@ import React from "react";
 const EditAgent = () => {
 
   return (
-    <div className="bg-[#212529] p-4 min-h-screen">
+    <main className="bg-[#212529] p-4 min-h-screen">
       <Head>
         <title>Prompt Marketplace</title>
         <meta name="description" content="" />
@@ -23,7 +23,7 @@ const EditAgent = () => {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 }
 
