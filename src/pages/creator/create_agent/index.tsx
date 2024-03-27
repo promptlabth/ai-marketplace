@@ -5,6 +5,7 @@ import ImageUpload from "@/components/ImageUpload";
 import InputDetial from "@/components/InputDetial"
 import Head from 'next/head';
 
+
 const createAgent = () => {
   return (
     <main className="bg-[#212529] p-6">
