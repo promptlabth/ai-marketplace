@@ -17,12 +17,13 @@ const DropdownItem: React.FC<DropdownItemProps> = ({ label, onSelect }) => (
     </button>
 );
 
-const Dropdown: React.FC<{ json_data: string }> = ({ json_data }) => {
+const Dropdown: React.FC<{ json_data: string, label_name: string }> = ({ json_data, label_name }) => {
 
     const { DropdownItems } = useDropdown(data, json_data);
 
     return (
         <div className="relative text-left p-[1px]">
+            <p className='text-white'>{label_name}</p>
             <button
                 ref={DropdownItems.toggleRef}
                 className="flex justify-between w-full p-2 text-[14px] text-gray-400 hover:bg-gray-500 rounded-lg bg-[#3D434A] ring-[0.2px] ring-white"

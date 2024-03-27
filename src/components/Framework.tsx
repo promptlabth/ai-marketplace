@@ -38,7 +38,7 @@ const FrameworkComponent = () => {
                 {selectedFrameworkDetails.component.map((comp, index) => {
                     switch (comp.type) {
                         case 'dropdown':
-                            return <Dropdown key={index} json_data={nameframework}/>;
+                            return <Dropdown key={index} json_data={nameframework} label_name={comp.label} />;
                         case 'add_text':
                             return <InputDetial key={index} detail={comp.label} />;
                         default:

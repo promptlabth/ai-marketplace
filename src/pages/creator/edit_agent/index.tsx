@@ -1,10 +1,8 @@
 import ButtonNext from "@/components/ButtonNext"
 import ButtonCancle from "@/components/ButtonCancle"
-import InputDetial from "@/components/InputDetial"
 import Framework from "@/components/Framework";
 import Head from 'next/head';
 import React from "react";
-
 
 const EditAgent = () => {
 
@@ -18,7 +16,7 @@ const EditAgent = () => {
         <div className="gap-4 p-4">
           <Framework />
           <div className="flex justify-around items-center w-full gap-4 pt-4">
-            <ButtonNext name_button="สร้าง" route_page="/customer/use_agent"/>
+            <ButtonNext name_button="สร้าง" route_page="/creator/list_agent"/>
             <ButtonCancle name_button="ย้อนกลับ" />
           </div>
         </div>

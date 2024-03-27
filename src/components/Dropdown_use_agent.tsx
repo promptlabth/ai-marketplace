@@ -20,7 +20,6 @@ const DropdownItem: React.FC<DropdownItemProps> = ({ label, onSelect }) => (
     </button>
 );
 
-
 const Dropdown: React.FC<DropdownProps> = ({ content }) => {
     const [isOpen, setIsOpen] = React.useState(false);
     const [nameList, setNameList] = React.useState('Select an Option');
