@@ -10,7 +10,7 @@ const EditAgent = () => {
   return (
     <main className="bg-[#212529] p-4 min-h-screen">
       <Head>
-        <title>Prompt Marketplace</title>
+        <title>Edit Agent</title>
         <meta name="description" content="" />
       </Head>
       <div className="flex flex-col w-full min-h-screen bg-[#33393F] rounded-xl gap-4">

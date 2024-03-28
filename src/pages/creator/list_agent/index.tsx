@@ -1,11 +1,15 @@
 import data from "@/domain/creator/create_agent/__mock__/list_agent.json"
 import SearchInput from "@/components/SearchInput"
 import FooterButton from "@/components/Footer_button";
-
+import Head from 'next/head';
 
 const listAgent = () => {
   return (
-    <div className="flex flex-col bg-[#212529] min-h-screen overflow-y-auto p-4">
+    <div className="flex flex-col bg-[#212529] min-h-screen overflow-y-auto p-6">
+      <Head>
+        <title>List Agent</title>
+        <meta name="description" content="" />
+      </Head>
       <header>
         <SearchInput name_label="ค้นหา AI ของคุณ" placeholder="Search" />
       </header>

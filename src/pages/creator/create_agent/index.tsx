@@ -10,7 +10,7 @@ const createAgent = () => {
   return (
     <main className="bg-[#212529] p-6">
       <Head>
-        <title>Prompt Marketplace</title>
+        <title>Create Agent</title>
         <meta name="description" content="" />
       </Head>
       <div className="flex flex-col w-full h-lvh bg-[#33393F] rounded-xl py-4 gap-4">

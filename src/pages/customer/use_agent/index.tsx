@@ -11,18 +11,11 @@ const useAgent = () => {
   return (
     <div className="bg-[#212529] p-6 min-h-screen relative">
       <Head>
-        <title>Prompt Marketplace</title>
+        <title>Use Agent</title>
         <meta name="description" content="" />
       </Head>
-      {/* <div className="absolute top-0 left-0 m-4">
-        <Link href="/หน้าที่คุณต้องการย้อนกลับไป">
-          <p className="text-white p-2 bg-blue-500 hover:bg-blue-700 rounded">ย้อนกลับ</p>
-        </Link>
-      </div> */}
       <div className="flex flex-col w-full min-h-screen bg-[#33393F] rounded-xl py-4 px-4 gap-4">
-
         <Reverse_button route_path="/" />
-
         <div className="flex flex-col justify-center items-center w-full h-full">
           <Image src="/judment.svg" alt="" width={100} height={100} />
           <div className="flex justify-center flex-col p-4 gap-2">

@@ -1,13 +1,18 @@
 import SearchInput from "@/components/SearchInput"
 import data from "@/domain/customer/marketplace/__mock__/market.json"
 import { useState } from "react";
+import Head from 'next/head';
 
 
 const CreateAgent = () => {
   const [clickOpencategory, setOpencategory] = useState<string>("flex-nowrap")
 
   return (
-    <main className="bg-[#212529] h-screen overflow-y-auto p-6">
+    <div className="bg-[#212529] h-screen overflow-y-auto p-6">
+      <Head>
+        <title>Marketplace Agent</title>
+        <meta name="description" content="" />
+      </Head>
       <SearchInput name_label="ค้นหา AI ของคุณ" placeholder="Search" />
       <div className={`flex items-center mt-4 gap-4 ${clickOpencategory} overflow-x-auto`}>
         {data.map((category, index) => (
@@ -35,7 +40,7 @@ const CreateAgent = () => {
           </div>
         ))}
       </div>
-    </main>
+    </div>
   );
 }
 
