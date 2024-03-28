@@ -4,6 +4,7 @@ import Framework from "@/components/Framework";
 import Head from 'next/head';
 import React from "react";
 
+
 const EditAgent = () => {
 
   return (
