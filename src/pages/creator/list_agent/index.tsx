@@ -2,6 +2,7 @@ import data from "@/domain/creator/create_agent/__mock__/list_agent.json"
 import SearchInput from "@/components/SearchInput"
 import FooterButton from "@/components/Footer_button";
 
+
 const listAgent = () => {
   return (
     <div className="flex flex-col bg-[#212529] min-h-screen overflow-y-auto p-4">
