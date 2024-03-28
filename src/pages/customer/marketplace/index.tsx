@@ -2,6 +2,7 @@ import SearchInput from "@/components/SearchInput"
 import data from "@/domain/customer/marketplace/__mock__/market.json"
 import { useState } from "react";
 
+
 const CreateAgent = () => {
   const [clickOpencategory, setOpencategory] = useState<string>("flex-nowrap")
 
