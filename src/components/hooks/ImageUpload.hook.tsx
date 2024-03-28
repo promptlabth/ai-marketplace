@@ -1,6 +1,5 @@
 import { useRef, useState, RefObject } from 'react';
 
-// Define a type for the hook's return value for better type support.
 interface UseImageUploadReturn {
   fileInputRef: RefObject<HTMLInputElement>;
   imageSrc: string;

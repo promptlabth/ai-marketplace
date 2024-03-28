@@ -1,29 +1,32 @@
+import React from 'react';
 import Image from "next/image";
 
-interface InputNameprops {
+interface InputNameProps {
     name_label: string;
-    placholder: string;
+    placeholder: string; 
 }
 
-const SearchInput: React.FC<InputNameprops> = ({ name_label, placholder }) => {
+const SearchInput: React.FC<InputNameProps> = ({ name_label, placeholder }) => {
     return (
         <div className="flex flex-col w-full">
             <label htmlFor="aiName" className="text-white">
                 {name_label}
             </label>
-            <div className="flex items-center w-full gap-2" > 
+            <div className="relative mt-2 flex items-center w-full">
                 <input
                     type="text"
                     id="aiName"
                     name="aiName"
-                    placeholder={placholder}
+                    placeholder={placeholder}
                     aria-label="Enter AI name here"
-                    className="mt-2 h-[40px] w-full rounded p-2 bg-[#3D434A] ring-1 ring-[#6E6F70] focus:ring-white text-white"
+                    className="h-[40px] w-full rounded pl-10 pr-2 bg-[#3D434A] ring-1 ring-[#6E6F70] focus:ring-white text-white"
                 />
-                <Image src="/png/search.png" height={20} width={20} alt="No image" />
+                <div className="absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none">
+                    <Image src="/png/search.png" height={20} width={20} alt="Search" />
+                </div>
             </div>
         </div>
-    )
+    );
 }
 
 export default SearchInput;
