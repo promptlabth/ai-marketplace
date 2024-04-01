@@ -22,7 +22,7 @@ const Dropdown: React.FC<{ json_data: string, label_name: string }> = ({ json_da
     const { DropdownItems } = useDropdown(data, json_data);
 
     return (
-        <div className="relative text-left p-[1px]">
+        <div className="text-left p-[1px]">
             <p className='text-white'>{label_name}</p>
             <button
                 ref={DropdownItems.toggleRef}
@@ -39,7 +39,7 @@ const Dropdown: React.FC<{ json_data: string, label_name: string }> = ({ json_da
             {DropdownItems.isOpen && DropdownItems.selectedFrameworkDetails && (
                 <div
                     ref={DropdownItems.dropdownRef}
-                    className="w-full origin-top-right absolute right-0 rounded-md shadow-sm rounded"
+                    className="w-full origin-top-right right-0 rounded-md shadow-sm rounded"
                 >
                     <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                         {DropdownItems.selectedFrameworkDetails.component.filter(item => item.type === 'dropdown').map((dropdownItem, index) =>

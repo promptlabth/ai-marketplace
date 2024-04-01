@@ -1,12 +1,12 @@
 import React from 'react'
 import Link from "next/link";
-import Image from 'next/image';
+import { FaArrowLeft } from "react-icons/fa6";
 
 const Reverse_button: React.FC<{ route_path: string }> = ({ route_path }) => {
     return (
-        <div className="absolute top-5 left-5 m-4">
+        <div className="absolute sm:invisible top-5 left-5 m-4">
             <Link className='flex' href={route_path}>
-                <Image className='sm:invisible hover:scale-105' alt='' src='/png/arrow-left.png' height={15} width={35} />
+                <FaArrowLeft color='white' size={30}/>
             </Link>
         </div>
     )

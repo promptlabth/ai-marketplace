@@ -7,12 +7,12 @@ import Reverse_button from "@/components/Reverse_button"
 
 const AgentView = () => {
   return (
-    <div className="bg-[#212529] p-6 min-h-screen relative">
+    <div className="bg-[#212529] p-6 min-h-screen flex justify-center">
       <Head>
         <title>View Agent</title>
         <meta name="description" content="" />
       </Head>
-      <div className="flex flex-col justify-between w-full min-h-screen bg-[#33393F] rounded-xl py-4 px-4 gap-4">
+      <div className="flex flex-col justify-between sm:w-[600px] min-h-screen bg-[#33393F] rounded-xl py-4 px-4 gap-4">
         <Reverse_button route_path="/" />
         <div className="flex flex-col gap-12">
           <div className="flex flex-col justify-center items-center w-full h-full">

@@ -34,7 +34,7 @@ const FrameworkComponent = () => {
             </div>
 
             <div className='flex w-full flex-col gap-3 overflow-x-auto'>
-                <p className='p-1 text-white font-sm text-[15px] border-[1px] rounded-xl'>{selectedFrameworkDetails.detail}</p>
+                <p className='p-2 mt-4 text-white text-[12px] border-b-2'>{selectedFrameworkDetails.detail}</p>
                 {selectedFrameworkDetails.component.map((comp, index) => {
                     switch (comp.type) {
                         case 'dropdown':

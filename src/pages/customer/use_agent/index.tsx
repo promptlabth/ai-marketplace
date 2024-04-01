@@ -9,12 +9,12 @@ import Outputtext from "@/components/Outputtext";
 import Reverse_button from "@/components/Reverse_button"
 const useAgent = () => {
   return (
-    <div className="bg-[#212529] p-6 min-h-screen relative">
+    <div className="bg-[#212529] p-6 min-h-screen flex flex-col justify-center items-center">
       <Head>
         <title>Use Agent</title>
         <meta name="description" content="" />
       </Head>
-      <div className="flex flex-col w-full min-h-screen bg-[#33393F] rounded-xl py-4 px-4 gap-4">
+      <div className="flex flex-col sm:w-[600px] w-full min-h-screen bg-[#33393F] rounded-xl py-4 px-4 gap-4">
         <Reverse_button route_path="/" />
         <div className="flex flex-col justify-center items-center w-full h-full">
           <Image src="/judment.svg" alt="" width={100} height={100} />

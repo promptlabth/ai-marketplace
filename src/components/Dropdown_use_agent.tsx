@@ -13,7 +13,7 @@ interface DropdownProps {
 
 const DropdownItem: React.FC<DropdownItemProps> = ({ label, onSelect }) => (
     <button
-        className="relative text-white p-2 text-[13px] w-full text-left bg-[#3D434A] hover:bg-gray-600 focus:bg-gray-600"
+        className="text-white p-2 text-[13px] w-full text-left bg-[#3D434A] hover:bg-gray-600 focus:bg-gray-600"
         onClick={onSelect}
     >
         {label}
@@ -26,7 +26,7 @@ const Dropdown: React.FC<DropdownProps> = ({ content }) => {
     const detailDropdown = data[0].detail_dropdown;
 
     return (
-        <div className="relative text-left p-[1px]">
+        <div className="text-left p-[1px]">
             <p className='text-white'>{content}</p>
             <button
                 className="flex justify-between w-full p-2 text-[14px] text-gray-400 hover:bg-gray-500 rounded-lg bg-[#3D434A] ring-[0.2px] ring-white"
@@ -41,7 +41,7 @@ const Dropdown: React.FC<DropdownProps> = ({ content }) => {
 
             {isOpen && (
                 <div
-                    className="w-full origin-top-right absolute right-0 rounded-md shadow-sm rounded"
+                    className="w-full origin-top-right right-0 rounded-md shadow-sm rounded"
                 >
                     <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                         {detailDropdown.map((label, index) => (

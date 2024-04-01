@@ -13,7 +13,7 @@ const MyComponent: React.FC<ComponentProps> = ({ rows = 4, detail }) => {
                 <textarea
                     id="message"
                     rows={rows}
-                    className="p-2.5 w-full text-sm text-white bg-[#3D434A] rounded-lg border border-[#6E6F70]"
+                    className="p-2.5 w-full text-sm text-white bg-[#3D434A] rounded-lg border border-[#6E6F70] focus:border-white"
                     placeholder="Add Text">
                 </textarea>
             </form>
