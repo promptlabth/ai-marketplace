@@ -1,20 +1,30 @@
 import React from 'react';
 import { Carousel } from '@material-tailwind/react';
+import Image from 'next/image';
+import { MdScience } from "react-icons/md";
 
 const CarouselMarketplace: React.FC = () => {
     const carouselProps: any = {
         transition: { duration: 1.5 },
-        className: "rounded-xl flex items-end py-2 border sm:w-[600px]",
+        className: "rounded-xl py-2 sm:w-[600px]",
         autoplay: true,
+        autoplayDelay: 3000,
         loop: true,
     };
 
     return (
         <Carousel {...carouselProps}>
-            <h1 className='flex items-center justify-center h-full text-white text-[25px] '>ตั้งชื่อ AI ของคุณ</h1>
-            <h1 className='flex items-center justify-center h-full text-white text-[25px] '>เลือก Framework AI ของคุณ</h1>
-            <h1 className='flex items-center justify-center h-full text-white text-[25px]'>แล้วเริ่มสร้างเลย!</h1>
-            <button className='flex items-center justify-center h-full w-full underline text-xl text-white hover:scale-105 focus:scale-105'>Get Start !</button>
+            <div className='w-full h-full flex justify-center items-center'>
+                <h1 className='flex items-center justify-center h-full text-[25px] font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-red-700 to-orange-500'>นักกฏหมาย</h1>
+                <Image src="/png/hammer.png" alt='' width={40} height={40}></Image>
+            </div>
+            <div className='w-full h-full flex justify-center items-center'>
+                <h1 className='flex items-center justify-center h-full text-[25px] font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-700 to-cyan-500'>นักวิทยาศาสตร์</h1>
+                <MdScience color='white' size={40} />
+            </div>
+            <div className='flex flex-col justify-center items-center h-full w-full'>
+                    <button className='flex items-center justify-center h-full w-full underline text-xl text-white hover:scale-105 focus:scale-105'>ลองเลย !</button>
+            </div>
         </Carousel>
     );
 };
