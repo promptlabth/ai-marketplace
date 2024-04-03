@@ -13,7 +13,7 @@ const CreateAgent = () => {
         <title>Marketplace Agent</title>
         <meta name="description" content="" />
       </Head>
-      <div className="flex justify-center w-full flex-col items-center">
+      <div className="flex justify-center w-full flex-col items-center mb-12">
         <div className="flex flex-start w-full sm:w-[750px] mt-6">
           <SearchInput name_label="ค้นหา AI ของคุณ" placeholder="Search"  invisible=""/>
         </div>

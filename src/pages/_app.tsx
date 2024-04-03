@@ -2,7 +2,6 @@ import { AppProps } from "next/app";
 import "../styles/globals.css";
 import Head from 'next/head';
 import { Noto_Sans_Thai } from 'next/font/google'
-import StudioMenu from "@/components/Studioi_menu";
 import FooterButton from "@/components/Footer_button";
 import Sidebar from "@/components/Sidebar";
 
@@ -17,7 +16,6 @@ function App({ Component, pageProps }: AppProps) {
         <meta name="description" content="" />
       </Head>
       <Sidebar />
-      <StudioMenu />
       <Component {...pageProps} />
       <FooterButton />
     </main>

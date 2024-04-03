@@ -12,7 +12,7 @@ const AgentView = () => {
         <title>View Agent</title>
         <meta name="description" content="" />
       </Head>
-      <div className="flex flex-col justify-between sm:w-[600px] min-h-screen bg-[#33393F] rounded-xl py-4 px-4 gap-4">
+      <div className="flex flex-col justify-between sm:w-[600px] min-h-screen bg-[#33393F] rounded-xl py-4 px-4 gap-4 mb-10">
         <Reverse_button route_path="/" />
         <div className="flex flex-col gap-12">
           <div className="flex flex-col justify-center items-center w-full h-full">
