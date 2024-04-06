@@ -21,9 +21,11 @@ const StudioMenu = () => {
             <div className={`fixed p-3 right-0 top-0 w-[250px] h-full z-50 bg-gray-700 ${isOpen}`}>
                 <button onClick={toggleMenu} className=' font-bold text-xl flex w-full text-white justify-end px-4 py-2'>x</button>
                 <div className='flex flex-col gap-2 w-full h-full'>
-                    <button onClick={() => navigateTo('/creator/create_agent')} className={`flex justify-start w-full text-gray-200 p-2 hover:rounded-xl hover:border focus:rounded-xl focus:border ${isActive("/creator/create_agent")}`}>Create Agent</button>
-                    <button onClick={() => navigateTo('/creator/dashboard_agent')} className={`flex justify-start w-full text-gray-200 p-2 hover:rounded-xl hover:border focus:rounded-xl focus:border ${isActive("/creator/dashboard_agent")}`}>Dashboard Agent</button>
-                    <button onClick={() => navigateTo('/creator/list_agent')} className={`flex justify-start w-full text-gray-200 p-2 hover:rounded-xl hover:border focus:rounded-xl focus:border ${isActive("/creator/list_agent")}`}>List Agent</button>
+                    <button onClick={() => navigateTo('/creator/profile')} className={`flex justify-start w-full text-gray-200 p-2 hover:rounded-xl hover:border focus:rounded-xl focus:border ${isActive("/creator/profile")}`}>Profile Creator</button>
+                    <button onClick={() => navigateTo('/creator/create_agent')} className={`flex justify-start w-full text-gray-200 p-2 hover:rounded-xl hover:border focus:rounded-xl focus:border ${isActive("/creator/create_agent")}`}>สร้าง AI</button>
+                    <button onClick={() => navigateTo('/creator/dashboard_agent')} className={`flex justify-start w-full text-gray-200 p-2 hover:rounded-xl hover:border focus:rounded-xl focus:border ${isActive("/creator/dashboard_agent")}`}>รายงาน AI</button>
+                    <button onClick={() => navigateTo('/creator/list_agent')} className={`flex justify-start w-full text-gray-200 p-2 hover:rounded-xl hover:border focus:rounded-xl focus:border ${isActive("/creator/list_agent")}`}>ลิสต์ AI</button>
+                    <button onClick={() => navigateTo('/creator/payments')} className={`flex justify-start w-full text-gray-200 p-2 hover:rounded-xl hover:border focus:rounded-xl focus:border ${isActive("/creator/payments")}`}>payments</button>
                 </div>
             </div>
         );

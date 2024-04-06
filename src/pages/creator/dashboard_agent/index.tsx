@@ -3,7 +3,6 @@ import Head from 'next/head';
 import Image from "next/image";
 import data from "@/domain/customer/marketplace/__mock__/view_agent.json";
 import data_dashboard from "@/domain/creator/create_agent/__mock__/user.json"
-import Reverse_button from "@/components/Reverse_button"
 import DashboardCard from "@/components/DashboardCard";
 import CreatorLayout from "../CreatorLayout";
 
@@ -17,7 +16,6 @@ const AgentDashborard = () => {
           <meta name="description" content="" />
         </Head>
         <div className="flex flex-col w-full sm:w-[650px] min-h-screen bg-[#33393F] rounded-xl py-4 px-4 gap-4">
-          <Reverse_button route_path="/" />
           <div className="flex flex-col gap-12">
             <div className="flex flex-col justify-center items-center w-full">
               <Image src="/judment.svg" alt="" width={100} height={100} />

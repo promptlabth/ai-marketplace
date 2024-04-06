@@ -3,7 +3,6 @@ import Head from 'next/head';
 import Image from "next/image";
 import data from "@/domain/customer/marketplace/__mock__/view_agent.json";
 import ButtonNext from "@/components/ButtonNext";
-import Reverse_button from "@/components/Reverse_button"
 
 const AgentView = () => {
   return (
@@ -13,7 +12,6 @@ const AgentView = () => {
         <meta name="description" content="" />
       </Head>
       <div className="flex flex-col justify-between sm:w-[600px] min-h-screen bg-[#33393F] rounded-xl py-4 px-4 gap-4 mb-10">
-        <Reverse_button route_path="/" />
         <div className="flex flex-col gap-12">
           <div className="flex flex-col justify-center items-center w-full h-full">
             <Image src="/judment.svg" alt="" width={100} height={100} />
