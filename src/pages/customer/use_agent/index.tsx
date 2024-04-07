@@ -6,7 +6,7 @@ import ButtonNext from "@/components/ButtonNext";
 import InputDetial from "@/components/InputDetial";
 import Dropdown from "@/components/Dropdown_use_agent";
 import Outputtext from "@/components/Outputtext";
-import Reverse_button from "@/components/Reverse_button"
+// import Reverse_button from "@/components/Reverse_button"
 const useAgent = () => {
   return (
     <div className="bg-[#212529] p-6 min-h-screen flex flex-col justify-center items-center">
@@ -15,7 +15,8 @@ const useAgent = () => {
         <meta name="description" content="" />
       </Head>
       <div className="flex flex-col sm:w-[600px] w-full min-h-screen bg-[#33393F] rounded-xl py-4 px-4 gap-4 mb-10">
-        <Reverse_button route_path="/" />
+        {/* เก็บไว้เผื่อได้กลับมาใช้ */}
+        {/* <Reverse_button route_path="/" /> */}
         <div className="flex flex-col justify-center items-center w-full h-full">
           <Image src="/judment.svg" alt="" width={100} height={100} />
           <div className="flex justify-center flex-col p-4 gap-2">

@@ -10,7 +10,7 @@ const UsedAgent = () => {
         <title>List Agent</title>
         <meta name="description" content="" />
       </Head>
-      <div className="flex justify-center w-full">
+      <div className="flex justify-center w-full mb-12">
         <div className="flex flex-row flex-wrap mt-8 gap-4 flex-initial md:w-[540px] lg:w-[940px]">
           <div className="flex w-full justify-center">
             <h1 className="font-bold text-white text-[25px]">AI ที่ใช้งานล่าสุด</h1>
