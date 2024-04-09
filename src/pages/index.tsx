@@ -7,6 +7,7 @@ export default function Home() {
     <div className="flex items-center flex-col bg-[#212529] min-h-screen p-6">
       <div className="flex items-center flex-col bg-[#212529] h-full mb-16">
         <div className="flex flex-col items-center justify-center pt-12">
+          <h1 className="font-extrabold font-bold text-[30px] bg-clip-text text-transparent bg-gradient-to-r from-[#02F6A9] to-[#0DC19A]">Prompt Lab</h1>
           <h1 className="font-extrabold font-bold text-[40px] bg-clip-text text-transparent bg-gradient-to-r from-[#02F6A9] to-[#0DC19A]">AI Marketplace</h1>
           <p className="text-white text-center">สร้างสรรค์ AI ในหลากหลายรูปแบบ ด้วยตัวของคุณเอง</p>
         </div>

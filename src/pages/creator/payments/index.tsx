@@ -30,7 +30,7 @@ const Payment = () => {
                     <th scope="row" className="text-white">{index + 1}</th>
                     <td className="text-center text-white">{data_payment.user_name}</td>
                     <td className="text-center text-white underline hover:text-gray-600"><Link href={"/creator/list_agent"}>{data_payment.name_ai}</Link></td>
-                    <td className="text-center text-green-400">+{data_payment.revenue}</td>
+                    <td className="text-center text-green-400">฿{data_payment.revenue}</td>
                   </tr>
                 ))}
               </tbody>

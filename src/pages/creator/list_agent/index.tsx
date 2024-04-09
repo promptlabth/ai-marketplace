@@ -16,7 +16,7 @@ const listAgent = () => {
           <div className="flex flex-row flex-wrap mb-12 gap-4 flex-initial md:w-[540px] lg:w-[940px] ">
             <SearchInput name_label="ค้นหา AI ของคุณ" placeholder="Search" invisible="sm:visible" />
             {data.map((component, index) => (
-              <Link href="/customer/view_agent" key={index} className="flex flex-initial md:w-[250px] sm:w-[300px] lg:w-[300px] h-fit border-blue-400">
+              <Link href="/creator/dashboard_agent" key={index} className="flex flex-initial md:w-[250px] sm:w-[300px] lg:w-[300px] h-fit border-blue-400">
                 <div className="flex items-center rounded-full h-[75px] bg-[#2A73FF]">
                   <p className="text-white">{component.image_url}</p>
                 </div>

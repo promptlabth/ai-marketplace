@@ -15,7 +15,7 @@ const AgentDashborard = () => {
           <title>View Agent</title>
           <meta name="description" content="" />
         </Head>
-        <div className="flex flex-col w-full sm:w-[650px] min-h-screen bg-[#33393F] rounded-xl py-4 px-4 gap-4">
+        <div className="flex flex-col w-full sm:w-[650px] min-h-screen bg-[#212529] rounded-xl py-4 px-4 gap-4">
           <div className="flex flex-col gap-12">
             <div className="flex flex-col justify-center items-center w-full">
               <Image src="/judment.svg" alt="" width={100} height={100} />

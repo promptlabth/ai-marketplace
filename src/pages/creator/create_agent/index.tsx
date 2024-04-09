@@ -14,7 +14,7 @@ const createAgent = () => {
           <title>Create Agent</title>
           <meta name="description" content="" />
         </Head>
-        <div className="flex flex-col w-full sm:w-[700px] h-lvh bg-[#33393F] rounded-xl py-4 gap-4">
+        <div className="flex flex-col w-full sm:w-[700px] h-lvh rounded-xl py-4 gap-4">
           <div className="flex flex-col gap-4 h-[80%] px-6 pt-6">
             <InputNameAgent name_label="ตั้งชื่อ AI ของคุณ" />
             <ImageUpload />
