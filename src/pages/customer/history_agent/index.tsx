@@ -35,6 +35,7 @@ const AgentHistory = () => {
                 <div className="flex justify-between items-start">
                   <article className="flex-1 shrink min-w-0">
                     <p className="text-white text-sm break-words">คำถาม: {interaction.question}</p>
+                    <p className="text-white text-[13px] break-words font-bold">สไตล์ข้อความ: {interaction.style_text}</p>
                     {openStates[index] && (
                       <p className="text-gray-400 text-sm break-words">คำตอบ: {interaction.answer}</p>
                     )}

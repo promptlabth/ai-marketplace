@@ -14,11 +14,12 @@ const FrameworkComponent = () => {
         }
     }, [nameframework]);
 
+    
     return (
         <div className='flex flex-col w-full h-full'>
             <p className='text-white'>เลือก Framework ของ AI</p>
-            <div className="overflow-x-auto">
-                <div className="flex flex-row xl:justify-center snap-x space-x-2 p-2 ">
+            <div className="snap-x snap-mandatory overflow-auto">
+                <div className="flex flex-row xl:justify-center space-x-2 p-2">
                     {data.map((framework, index) => (
                         <button
                             key={index}

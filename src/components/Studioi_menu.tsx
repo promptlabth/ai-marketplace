@@ -23,7 +23,7 @@ const StudioMenu = () => {
                 <div className='flex flex-col gap-2 w-full h-full'>
                     <button onClick={() => navigateTo('/creator/profile')} className={`flex justify-start w-full text-gray-200 p-2 hover:rounded-xl hover:border focus:rounded-xl focus:border ${isActive("/creator/profile")}`}>โปรไฟล์</button>
                     <button onClick={() => navigateTo('/creator/create_agent')} className={`flex justify-start w-full text-gray-200 p-2 hover:rounded-xl hover:border focus:rounded-xl focus:border ${isActive("/creator/create_agent")}`}>สร้าง AI</button>
-                    <button onClick={() => navigateTo('/creator/dashboard_agent')} className={`flex justify-start w-full text-gray-200 p-2 hover:rounded-xl hover:border focus:rounded-xl focus:border ${isActive("/creator/dashboard_agent")}`}>รายงาน AI</button>
+                    <button onClick={() => navigateTo('/creator/dashboard_overall')} className={`flex justify-start w-full text-gray-200 p-2 hover:rounded-xl hover:border focus:rounded-xl focus:border ${isActive("/creator/dashboard_overall")}`}>ภาพรวมรายงาน AI</button>
                     <button onClick={() => navigateTo('/creator/list_agent')} className={`flex justify-start w-full text-gray-200 p-2 hover:rounded-xl hover:border focus:rounded-xl focus:border ${isActive("/creator/list_agent")}`}>ลิสต์ AI</button>
                     <button onClick={() => navigateTo('/creator/payments')} className={`flex justify-start w-full text-gray-200 p-2 hover:rounded-xl hover:border focus:rounded-xl focus:border ${isActive("/creator/payments")}`}>การชำระเงิน</button>
                 </div>

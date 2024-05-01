@@ -7,6 +7,14 @@
         6356,
         6456
     ],
+    "data_revenue": [
+        5,
+        1,
+        3,
+        5,
+        1,
+        15
+    ],
     "categories": [
         "01 February",
         "02 February",
@@ -17,5 +25,6 @@
     ],
     "total_week": "32.4k",
     "total_week_percent": "12%",
-    "total_today": "6.5k"
+    "total_today": "6.5k",
+    "revenue": 30
 }

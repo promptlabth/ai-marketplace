@@ -1,5 +1,5 @@
 import { ApexOptions } from 'apexcharts';
-import data from "@/domain/creator/create_agent/__mock__/user.json"
+import data from "@/domain/creator/create_agent/__mock__/dashboard_agent.json"
 
 const options: ApexOptions = {
     chart: {
