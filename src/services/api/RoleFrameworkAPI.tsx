@@ -1,18 +1,13 @@
-// import { FrameworkRequest } from "@/domain/creator/frameworks/FrameworkRequest.type";
 import axios from "axios";
-// import { serverApiUrl } from "@/constants/link.constant";
-// import { getAccessToken } from "../firebase/auth/GetTokenAuth";
 
-export async function apiGetFrameworks(
-//   frameworkRequest: FrameworkRequest,
-) {
-  //   const apiUrl = `${serverApiUrl}/max-frameworks`;
+export async function apiGetRoleFrameworks() {
+
   const requestOptions = {
     headers: {
       "Content-Type": "application/json",
     },
   };
-  const apiUrl = `http://localhost:8081/creator/frameworks`;
+  const apiUrl = `http://localhost:8081/creator/roles`;
   try {
     // const accessToken = await getAccessToken();
 

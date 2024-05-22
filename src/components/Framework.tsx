@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import Dropdown from "@/components/Dropdown_framework";
 import InputDetial from "@/components/InputDetial";
-import { apiGetframeworks } from "@/services/api/FrameworkAPI";
+import { apiGetFrameworks } from "@/services/api/FrameworkAPI";
 import { Framework } from "@/models/interfaces/Framework.interface";
 
 const FrameworkComponent = () => {
+  // const { agentDetail, updateAgentDetail } = useContext(AgentContext);
   const [data, setData] = useState<Framework[]>([]);
   const [nameframework, setNameframework] = useState<string>(data[0]?.Name);
   const [selectedFrameworkDetails, setSelectedFrameworkDetails] = useState(
@@ -12,7 +13,7 @@ const FrameworkComponent = () => {
   );
 
   const handleGetFrameworks = async () => {
-    const result = await apiGetframeworks();
+    const result = await apiGetFrameworks();
     if (result ) {
       setData(result.frameworks);
     }
@@ -65,23 +66,23 @@ const FrameworkComponent = () => {
         <p className="p-2 mt-4 text-white text-[12px] border-b-2">
           {selectedFrameworkDetails?.Detail}
         </p>
-        {
-          selectedFrameworkDetails?.Component?.map((comp, index) => {
-            switch (comp.type) {
-              case "dropdown":
-                return (
-                  <Dropdown
-                    key={index}
-                    json_data={nameframework}
-                    label_name={comp.label}
-                  />
-                );
-              case "add_text":
-                return <InputDetial key={index} detail={comp.label} />;
-              default:
-                return null;
-            }
-          })}
+        {selectedFrameworkDetails?.Component?.map((comp, index) => {
+          switch (comp.type) {
+            case "dropdown":
+              return (
+                <Dropdown
+                  key={index}
+                  json_data={nameframework}
+                  data={data}
+                  label_name={comp.label}
+                />
+              );
+            case "add_text":
+              return <InputDetial key={index} detail={comp.label} />;
+            default:
+              return null;
+          }
+        })}
       </div>
     </div>
   );
