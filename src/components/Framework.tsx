@@ -1,44 +1,12 @@
-import React, { useContext, useState, useEffect } from "react";
+import React from "react";
 import Dropdown from "@/components/Dropdown_framework";
 import InputDetial from "@/components/InputDetial";
-import { apiGetFrameworks } from "@/services/api/FrameworkAPI";
-import { Framework } from "@/models/interfaces/Framework.interface";
+import useFrameworks from "./hooks/Framework.hook";
 
 const FrameworkComponent = () => {
-  // const { agentDetail, updateAgentDetail } = useContext(AgentContext);
-  const [data, setData] = useState<Framework[]>([]);
-  const [nameframework, setNameframework] = useState<string>(data[0]?.Name);
-  const [selectedFrameworkDetails, setSelectedFrameworkDetails] = useState(
-    data[0]
-  );
-
-  const handleGetFrameworks = async () => {
-    const result = await apiGetFrameworks();
-    if (result ) {
-      setData(result.frameworks);
-    }
-  };
-
-  useEffect(() => {
-    handleGetFrameworks();
-  }, []);
-
-  useEffect(() => {
-    if (data.length > 0) {
-      setNameframework(data[0]?.Name);
-    }
-  }, [data]);
-
-
-  useEffect(() => {
-    const frameworkDetails = data.find(
-      (framework) => framework.Name === nameframework
-    );
-    if (frameworkDetails) {
-      setSelectedFrameworkDetails(frameworkDetails);
-    }
-  }, [nameframework]);
-
+  const { FrameworkItems } = useFrameworks();
+  const { data, nameframework, selectedFrameworkDetails, setNameframework } =
+    FrameworkItems;
   return (
     <div className="flex flex-col w-full h-full">
       <p className="text-white">เลือก Framework ของ AI</p>

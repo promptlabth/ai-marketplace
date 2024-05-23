@@ -73,8 +73,7 @@ const Dropdown: React.FC<{
             {DropdownItems.selectedFrameworkDetails.Component.filter(
               (item) => item.type === "dropdown"
             ).map((dropdownItem, index) =>
-              dropdownItem.role
-                ? roles.map((role, roleIndex) => (
+                roles.map((role, roleIndex) => (
                     <DropdownItem
                       key={`${index}-${roleIndex}`}
                       label={role.Name}
@@ -84,7 +83,6 @@ const Dropdown: React.FC<{
                       }}
                     />
                   ))
-                : null
             )}
           </div>
         </div>

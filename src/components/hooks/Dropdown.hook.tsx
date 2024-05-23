@@ -1,16 +1,6 @@
 import { Framework } from '@/models/interfaces/Framework.interface';
 import { useState, useRef, useEffect } from 'react';
 
-// interface FrameworkDetail {
-//     framework: string;
-//     detail: string;
-//     component: Array<{
-//         type: string;
-//         label: string;
-//         role?: string[];
-//     }>;
-// }
-
 const useDropdown = (data: Framework[], Json_data: string) => {
   const [isOpen, setIsOpen] = useState(false);
   const [nameList, setNameList] = useState("Select Role");
