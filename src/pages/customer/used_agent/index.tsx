@@ -18,8 +18,8 @@ const UsedAgent = () => {
     try {
       const response = await axios.get(`http://localhost:8081/creator/${mock_firebase_id}`);
       console.log("successfully:", response.data);
-      setAgentList(response.data);//ไอ้นี่ทํางานได้
-      if (response.status === 200 && response.data.status === "success") {
+      // setAgentList(response.data);//ไอ้นี่ทํางานได้
+      if (response.status === 201 && response.data.status === "success") {
         console.log("Get agentList success");
         setAgentList(response.data);//ไอ้นี่ไม่ทํางานได้
       }
