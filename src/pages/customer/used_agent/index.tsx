@@ -3,10 +3,11 @@
   import Head from "next/head";
   import Link from "next/link";
   import { apiGetAgentByFBId } from "@/services/api/AgentAPI";
+import axios from "axios";
 
   const UsedAgent = () => {
     const [searchQuery, setSearchQuery] = useState("");
-    const [agentList , setAgentList ] = useState("")
+    const [agentList , setAgentList ] = useState<any>()
 
     // Handler for search input change
     const handleSearchChange = (e:any) => {
@@ -21,15 +22,27 @@
     const mock_firebase_id = "firebase_002";
 
     const fetchData = async () => {
-      const getAgentData = await apiGetAgentByFBId(mock_firebase_id)
-      setAgentList(getAgentData)
-    }
+      try {
+        // const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE__URL}/creator/${mock_firebase_id}`);
+        const response = await axios.get(`http://localhost:8081/creator/${mock_firebase_id}`);
+        console.log("successfully:", response.data);
+        if (response.status === 201) {
+          console.log("Get agentList success");
+          setAgentList(response.data);
+        }
+      } catch (error) {
+        console.error("Error Get agentList", error);
+      }
+    };
+    
     
 
-    useEffect(()=>{
-      fetchData()
-      console.log(agentList)
-    })
+    useEffect(() => {
+      fetchData();
+    }, []);
+    useEffect(() => {
+      console.log(agentList); // Log agentList after it's updated
+    }, [agentList]); // Run this effect whenever agentList changes
 
     return (
       <div className="flex flex-col bg-[#212529] min-h-screen overflow-y-auto p-6">
