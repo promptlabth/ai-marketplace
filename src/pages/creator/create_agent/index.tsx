@@ -11,8 +11,9 @@ import { ChangeEvent } from "react";
 const CreateAgent = () => {
   const { setAgentDescribe } = useGlobal();
 
-  const handleDesChangeAgentDescribe = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setAgentDescribe(e.target.value);
+  const handleDesChangeAgentDescribe = (value:string) => {
+    setAgentDescribe(value);
+    console.log("setAgentDescribe", value);
   };
 
 
@@ -27,9 +28,15 @@ const CreateAgent = () => {
           <div className="flex flex-col gap-4 h-[80%]">
             <InputNameAgent name_label="ตั้งชื่อ AI ของคุณ" />
             <ImageUpload />
-            <InputDetial detail="อธิบายเกี่ยวกับ AI ของคุณ" setValue={() => handleDesChangeAgentDescribe} />
+            <InputDetial
+              detail="อธิบายเกี่ยวกับ AI ของคุณ"
+              setValue={(value) => handleDesChangeAgentDescribe(value)}
+            />
             <div className="flex justify-around items-center w-full h-[20%] gap-4">
-              <ButtonNext name_button="ถัดไป" route_page="/creator/edit_agent" />
+              <ButtonNext
+                name_button="ถัดไป"
+                route_page="/creator/edit_agent"
+              />
               <ButtonCancle name_button="ย้อนกลับ" />
             </div>
           </div>

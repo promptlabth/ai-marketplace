@@ -97,7 +97,6 @@ const FrameworkComponent = () => {
 
   const handleSetPromptFramwork = (
     index: number,
-
     value: string,
     key: keyof typeof InitialsPeompt
   ) => {
@@ -159,14 +158,12 @@ const FrameworkComponent = () => {
     }
   };
   const handleSetPrompt = () => {
-    setPrompt(RenderComponent(nameframework));
+    setPrompt(RenderComponent(nameframework)[0]);
   };
-
 
   useEffect(() => {
     handleGetFrameworks();
   }, []);
-  
 
   useEffect(() => {
     if (data.length > 0) {

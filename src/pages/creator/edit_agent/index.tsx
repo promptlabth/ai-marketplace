@@ -5,8 +5,8 @@ import React, { useEffect } from "react";
 import CreatorLayout from "../CreatorLayout";
 import { useRouter } from 'next/navigation';
 import { useGlobal } from "@/context/context";
-import axios from "axios";
-import { useState } from "react";
+// import axios from "axios";
+// import { useState } from "react";
 import { apiPostAgent } from "@/services/api/AgentAPI";
 
 const EditAgent = () => {
@@ -18,32 +18,16 @@ const EditAgent = () => {
     role_framework_id,
     framework_id,
   } = useGlobal();
-  const [image_url, setImageUrl] = useState<string>("")
 
-  const UploadImage = async () => {
-    try {
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/upload/`, agent_image, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      console.log('File uploaded successfully:', response.data);
-      if(response.status === 201) {
-        setImageUrl(response.data.url)
-      }
-    } catch (error) {
-      console.error('Error uploading file:', error);
-      console.log("Error uploading file:", agent_image);
-    }
-  }
 
   const router = useRouter();
+   console.log(">> agent_describe", agent_describe);
 const handleCreateAgent = async () => {
   const agentDetails = {
     name: agent_name,
-    description:agent_describe,
-    image_url: image_url,
-    prompt: prompt,  
+    description: agent_describe,
+    image_url: agent_image,
+    prompt: prompt,
     user_id: "u123",
     framework_id: framework_id,
     role_framework_id: role_framework_id,
@@ -53,18 +37,19 @@ const handleCreateAgent = async () => {
 
   const result = await apiPostAgent(agentDetails);
 
-  if (result) {
+  if (result.status === "success") {
     console.log(result);
+    router.push("/creator/list_agent");
     // Handle the response as needed
   } else {
     console.log("CreateAgent", result);
   }
   };
 
-   useEffect(() => {
-     //  handleCreateAgent();
-     console.log("image_url",image_url)
-   }, [image_url]);
+  //  useEffect(() => {
+  //    //  handleCreateAgent();
+  //    console.log("image_url",image_url)
+  //  }, [image_url]);
   
   return (
     <CreatorLayout>
@@ -80,7 +65,7 @@ const handleCreateAgent = async () => {
             <Framework />
             <div className="flex justify-around items-center w-full gap-2 pt-2">
               <button
-                onClick={UploadImage}
+                onClick={ handleCreateAgent}
                 className="flex-auto hover:bg-[#03FFAB] hover:text-white focus:bg-[#03FFAB] sm:text-[17px] sm:font-bold focus:text-black h-[40px] w-full ring-2 ring-[#03FFAB] ring-inset rounded-full text-[12px] text-[#03FFAB]"
               >
                 สร้าง

@@ -50,8 +50,7 @@ export async function apiPostAgent(data: {
       },
     });
     if (response.status === 201) {
-      console.log("response");
-      // router.push("/creator/list_agent");
+      console.log("response", response.data);
       return response.data;
     }
   } catch (error) {
