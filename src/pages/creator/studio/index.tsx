@@ -1,5 +1,4 @@
-import { AgentInterface } from "@/models/interfaces/Agent.interface";
-import { PromptMessage } from "@/models/types/agent.type";
+
 import React, { createContext, useState } from "react";
 
 const createAgent = () => {

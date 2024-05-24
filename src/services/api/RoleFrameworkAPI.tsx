@@ -7,15 +7,9 @@ export async function apiGetRoleFrameworks() {
       "Content-Type": "application/json",
     },
   };
-  const apiUrl = `http://localhost:8081/creator/roles`;
+  const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/creator/roles`;
   try {
-    // const accessToken = await getAccessToken();
-
-    // const requestOption = {
-    //   headers: {
-    //     Authorization: `Bearer ${accessToken}`,
-    //   },
-    // };
+;
     const response = await axios.get(apiUrl, requestOptions);
     if (response.status === 200) {
       console.log("response");

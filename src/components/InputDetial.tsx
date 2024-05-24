@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from 'react';
-import { useGlobal } from '@/context/context';
+// import { useGlobal } from '@/context/context';
 
 interface ComponentProps {
     rows?: number;
@@ -8,12 +8,12 @@ interface ComponentProps {
 }
 
 const MyComponent: React.FC<ComponentProps> = ({ rows = 4, detail, setValue }) => {
-    const { setAgentDescribe } = useGlobal();
+    // const { setAgentDescribe } = useGlobal();
 
     const handleDesChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        setAgentDescribe(e.target.value);
+        // setAgentDescribe(e.target.value);
         setValue(e.target.value);
-        console.log("agent_describe value", e.target.value);
+        console.log("Input value", e.target.value);
     };
 
     return (

@@ -4,6 +4,7 @@ import useDropdown from "./hooks/Dropdown.hook";
 import { RoleFrameworksInterface } from "@/models/interfaces/RoleFramework.interface";
 import { apiGetRoleFrameworks } from "@/services/api/RoleFrameworkAPI";
 import { Framework } from "@/models/interfaces/Framework.interface";
+import { useGlobal } from "@/context/context";
 
 interface DropdownItemProps {
   label: string;
@@ -25,7 +26,7 @@ const Dropdown: React.FC<{
   data: Framework[];
 }> = ({ json_data, label_name, data }) => {
   const [roles, setRoles] = useState<RoleFrameworksInterface[]>([]);
-
+  const { role_framework_id, setRoleID } = useGlobal();
   const handleGetRoleFrameworks = async () => {
     const result = await apiGetRoleFrameworks();
     if (result) {
@@ -33,11 +34,15 @@ const Dropdown: React.FC<{
       setRoles(result.roles);
     }
   };
+  const handlesetRoleID = (index: number) => {
+    setRoleID(index);
+    console.log(" index", index);
+  };
 
   useEffect(() => {
     handleGetRoleFrameworks();
   }, []);
-
+  console.log("Prompt role_id", role_framework_id);
   const { DropdownItems } = useDropdown(data, json_data);
   return (
     <div className="text-left p-[1px]">
@@ -73,18 +78,17 @@ const Dropdown: React.FC<{
             {DropdownItems.selectedFrameworkDetails.Component.filter(
               (item) => item.type === "dropdown"
             ).map((dropdownItem, index) =>
-              dropdownItem.role
-                ? roles.map((role, roleIndex) => (
-                  <DropdownItem
-                    key={`${index}-${roleIndex}`}
-                    label={role.Name}
-                    onSelect={() => {
-                      DropdownItems.setNameList(role.Name);
-                      DropdownItems.setIsOpen(false);
-                    }}
-                  />
-                ))
-                : null
+              roles.map((role, roleIndex) => (
+                <DropdownItem
+                  key={`${index}-${roleIndex}`}
+                  label={role.Name}
+                  onSelect={() => {
+                    handlesetRoleID(roleIndex);
+                    DropdownItems.setNameList(role.Name);
+                    DropdownItems.setIsOpen(false);
+                  }}
+                />
+              ))
             )}
           </div>
         </div>

@@ -3,39 +3,40 @@ import Dropdown from "@/components/Dropdown_framework";
 import InputDetial from "@/components/InputDetial";
 import { apiGetFrameworks } from "@/services/api/FrameworkAPI";
 import { Framework } from "@/models/interfaces/Framework.interface";
+
 import { useGlobal } from "@/context/context";
+// import { APEFramework, ERAFramework, RICEEFramework, RPPPPFramework, TAGFramework } from "@/models/types/agent.type";
 
 const FrameworkComponent = () => {
-  // const { agentDetail, updateAgentDetail } = useContext(AgentContext);
   const [data, setData] = useState<Framework[]>([]);
   const [nameframework, setNameframework] = useState<string>(data[0]?.Name);
-  const [selectedFrameworkDetails, setSelectedFrameworkDetails] = useState(data[0]);
-  const { setPrompt } = useGlobal();
+  const [selectedFrameworkDetails, setSelectedFrameworkDetails] = useState(
+    data[0]
+  );
 
-  var InitialsAPE =
-    [
-      {
-        action: "somename",
-        propose: "some",
-        expection: "some"
-      }
-    ]
+  // const InitialsAPE = [
+  //   {
+  //     action: "somename",
+  //     propose: "some",
+  //     expectation: "some",
+  //   },
+  // ];
 
-  const [APE, setAPE] = useState(InitialsAPE);
-  const handleSetAPE = (index: number, e: string, key: keyof typeof InitialsAPE[0]) => {
-    
-    const newAPE = [...APE];
-    newAPE[index] = { ...newAPE[index], [key]: e };
-    setAPE(newAPE)
-    setPrompt(APE)
+  // const { setPrompt } = useGlobal();
+  // const [APE, setAPE] = useState(InitialsAPE);
 
-    console.log("handleSetAPE", e + "Index", index)
-  }
+  // const handleSetAPE = (index:number, value:string) => {
+  //   const keys = Object.keys(InitialsAPE[0]);
+  //   const key = keys[index];
+  //   const newAPE = [...APE];
+  //   newAPE[index] = { ...newAPE[index], [key]: value };
+  //   setAPE(newAPE);
+  //   setPrompt(newAPE);
 
-
-
-
-  // const RPPPP = {
+  //   console.log("handleSetAPE", `${value} Index`, index);
+  // };
+  // console.log("Data InitialsAPE", InitialsAPE);
+  // // const RPPPP = {
   //   action: "somename",
   //   propose: "some",
   //   expection: "some"
@@ -51,8 +52,6 @@ const FrameworkComponent = () => {
   //   expection: "some"
   // }
 
-
-
   const handleGetFrameworks = async () => {
     const result = await apiGetFrameworks();
     if (result) {
@@ -60,22 +59,114 @@ const FrameworkComponent = () => {
     }
   };
 
-  // const RenderComponent = () => {
+  // const RenderComponent = (nameframework: string) => {
   //   switch (nameframework) {
+  //     case "RICEE":
+  //       return {} as RICEEFramework;
   //     case "APE":
-  //       return APE
-  //     case "ABC":
-  //       return ABC
-  //     case "ABCD":
-  //       return ABCD
+  //       return {} as APEFramework;
+  //     case "TAG":
+  //       return {} as TAGFramework;
+  //     case "ERA":
+  //       return {} as ERAFramework;
+  //     case "RPPPP":
+  //       return {} as RPPPPFramework;
   //     default:
-  //       return null;
+  //       return {} as {};
   //   }
   // };
+  const InitialsPeompt = {
+    instruction: "",
+    context: "",
+    example: "",
+    execute: "",
+    additionalProperty: "",
+    propose: "",
+    expectation: "",
+    task: "",
+    goal: "",
+    problem: "",
+    promise: "",
+    prove: "",
+    proposal: "", 
+  };
+
+  const [promptFramwork, setPromptFramwork] = useState(InitialsPeompt);
+
+  const { framework_id, setFramworkID,setPrompt, prompt } = useGlobal();
+
+  const handleSetPromptFramwork = (
+    index: number,
+
+    value: string,
+    key: keyof typeof InitialsPeompt
+  ) => {
+    if (!promptFramwork || Object.keys(promptFramwork).length === 0) {
+      console.log("promptFramwork is null or empty");
+      return;
+    }
+
+    const newPromptFramwork = { ...promptFramwork };
+    newPromptFramwork[key] = value;
+
+    console.log("Updated promptFramwork", newPromptFramwork);
+    setPromptFramwork(newPromptFramwork);
+  };
+
+
+  const RenderComponent = (nameframework: string) => {
+    switch (nameframework) {
+      case "RICEE":
+        return [
+          {
+            instruction: promptFramwork.instruction,
+            context: promptFramwork.context,
+            example: promptFramwork.example,
+            execute: promptFramwork.execute,
+          },
+        ];
+      case "APE":
+        return [
+          {
+            propose: promptFramwork.propose,
+            expectation: promptFramwork.expectation,
+          },
+        ];
+      case "TAG":
+        return [
+          {
+            task: promptFramwork.task,
+            goal: promptFramwork.goal,
+          },
+        ];
+      case "ERA":
+        return [
+          {
+            expectation: promptFramwork.expectation,
+          },
+        ];
+      case "RPPPP":
+        return [
+          {
+            problem: promptFramwork.problem,
+            promise: promptFramwork.promise,
+            prove: promptFramwork.prove,
+            proposal: promptFramwork.proposal,
+          },
+        ];
+      default:
+        return [];
+    }
+  };
+  const handleSetPrompt = () => {
+    setPrompt(RenderComponent(nameframework));
+  };
+
 
   useEffect(() => {
     handleGetFrameworks();
   }, []);
+  
 
   useEffect(() => {
     if (data.length > 0) {
@@ -90,7 +181,16 @@ const FrameworkComponent = () => {
     if (frameworkDetails) {
       setSelectedFrameworkDetails(frameworkDetails);
     }
+    setFramworkID(frameworkDetails?.ID);
   }, [nameframework]);
+
+  useEffect(() => {
+    handleSetPrompt();
+  }, [promptFramwork]);
+
+  console.log(">> promptFramwork", promptFramwork);
+  console.log(">> prompt", prompt);
+  console.log(">> framework_id", framework_id);
 
   return (
     <div className="flex flex-col w-full h-full">
@@ -100,10 +200,11 @@ const FrameworkComponent = () => {
           {data.map((framework, index) => (
             <button
               key={index}
-              className={`flex-none snap-center w-[90px] h-[40px] sm:w-[220px] items-center flex justify-center ${nameframework === framework.Name
-                ? "bg-transparent text-white"
-                : "bg-[#03FFAB] text-black"
-                } font-bold rounded-xl`}
+              className={`flex-none snap-center w-[90px] h-[40px] sm:w-[220px] items-center flex justify-center ${
+                nameframework === framework.Name
+                  ? "bg-transparent text-white"
+                  : "bg-[#03FFAB] text-black"
+              } font-bold rounded-xl`}
               onClick={() => {
                 setNameframework(framework.Name);
               }}
@@ -130,7 +231,23 @@ const FrameworkComponent = () => {
                 />
               );
             case "add_text":
-              // return <InputDetial key={index} detail={comp.label} setValue={(e) => { handleSetAPE(index, e) }} />;
+              return (
+                <InputDetial
+                  key={index}
+                  detail={comp.label}
+                  setValue={(e) => {
+                    if (Object.keys(InitialsPeompt).includes(comp.key)) {
+                      handleSetPromptFramwork(
+                        index,
+                        e,
+                        comp.key as keyof typeof InitialsPeompt
+                      );
+                    } else {
+                      console.error(`Invalid property name: ${comp.key}`);
+                    }
+                  }}
+                />
+              );
             default:
               return null;
           }
