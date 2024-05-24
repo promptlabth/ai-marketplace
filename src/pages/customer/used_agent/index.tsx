@@ -12,14 +12,14 @@ const UsedAgent = () => {
     setSearchQuery(e.target.value);
   };
 
-  const mock_firebase_id = "firebase_001";
+  const mock_firebase_id = "firebase_001"; 
 
   const fetchData = async () => {
     try {
       const response = await axios.get(`http://localhost:8081/creator/${mock_firebase_id}`);
       console.log("successfully:", response.data);
       // setAgentList(response.data);//ไอ้นี่ทํางานได้
-      if (response.status === 201 && response.data.status === "success") {
+      if (response.status === 200 && response.data.status === "success") {
         console.log("Get agentList success");
         setAgentList(response.data);//ไอ้นี่ไม่ทํางานได้
       }
