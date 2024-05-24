@@ -1,0 +1,137 @@
+{
+    "agents": [
+        {
+            "ID": "1",
+            "Name": "Agent A",
+            "Description": "",
+            "ImageURL": "image_url_A",
+            "Prompt": {
+                "prompt": "Prompt A"
+            },
+            "UserID": "firebase_001",
+            "FrameworkID": "framework_id_1",
+            "RoleFrameID": "role_framework_id_1"
+        },
+        {
+            "ID": "11",
+            "Name": "Agent AA",
+            "Description": "",
+            "ImageURL": "image_url_A",
+            "Prompt": {
+                "prompt": "Prompt A"
+            },
+            "UserID": "firebase_001",
+            "FrameworkID": "framework_id_1",
+            "RoleFrameID": "role_framework_id_1"
+        },
+        {
+            "ID": "12",
+            "Name": "Agent AB",
+            "Description": "",
+            "ImageURL": "image_url_A",
+            "Prompt": {
+                "prompt": "Prompt A"
+            },
+            "UserID": "firebase_001",
+            "FrameworkID": "framework_id_1",
+            "RoleFrameID": "role_framework_id_1"
+        },
+        {
+            "ID": "13",
+            "Name": "Agent AC",
+            "Description": "",
+            "ImageURL": "image_url_A",
+            "Prompt": {
+                "prompt": "Prompt A"
+            },
+            "UserID": "firebase_001",
+            "FrameworkID": "framework_id_1",
+            "RoleFrameID": "role_framework_id_1"
+        },
+        {
+            "ID": "14",
+            "Name": "Agent AD",
+            "Description": "",
+            "ImageURL": "image_url_A",
+            "Prompt": {
+                "prompt": "Prompt A"
+            },
+            "UserID": "firebase_001",
+            "FrameworkID": "framework_id_1",
+            "RoleFrameID": "role_framework_id_1"
+        },
+        {
+            "ID": "15",
+            "Name": "Agent AE",
+            "Description": "",
+            "ImageURL": "image_url_E",
+            "Prompt": {
+                "prompt": "Prompt E"
+            },
+            "UserID": "firebase_001",
+            "FrameworkID": "framework_id_2",
+            "RoleFrameID": "role_framework_id_2"
+        },
+        {
+            "ID": "16",
+            "Name": "Agent AF",
+            "Description": "",
+            "ImageURL": "image_url_F",
+            "Prompt": {
+                "prompt": "Prompt F"
+            },
+            "UserID": "firebase_001",
+            "FrameworkID": "framework_id_3",
+            "RoleFrameID": "role_framework_id_3"
+        },
+        {
+            "ID": "17",
+            "Name": "Agent AG",
+            "Description": "",
+            "ImageURL": "image_url_G",
+            "Prompt": {
+                "prompt": "Prompt G"
+            },
+            "UserID": "firebase_001",
+            "FrameworkID": "framework_id_4",
+            "RoleFrameID": "role_framework_id_4"
+        },
+        {
+            "ID": "18",
+            "Name": "Agent AH",
+            "Description": "",
+            "ImageURL": "image_url_H",
+            "Prompt": {
+                "prompt": "Prompt H"
+            },
+            "UserID": "firebase_001",
+            "FrameworkID": "framework_id_5",
+            "RoleFrameID": "role_framework_id_5"
+        },
+        {
+            "ID": "19",
+            "Name": "Agent AI",
+            "Description": "",
+            "ImageURL": "image_url_I",
+            "Prompt": {
+                "prompt": "Prompt I"
+            },
+            "UserID": "firebase_001",
+            "FrameworkID": "framework_id_6",
+            "RoleFrameID": "role_framework_id_6"
+        },
+        {
+            "ID": "20",
+            "Name": "Agent AJ",
+            "Description": "",
+            "ImageURL": "image_url_J",
+            "Prompt": {
+                "prompt": "Prompt J"
+            },
+            "UserID": "firebase_001",
+            "FrameworkID": "framework_id_7",
+            "RoleFrameID": "role_framework_id_7"
+        }
+    ],
+    "status": "success"
+}
