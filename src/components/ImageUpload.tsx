@@ -1,25 +1,39 @@
-import ImageUploadHook from "@/components/hooks/ImageUpload.hook"
 
-export default function ImageUpload() {
-    const { fileInputRef, imageSrc, handlers } = ImageUploadHook();
+import React from 'react';
+import useImageUpload from './hooks/ImageUpload.hook';
+
+const ImageUpload: React.FC = () => {
+    const {uploadImage} = useImageUpload()
 
     return (
-        <div
-            className="border-2 border-dashed h-[300px] flex justify-center items-center hover:opacity-50 focus:opacity:50 rounded-lg cursor-pointer"
-            onClick={handlers.handleClick}
-            onDragOver={handlers.handleDragOver}
-            onDrop={handlers.handleDrop}
-        >
-            <input
-                type="file"
-                ref={fileInputRef}
-                style={{ display: 'none' }}
-                onChange={handlers.handleFileChange}
-                accept="image/*"
-            />
-            <p className="text-white font-bold ">อัพโหลดรูปภาพสำหรับ AI ของคุณ</p>
+        <div className="flex flex-col items-center justify-center p-2 sm:items-start">
+            <form onSubmit={uploadImage.handleSubmit} className="flex flex-col gap-4 justify-center items-center sm:hidden">
+                <label htmlFor="file-upload" className="cursor-pointer h-32 w-32 border-2 border-gray-200 border-solid rounded-full flex items-center justify-center overflow-hidden drop-shadow-lg">
+                    {uploadImage.imagePreviewUrl ? (
+                        <img src={uploadImage.imagePreviewUrl} alt="Preview" className="h-full w-full object-cover" />
+                    ) : (
+                        <div className="text-white font-bold">เลือกโปรไฟล์</div>
+                    )}
+                </label>
+                <input id="file-upload" type="file" onChange={uploadImage.handleFileChange} accept="image/png" className="hidden" />
+                <p className="text-white text-[10px] text-center">{uploadImage.fileName}</p>
+            </form>
+
+            <form onSubmit={uploadImage.handleSubmit} className="hidden sm:flex gap-4 justify-center items-center">
+                <label htmlFor="file-upload" className="cursor-pointer h-32 w-32 border-2 border-gray-200 border-solid rounded-full flex items-center justify-center overflow-hidden drop-shadow-lg">
+                    {uploadImage.imagePreviewUrl ? (
+                        <img src={uploadImage.imagePreviewUrl} alt="Preview" className="h-full w-full object-cover" />
+                    ) : (
+                        <div className="text-white font-bold">เลือกโปรไฟล์</div>
+                    )}
+                </label>
+                <input id="file-upload" type="file" onChange={uploadImage.handleFileChange} accept="image/png" className="hidden" />
+                <p className="text-white text-[10px] text-center p-4 rounded-md ">{uploadImage.fileName}</p>
+            </form>
+
         </div>
     );
 };
 
+export default ImageUpload;
 

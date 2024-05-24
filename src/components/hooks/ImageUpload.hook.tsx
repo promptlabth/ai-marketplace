@@ -1,58 +1,45 @@
-import { useRef, useState, RefObject } from 'react';
+import React, { useEffect, useState, FormEvent } from 'react';
+import axios from 'axios';
+import { useGlobal } from '@/context/context';
 
-interface UseImageUploadReturn {
-  fileInputRef: RefObject<HTMLInputElement>;
-  imageSrc: string;
-  handlers: {
-    handleDragOver: (e: React.DragEvent<HTMLDivElement>) => void;
-    handleDrop: (e: React.DragEvent<HTMLDivElement>) => void;
-    handleClick: () => void;
-    handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  };
-}
+const useImageUpload = () => {
+  const [file, setFile] = useState<File | null>(null);
+  const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
+  const [fileName, setFileName] = useState<string>('ยังไม่ได้เลือกรูปโปรไฟล์');
+  const [imageData, setImageData] = useState<any>(null)
+  const { setAgentImage } = useGlobal();
 
-const useImageUpload = (): UseImageUploadReturn => {
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const [imageSrc, setImageSrc] = useState<string>('/png/plus.png');
-
-  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-  };
-
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      processFile(e.dataTransfer.files[0]);
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const fileList = event.target.files;
+    if (fileList) {
+      const newFile = fileList[0];
+      setFile(newFile);
+      setFileName(newFile.name);
+      setImagePreviewUrl(URL.createObjectURL(newFile));
     }
   };
 
-  const handleClick = () => {
-    fileInputRef.current?.click();
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    if (!file) return;
+    const formData = new FormData();
+    formData.append('file', file);
+    e.preventDefault();
+    setImageData(formData)
+    setAgentImage(formData)
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      processFile(e.target.files[0]);
-    }
-  };
+  // useEffect(() => {
+  //   if (file) handleSubmit();
+  // }, [file]);
 
-  const processFile = (file: File) => {
-    const reader = new FileReader();
-    reader.onload = (e: ProgressEvent<FileReader>) => {
-      setImageSrc(e.target?.result as string || '');
-    };
-    reader.readAsDataURL(file);
-  };
 
   return {
-    fileInputRef,
-    imageSrc,
-    handlers: {
-      handleDragOver,
-      handleDrop,
-      handleClick,
+    uploadImage: {
+      imagePreviewUrl,
+      fileName,
       handleFileChange,
-    },
+      handleSubmit
+    }
   };
 };
 

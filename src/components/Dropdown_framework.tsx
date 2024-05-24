@@ -23,7 +23,7 @@ const Dropdown: React.FC<{
   json_data: string;
   label_name: string;
   data: Framework[];
-}> = ({ json_data, label_name,data }) => {
+}> = ({ json_data, label_name, data }) => {
   const [roles, setRoles] = useState<RoleFrameworksInterface[]>([]);
 
   const handleGetRoleFrameworks = async () => {
@@ -62,7 +62,7 @@ const Dropdown: React.FC<{
       {DropdownItems.isOpen && DropdownItems.selectedFrameworkDetails && (
         <div
           ref={DropdownItems.dropdownRef}
-          className="w-full origin-top-right right-0 rounded-md shadow-sm rounded"
+          className="w-full origin-top-right right-0 rounded-md shadow-sm"
         >
           <div
             className="py-1"
@@ -75,15 +75,15 @@ const Dropdown: React.FC<{
             ).map((dropdownItem, index) =>
               dropdownItem.role
                 ? roles.map((role, roleIndex) => (
-                    <DropdownItem
-                      key={`${index}-${roleIndex}`}
-                      label={role.Name}
-                      onSelect={() => {
-                        DropdownItems.setNameList(role.Name);
-                        DropdownItems.setIsOpen(false);
-                      }}
-                    />
-                  ))
+                  <DropdownItem
+                    key={`${index}-${roleIndex}`}
+                    label={role.Name}
+                    onSelect={() => {
+                      DropdownItems.setNameList(role.Name);
+                      DropdownItems.setIsOpen(false);
+                    }}
+                  />
+                ))
                 : null
             )}
           </div>

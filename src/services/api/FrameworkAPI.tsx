@@ -1,33 +1,20 @@
-// import { FrameworkRequest } from "@/domain/creator/frameworks/FrameworkRequest.type";
 import axios from "axios";
-// import { serverApiUrl } from "@/constants/link.constant";
-// import { getAccessToken } from "../firebase/auth/GetTokenAuth";
 
-export async function apiGetFrameworks(
-//   frameworkRequest: FrameworkRequest,
-) {
-  //   const apiUrl = `${serverApiUrl}/max-frameworks`;
+export async function apiGetFrameworks() {
   const requestOptions = {
     headers: {
       "Content-Type": "application/json",
     },
   };
-  const apiUrl = `http://localhost:8081/creator/frameworks`;
+  const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/creator/frameworks`;
   try {
-    // const accessToken = await getAccessToken();
-
-    // const requestOption = {
-    //   headers: {
-    //     Authorization: `Bearer ${accessToken}`,
-    //   },
-    // };
     const response = await axios.get(apiUrl, requestOptions);
     if (response.status === 200) {
       console.log("response");
       return response.data;
     }
   } catch (error) {
-    console.error(error);
+    console.error("Error apiGetFrameworks ",error);
     return { reply: "Error Please try again" };
   }
 }

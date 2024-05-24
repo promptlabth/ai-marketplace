@@ -1,23 +1,77 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect, ChangeEvent } from "react";
 import Dropdown from "@/components/Dropdown_framework";
 import InputDetial from "@/components/InputDetial";
 import { apiGetFrameworks } from "@/services/api/FrameworkAPI";
 import { Framework } from "@/models/interfaces/Framework.interface";
+import { useGlobal } from "@/context/context";
 
 const FrameworkComponent = () => {
   // const { agentDetail, updateAgentDetail } = useContext(AgentContext);
   const [data, setData] = useState<Framework[]>([]);
   const [nameframework, setNameframework] = useState<string>(data[0]?.Name);
-  const [selectedFrameworkDetails, setSelectedFrameworkDetails] = useState(
-    data[0]
-  );
+  const [selectedFrameworkDetails, setSelectedFrameworkDetails] = useState(data[0]);
+  const { setPrompt } = useGlobal();
+
+  var InitialsAPE =
+    [
+      {
+        action: "somename",
+        propose: "some",
+        expection: "some"
+      }
+    ]
+
+  const [APE, setAPE] = useState(InitialsAPE);
+  const handleSetAPE = (index: number, e: string, key: keyof typeof InitialsAPE[0]) => {
+    
+    const newAPE = [...APE];
+    newAPE[index] = { ...newAPE[index], [key]: e };
+    setAPE(newAPE)
+    setPrompt(APE)
+
+    console.log("handleSetAPE", e + "Index", index)
+  }
+
+
+
+
+  // const RPPPP = {
+  //   action: "somename",
+  //   propose: "some",
+  //   expection: "some"
+  // }
+  // const ABC = {
+  //   action: "somename",
+  //   propose: "some",
+  //   expection: "some"
+  // }
+  // const ABCD = {
+  //   action: "somename",
+  //   propose: "some",
+  //   expection: "some"
+  // }
+
+
 
   const handleGetFrameworks = async () => {
     const result = await apiGetFrameworks();
-    if (result ) {
+    if (result) {
       setData(result.frameworks);
     }
   };
+
+  // const RenderComponent = () => {
+  //   switch (nameframework) {
+  //     case "APE":
+  //       return APE
+  //     case "ABC":
+  //       return ABC
+  //     case "ABCD":
+  //       return ABCD
+  //     default:
+  //       return null;
+  //   }
+  // };
 
   useEffect(() => {
     handleGetFrameworks();
@@ -28,7 +82,6 @@ const FrameworkComponent = () => {
       setNameframework(data[0]?.Name);
     }
   }, [data]);
-
 
   useEffect(() => {
     const frameworkDetails = data.find(
@@ -47,11 +100,10 @@ const FrameworkComponent = () => {
           {data.map((framework, index) => (
             <button
               key={index}
-              className={`flex-none snap-center w-[90px] h-[40px] sm:w-[220px] items-center flex justify-center ${
-                nameframework === framework.Name
-                  ? "bg-transparent text-white"
-                  : "bg-[#03FFAB] text-black"
-              } font-bold rounded-xl`}
+              className={`flex-none snap-center w-[90px] h-[40px] sm:w-[220px] items-center flex justify-center ${nameframework === framework.Name
+                ? "bg-transparent text-white"
+                : "bg-[#03FFAB] text-black"
+                } font-bold rounded-xl`}
               onClick={() => {
                 setNameframework(framework.Name);
               }}
@@ -78,7 +130,7 @@ const FrameworkComponent = () => {
                 />
               );
             case "add_text":
-              return <InputDetial key={index} detail={comp.label} />;
+              // return <InputDetial key={index} detail={comp.label} setValue={(e) => { handleSetAPE(index, e) }} />;
             default:
               return null;
           }
