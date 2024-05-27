@@ -19,27 +19,27 @@ const EditAgent = () => {
 
 
   const router = useRouter();
-   console.log(">> agent_describe", agent_describe);
-const handleCreateAgent = async () => {
-  const agentDetails = {
-    name: agent_name,
-    description: agent_describe,
-    image_url: agent_image,
-    prompt: prompt,
-    user_id: "u123",
-    framework_id: framework_id,
-    role_framework_id: role_framework_id,
-  };
-  console.log("AgentDetails", agentDetails);
+  console.log(">> agent_describe", agent_describe);
+  const handleCreateAgent = async () => {
+    const agentDetails = {
+      name: agent_name,
+      description: agent_describe,
+      image_url: agent_image,
+      prompt: prompt,
+      user_id: "u123",
+      framework_id: framework_id,
+      role_framework_id: role_framework_id,
+    };
+    console.log("AgentDetails", agentDetails);
 
-  const result = await apiPostAgent(agentDetails);
+    const result = await apiPostAgent(agentDetails);
 
-  if (result.status === "success") {
-    console.log(result);
-    router.push("/creator/list_agent");
-  } else {
-    console.log("CreateAgent", result);
-  }
+    if (result.status === "success") {
+      console.log(result);
+      router.push("/creator/list_agent");
+    } else {
+      console.log("CreateAgent", result);
+    }
   };
 
   return (
@@ -54,7 +54,7 @@ const handleCreateAgent = async () => {
             <Framework />
             <div className="flex justify-around items-center w-full gap-2 pt-2">
               <button
-                onClick={ handleCreateAgent}
+                onClick={handleCreateAgent}
                 className="flex-auto hover:bg-[#03FFAB] hover:text-white focus:bg-[#03FFAB] sm:text-[17px] sm:font-bold focus:text-black h-[40px] w-full ring-2 ring-[#03FFAB] ring-inset rounded-full text-[12px] text-[#03FFAB]"
               >
                 สร้าง
