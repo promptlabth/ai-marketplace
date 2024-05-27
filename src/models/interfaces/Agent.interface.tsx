@@ -1,11 +1,11 @@
 import { PromptMessage } from "../types/agent.type";
 
 export interface AgentInterface {
-  FrameWork: string;
+  ID: number;
   Name: string;
   ImageUrl: string;
   Description: string;
-  Prompt: PromptMessage;
+  Prompt: any;
   UserID: number;
   FrameworkID: number;
   RoleFrameID: number;

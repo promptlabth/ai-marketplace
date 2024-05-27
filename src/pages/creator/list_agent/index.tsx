@@ -1,32 +1,33 @@
-import data from "@/domain/creator/create_agent/__mock__/list_agent.json"
-import SearchInput from "@/components/SearchInput"
+// import data from "@/domain/creator/create_agent/__mock__/list_agent.json"
+// import SearchInput from "@/components/SearchInput"
 import Head from 'next/head';
 import CreatorLayout from "../CreatorLayout";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { AgentInterface } from "@/models/interfaces/Agent.interface";
 
 
 
 const listAgent = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [agentList , setAgentList ] = useState<any>(null);
+  const [agents, setAgentList] = useState<AgentInterface[]>([]);
 
   // Handler for search input change
   const handleSearchChange = (e:any) => {
     setSearchQuery(e.target.value);
   };
 
-  const mock_firebase_id = "firebase_001"; 
+  const mock_firebase_id = "u123"; 
 
   const fetchData = async () => {
     try {
       const response = await axios.get(`http://localhost:8081/creator/${mock_firebase_id}`);
       console.log("successfully:", response.data);
       // setAgentList(response.data);//ไอ้นี่ทํางานได้
-      if (response.status === 200 && response.data.status === "success") {
+      if (response.status === 201 && response.data.status === "success") {
         console.log("Get agentList success");
-        setAgentList(response.data);//ไอ้นี่ไม่ทํางานได้
+        setAgentList(response.data.agents);//ไอ้นี่ไม่ทํางานได้
       }
     } catch (error) {
       console.error("Error Get agentList", error);
@@ -37,13 +38,12 @@ const listAgent = () => {
     fetchData();
   }, []);
 
-  // If agentList is null or undefined, return an empty array
-  const agents = agentList?.agents || [];
 
   // Filtered agents based on the search query
   const filteredAgents = agents.filter((agent: any) =>
     new RegExp(searchQuery, "i").test(agent.Name)
   );
+  console.log("agents:", agents);
   return (
     <CreatorLayout>
       <div className="flex flex-col bg-[#212529] min-h-screen overflow-y-auto p-6">
