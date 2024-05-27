@@ -66,7 +66,7 @@ const listAgent = () => {
           <div className="flex flex-wrap justify-center gap-4 w-full mt-4">
             {filteredAgents.map((agent:any, index:number) => (
               <Link
-                href="/creator/dashboard_agent"
+                href="/customer/history_agent"
                 key={index}
                 className="flex flex-col items-center md:w-[250px] sm:w-[300px] lg:w-[300px] border border-blue-400 p-4 rounded-lg bg-[#1a1d21] hover:bg-[#2A73FF] transition-all duration-200"
               >
