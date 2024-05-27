@@ -9,7 +9,6 @@ export async function apiGetRoleFrameworks() {
   };
   const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/creator/roles`;
   try {
-;
     const response = await axios.get(apiUrl, requestOptions);
     if (response.status === 200) {
       console.log("response");
