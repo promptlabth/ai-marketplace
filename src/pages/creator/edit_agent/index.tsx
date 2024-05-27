@@ -1,12 +1,10 @@
 import ButtonCancle from "@/components/ButtonCancle";
 import Framework from "@/components/Framework";
 import Head from "next/head";
-import React, { useEffect } from "react";
+import React from "react";
 import CreatorLayout from "../CreatorLayout";
 import { useRouter } from 'next/navigation';
 import { useGlobal } from "@/context/context";
-// import axios from "axios";
-// import { useState } from "react";
 import { apiPostAgent } from "@/services/api/AgentAPI";
 
 const EditAgent = () => {
@@ -31,7 +29,6 @@ const handleCreateAgent = async () => {
     user_id: "u123",
     framework_id: framework_id,
     role_framework_id: role_framework_id,
-    // Include other fields as necessary
   };
   console.log("AgentDetails", agentDetails);
 
@@ -40,17 +37,11 @@ const handleCreateAgent = async () => {
   if (result.status === "success") {
     console.log(result);
     router.push("/creator/list_agent");
-    // Handle the response as needed
   } else {
     console.log("CreateAgent", result);
   }
   };
 
-  //  useEffect(() => {
-  //    //  handleCreateAgent();
-  //    console.log("image_url",image_url)
-  //  }, [image_url]);
-  
   return (
     <CreatorLayout>
       <div className="bg-[#212529] p-4 min-h-screen flex justify-center items-center">
@@ -60,8 +51,6 @@ const handleCreateAgent = async () => {
         </Head>
         <div className="flex flex-col w-full min-h-screen sm:w-[650px] bg-[#33393F] rounded-xl gap-2 mb-12">
           <div className="gap-2 p-2">
-            {/* <p>{agent_name}</p>
-            <p>{agent_describe}</p> */}
             <Framework />
             <div className="flex justify-around items-center w-full gap-2 pt-2">
               <button

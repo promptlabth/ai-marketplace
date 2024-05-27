@@ -1,5 +1,3 @@
-import data from "@/domain/creator/create_agent/__mock__/list_agent.json"
-import SearchInput from "@/components/SearchInput"
 import Head from 'next/head';
 import CreatorLayout from "../CreatorLayout";
 import Link from "next/link";
@@ -12,7 +10,6 @@ const listAgent = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [agentList , setAgentList ] = useState<any>(null);
 
-  // Handler for search input change
   const handleSearchChange = (e:any) => {
     setSearchQuery(e.target.value);
   };
@@ -23,10 +20,9 @@ const listAgent = () => {
     try {
       const response = await axios.get(`http://localhost:8081/creator/${mock_firebase_id}`);
       console.log("successfully:", response.data);
-      // setAgentList(response.data);//ไอ้นี่ทํางานได้
       if (response.status === 200 && response.data.status === "success") {
         console.log("Get agentList success");
-        setAgentList(response.data);//ไอ้นี่ไม่ทํางานได้
+        setAgentList(response.data);
       }
     } catch (error) {
       console.error("Error Get agentList", error);
@@ -37,10 +33,8 @@ const listAgent = () => {
     fetchData();
   }, []);
 
-  // If agentList is null or undefined, return an empty array
   const agents = agentList?.agents || [];
 
-  // Filtered agents based on the search query
   const filteredAgents = agents.filter((agent: any) =>
     new RegExp(searchQuery, "i").test(agent.Name)
   );
@@ -75,8 +69,6 @@ const listAgent = () => {
                 </div>
                 <div className="text-center">
                   <p className="text-white font-bold text-[15px] mb-1">{agent.Name}</p>
-                  {/* <p className="text-white text-[10px] mb-1">{agent.time_used}</p>
-                  <p className="text-white text-[10px]">ใช้งาน: {agent.count_use} ครั้ง</p> */}
                 </div>
               </Link>
             ))}

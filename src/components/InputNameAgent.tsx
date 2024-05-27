@@ -10,7 +10,6 @@ const InputNameAgent: React.FC<InputNameprops> = ({ name_label }) => {
 
     const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
         setAgentName(event.target.value);
-        // console.log("agent_name value", event.target.value)
       };
 
     return (

@@ -40,7 +40,6 @@ const Payment = () => {
             <div className="sm:hidden">
               {data.map((data_payment, index) => (
                 <div key={index} className="text-white py-2 border-b">
-                  {/* <div><strong>ลำดับ:</strong> {index + 1}</div> */}
                   <div><strong>วันที่:</strong> {data_payment.date}</div>
                   <div><strong>AI ที่ซื้อ:</strong>
                     <Link href={"/creator/list_agent"} className="underline hover:text-gray-600">

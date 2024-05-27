@@ -5,7 +5,6 @@ import { apiGetFrameworks } from "@/services/api/FrameworkAPI";
 import { Framework } from "@/models/interfaces/Framework.interface";
 
 import { useGlobal } from "@/context/context";
-// import { APEFramework, ERAFramework, RICEEFramework, RPPPPFramework, TAGFramework } from "@/models/types/agent.type";
 
 const FrameworkComponent = () => {
   const [data, setData] = useState<Framework[]>([]);
@@ -14,44 +13,7 @@ const FrameworkComponent = () => {
     data[0]
   );
 
-  // const InitialsAPE = [
-  //   {
-  //     action: "somename",
-  //     propose: "some",
-  //     expectation: "some",
-  //   },
-  // ];
-
-  // const { setPrompt } = useGlobal();
-  // const [APE, setAPE] = useState(InitialsAPE);
-
-  // const handleSetAPE = (index:number, value:string) => {
-  //   const keys = Object.keys(InitialsAPE[0]);
-  //   const key = keys[index];
-  //   const newAPE = [...APE];
-  //   newAPE[index] = { ...newAPE[index], [key]: value };
-  //   setAPE(newAPE);
-  //   setPrompt(newAPE);
-
-  //   console.log("handleSetAPE", `${value} Index`, index);
-  // };
-  // console.log("Data InitialsAPE", InitialsAPE);
-  // // const RPPPP = {
-  //   action: "somename",
-  //   propose: "some",
-  //   expection: "some"
-  // }
-  // const ABC = {
-  //   action: "somename",
-  //   propose: "some",
-  //   expection: "some"
-  // }
-  // const ABCD = {
-  //   action: "somename",
-  //   propose: "some",
-  //   expection: "some"
-  // }
-
+  
   const handleGetFrameworks = async () => {
     const result = await apiGetFrameworks();
     if (result) {
@@ -59,22 +21,7 @@ const FrameworkComponent = () => {
     }
   };
 
-  // const RenderComponent = (nameframework: string) => {
-  //   switch (nameframework) {
-  //     case "RICEE":
-  //       return {} as RICEEFramework;
-  //     case "APE":
-  //       return {} as APEFramework;
-  //     case "TAG":
-  //       return {} as TAGFramework;
-  //     case "ERA":
-  //       return {} as ERAFramework;
-  //     case "RPPPP":
-  //       return {} as RPPPPFramework;
-  //     default:
-  //       return {} as {};
-  //   }
-  // };
+  
   const InitialsPeompt = {
     instruction: "",
     context: "",

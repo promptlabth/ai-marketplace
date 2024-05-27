@@ -1,9 +1,7 @@
-import { PromptMessage } from "@/models/types/agent.type";
 import React, { createContext, useContext, useState, ReactNode } from "react";
 
 const GlobalContext = createContext<any>(undefined);
 
-// Define the provider component
 interface GlobalProviderProps {
   children: ReactNode;
 }

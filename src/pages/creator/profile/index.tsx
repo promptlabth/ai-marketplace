@@ -87,7 +87,6 @@ const Profile = () => {
                     </div>
                     <div className='flex w-full items-center'>
                       <h2 className='text-[12px] text-white text-lg font-bold'>{agent.name_agent}</h2>
-                      {/* <img src={agent.image_url} alt={agent.name_agent} style={{ width: 100, height: 100 }} /> */}
                     </div>
                   </div>
                   <div className={`w-[20px] h-[20px]`}>

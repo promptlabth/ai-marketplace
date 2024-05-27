@@ -41,7 +41,7 @@ const Dropdown: React.FC<DropdownProps> = ({ content }) => {
 
             {isOpen && (
                 <div
-                    className="w-full origin-top-right right-0 rounded-md shadow-sm rounded"
+                    className="w-full origin-top-right right-0 rounded-md shadow-sm"
                 >
                     <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                         {detailDropdown.map((label, index) => (
