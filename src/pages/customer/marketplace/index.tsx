@@ -2,14 +2,17 @@ import SearchInput from "@/components/SearchInput";
 import { useState, useEffect, useRef } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import useAgents from "@/services/api/Agents";
+import useAgents from "@/services/api/GetAgents";
 import useGetRole from "@/services/api/GetRole";
+import Link from "next/link";
 
 const CreateAgent = () => {
   const { data, isLoading, error } = useAgents();
   const [clickOpencategory, setOpencategory] = useState<string>("flex-nowrap");
   const router = useRouter();
-  const agentRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
+  const agentRefs = useRef<{
+    [key: string]: HTMLAnchorElement | null;
+  }>({});
   const categoryRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
   useEffect(() => {
@@ -28,7 +31,7 @@ const CreateAgent = () => {
     return <div>Invalid data format</div>;
   }
 
-  // Group agents by RoleFrameID
+
   const groupedAgents = data.agents.reduce((acc: any, agent: any) => {
     if (!acc[agent.RoleFrameID]) {
       acc[agent.RoleFrameID] = [];
@@ -81,13 +84,13 @@ const CreateAgent = () => {
               ref={el => (categoryRefs.current[roleFrameID] = el)}
               className="flex flex-col sm:items-start gap-4 mb-4 w-full snap-x snap-mandatory hide-scrollbar overflow-x-scroll space-x-4"
             >
-              <RoleCategory roleFrameID={roleFrameID}/>
+              <RoleCategory roleFrameID={roleFrameID} />
               <div className="flex gap-4">
                 {groupedAgents[roleFrameID].map((agent: any) => (
-                  <div
+                  <Link
                     key={agent.ID}
                     ref={el => (agentRefs.current[agent.ID] = el)}
-                    onClick={() => router.push("/customer/view_agent")}
+                    href={`/customer/${agent.ID}`}
                     className="flex items-center flex-col flex-none rounded-[30px] w-[170px] h-[300px] p-2 bg-[#697179]"
                   >
                     <div className="flex items-center justify-center w-[100px] h-[100px] border-2 rounded-full bg-blue-500">
@@ -95,7 +98,7 @@ const CreateAgent = () => {
                     </div>
                     <div className="text-[#FFFFFF] font-bold text-[16px] mt-4">{agent.Name}</div>
                     <div className="text-[#FFFFFF] text-[14px]">{agent.Description}</div>
-                  </div>
+                  </Link>
                 ))}
               </div>
             </div>

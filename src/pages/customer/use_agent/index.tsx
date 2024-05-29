@@ -24,7 +24,7 @@ const useAgent = () => {
             <p className="text-sm text-[#616870]">{data[0].agent_detial}</p>
           </div>
         </div>
-        <InputDetial detail={data[0].input_label} />
+        {/* <InputDetial detail={data[0].input_label} /> */}
         <Dropdown content="สไตล์ข้อความ" />
         <Outputtext content="ข้อความที่ได้" generate="..." />
         <div className="flex justify-around items-center w-full gap-4 pt-4">
