@@ -9,8 +9,7 @@ export async function apiGetFrameworks() {
   const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/creator/frameworks`;
   try {
     const response = await axios.get(apiUrl, requestOptions);
-    if (response.status === 201) {
-      console.log("response");
+    if (response.status === 200) {
       return response.data;
     }
   } catch (error) {

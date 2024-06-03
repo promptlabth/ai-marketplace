@@ -16,7 +16,9 @@ const FrameworkComponent = () => {
   
   const handleGetFrameworks = async () => {
     const result = await apiGetFrameworks();
+    console.log("frameworks call");
     if (result) {
+      console.log("frameworks", result.frameworks);
       setData(result.frameworks);
     }
   };
