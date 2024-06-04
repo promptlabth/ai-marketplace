@@ -5,6 +5,8 @@ import { useRouter } from "next/router";
 import useAgents from "@/services/api/GetAgents";
 import useGetRole from "@/services/api/GetRole";
 import Link from "next/link";
+import Image from "next/image";
+import Loading from "@/components/Loading";
 
 const CreateAgent = () => {
   const { data, isLoading, error } = useAgents();
@@ -20,7 +22,7 @@ const CreateAgent = () => {
   }, [data]);
 
   if (isLoading) {
-    return <div>...Loading</div>;
+    return <Loading />;
   }
 
   if (error) {
@@ -86,18 +88,24 @@ const CreateAgent = () => {
             >
               <RoleCategory roleFrameID={roleFrameID} />
               <div className="flex gap-4">
-                {groupedAgents[roleFrameID].map((agent: any) => (
+                {groupedAgents[roleFrameID]?.map((agent: any) => (
                   <Link
                     key={agent.ID}
                     ref={el => (agentRefs.current[agent.ID] = el)}
                     href={`/customer/${agent.ID}`}
-                    className="flex items-center flex-col flex-none rounded-[30px] w-[170px] h-[300px] p-2 bg-[#697179]"
+                    className="flex items-center flex-col relative flex-none rounded-[30px] w-[170px] h-[300px] p-2 bg-[#697179]"
                   >
-                    <div className="flex items-center justify-center w-[100px] h-[100px] border-2 rounded-full bg-blue-500">
-                      <img src={agent.ImageURL} alt={agent.Name} />
+                    <div className="flex items-center overflow-hidden justify-center w-[100px] h-[100px] border-2 rounded-full bg-gray-800 relative">
+                      {agent.ImageURL ? (
+                        <Image src={agent.ImageURL} alt="Agent image" layout="fill" className="object-cover" />
+                      ) : (
+                        <p>Image not available</p>
+                      )}
                     </div>
-                    <div className="text-[#FFFFFF] font-bold text-[16px] mt-4">{agent.Name}</div>
-                    <div className="text-[#FFFFFF] text-[14px]">{agent.Description}</div>
+                    <p className="text-[#FFFFFF] font-bold text-[16px] mt-4">{agent.Name}</p>
+                    <article className="text-[#FFFFFF] text-[14px] mt-2 w-full text-wrap break-words">
+                      <p>{agent.Description}</p>
+                    </article>
                   </Link>
                 ))}
               </div>

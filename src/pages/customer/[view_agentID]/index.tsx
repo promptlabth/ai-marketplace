@@ -7,7 +7,7 @@ import useGetAgent from "@/services/api/GetAgentID";
 import useGetRole from "@/services/api/GetRole";
 import { useRouter } from "next/router";
 import useGetFramework from "@/services/api/GetFramework";
-
+import Loading from "@/components/Loading";
 const AgentView = () => {
   const router = useRouter();
   const { view_agentID } = router.query;
@@ -19,7 +19,7 @@ const AgentView = () => {
   }, [data]);
 
   if (isLoading) {
-    return <div>...Loading</div>;
+    return <Loading />;
   }
 
   if (error) {
@@ -35,12 +35,21 @@ const AgentView = () => {
       <div className="flex flex-col justify-between sm:w-[600px] h-full bg-[#33393F] rounded-xl py-4 px-4 gap-4 mb-10">
         <div className="flex flex-col gap-12">
           <div className="flex flex-col justify-center items-center w-full h-full">
-            <Image src="/judment.svg" alt="" width={100} height={100} />
+            <div className="w-full flex items-center justify-center">
+              <div className="flex flex-col overflow-hidden rounded-full relative w-20 h-20 justify-center items-center">
+                {data?.agent?.ImageURL ? (
+                  <Image src={data.agent.ImageURL} alt="Agent image" layout="fill" className="object-cover" />
+                ) : (
+                  <p>Image not available</p>
+                )}
+                <p className="flex w-full justify-center text-white font-bold text-[30px]">{data?.agent?.Name}</p>
+              </div>
+            </div>
             <p className="flex w-full justify-center text-white font-bold text-[30px]">{data?.agent?.Name}</p>
           </div>
           <div className="flex flex-col">
             <RoleCategory roleFrameID={data?.agent?.RoleFrameID || 0} />
-            <FrameworkDetail FrameworkID={data?.agent?.FrameworkID || 0}/>
+            <FrameworkDetail FrameworkID={data?.agent?.FrameworkID || 0} />
             <div className="flex flex-col text-[#03FCA9] mt-8">อธิบาย AI:<p className="text-white">{data?.agent?.Description}</p></div>
           </div>
         </div>
