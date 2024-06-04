@@ -42,7 +42,6 @@ const AgentView = () => {
                 ) : (
                   <p>Image not available</p>
                 )}
-                <p className="flex w-full justify-center text-white font-bold text-[30px]">{data?.agent?.Name}</p>
               </div>
             </div>
             <p className="flex w-full justify-center text-white font-bold text-[30px]">{data?.agent?.Name}</p>
@@ -67,8 +66,8 @@ export default AgentView;
 const RoleCategory = ({ roleFrameID }: { roleFrameID: number }) => {
   const { roleID, isLoading, error } = useGetRole(roleFrameID);
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error loading role data</div>;
+  if (isLoading) return null;
+  if (error) return null;
 
   return (
     <div className="flex text-[#03FCA9]">AI Type:<p className="px-2 text-white">{roleID}</p></div>
@@ -79,8 +78,8 @@ const RoleCategory = ({ roleFrameID }: { roleFrameID: number }) => {
 const FrameworkDetail = ({ FrameworkID }: { FrameworkID: number }) => {
   const { data, isLoading, error } = useGetFramework(FrameworkID);
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error loading framework data</div>;
+  if (isLoading) return null;
+  if (error) return null;
 
   return (
     <>

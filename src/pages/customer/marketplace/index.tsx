@@ -120,8 +120,8 @@ const CreateAgent = () => {
 const RoleButton = ({ roleFrameID, onClick }: { roleFrameID: number, onClick: (roleFrameID: number) => void }) => {
   const { roleID, isLoading, error } = useGetRole(roleFrameID);
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error loading role data</div>;
+  if (isLoading) return null;
+  if (error) return null;
 
   return (
     <button
@@ -136,8 +136,8 @@ const RoleButton = ({ roleFrameID, onClick }: { roleFrameID: number, onClick: (r
 const RoleCategory = ({ roleFrameID }: { roleFrameID: number }) => {
   const { roleID, isLoading, error } = useGetRole(roleFrameID);
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error loading role data</div>;
+  if (isLoading) return null;
+  if (error) return null;
 
   return (
     <h3 className="text-lg font-bold text-white w-full justify-start">{roleID}</h3>
