@@ -1,9 +1,8 @@
 import SearchInput from "@/components/SearchInput";
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import Head from "next/head";
-import { useRouter } from "next/router";
 import useAgents from "@/services/api/GetAgents";
-import useGetRole from "@/services/api/GetRole";
+import GetRole from "@/services/api/GetRole";
 import Link from "next/link";
 import Image from "next/image";
 import Loading from "@/components/Loading";
@@ -11,15 +10,12 @@ import Loading from "@/components/Loading";
 const CreateAgent = () => {
   const { data, isLoading, error } = useAgents();
   const [clickOpencategory, setOpencategory] = useState<string>("flex-nowrap");
-  const router = useRouter();
+  
   const agentRefs = useRef<{
     [key: string]: HTMLAnchorElement | null;
   }>({});
   const categoryRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
-  useEffect(() => {
-    console.log("Agents data:", data);
-  }, [data]);
 
   if (isLoading) {
     return <Loading />;
@@ -42,9 +38,10 @@ const CreateAgent = () => {
     return acc;
   }, {});
 
+
   const handleCategoryClick = (roleFrameID: number) => {
     if (categoryRefs.current[roleFrameID]) {
-      categoryRefs.current[roleFrameID].scrollIntoView({ behavior: "smooth" });
+      categoryRefs?.current[roleFrameID]?.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -118,7 +115,7 @@ const CreateAgent = () => {
 }
 
 const RoleButton = ({ roleFrameID, onClick }: { roleFrameID: number, onClick: (roleFrameID: number) => void }) => {
-  const { roleID, isLoading, error } = useGetRole(roleFrameID);
+  const { roleID, isLoading, error } = GetRole(roleFrameID);
 
   if (isLoading) return null;
   if (error) return null;
@@ -134,7 +131,7 @@ const RoleButton = ({ roleFrameID, onClick }: { roleFrameID: number, onClick: (r
 };
 
 const RoleCategory = ({ roleFrameID }: { roleFrameID: number }) => {
-  const { roleID, isLoading, error } = useGetRole(roleFrameID);
+  const { roleID, isLoading, error } = GetRole(roleFrameID);
 
   if (isLoading) return null;
   if (error) return null;

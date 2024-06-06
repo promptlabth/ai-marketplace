@@ -1,22 +1,17 @@
-import React, { useEffect } from "react";
 import Head from 'next/head';
 import Image from "next/image";
-// import data from "@/domain/customer/marketplace/__mock__/view_agent.json";
 import ButtonNext from "@/components/ButtonNext";
-import useGetAgent from "@/services/api/GetAgentID";
-import useGetRole from "@/services/api/GetRole";
+import GetAgent from "@/services/api/GetAgentID";
 import { useRouter } from "next/router";
-import useGetFramework from "@/services/api/GetFramework";
 import Loading from "@/components/Loading";
+import  RoleCategory  from "@/components/RoleCategory";
+import FrameworkDetail from "@/components/FrameworkDetail";
+
 const AgentView = () => {
   const router = useRouter();
   const { view_agentID } = router.query;
 
-  const { data, isLoading, error } = useGetAgent(Number(view_agentID));
-
-  useEffect(() => {
-    console.log("Agent data:", data);
-  }, [data]);
+  const { data, isLoading, error } = GetAgent(Number(view_agentID));
 
   if (isLoading) {
     return <Loading />;
@@ -32,7 +27,7 @@ const AgentView = () => {
         <title>View Agent</title>
         <meta name="description" content="" />
       </Head>
-      <div className="flex flex-col justify-between sm:w-[600px] h-full bg-[#33393F] rounded-xl py-4 px-4 gap-4 mb-10">
+      <div className="flex flex-col justify-between sm:w-[600px] h-full bg-[#33393F] overflow-hidden rounded-xl py-4 px-4 gap-4 mb-10">
         <div className="flex flex-col gap-12">
           <div className="flex flex-col justify-center items-center w-full h-full">
             <div className="w-full flex items-center justify-center">
@@ -49,7 +44,7 @@ const AgentView = () => {
           <div className="flex flex-col">
             <RoleCategory roleFrameID={data?.agent?.RoleFrameID || 0} />
             <FrameworkDetail FrameworkID={data?.agent?.FrameworkID || 0} />
-            <div className="flex flex-col text-[#03FCA9] mt-8">อธิบาย AI:<p className="text-white">{data?.agent?.Description}</p></div>
+            <div className="flex flex-col text-[#03FCA9] mt-8">อธิบาย AI:<p className="text-white text-wrap break-words">{data?.agent?.Description}</p></div>
           </div>
         </div>
         <div className="flex justify-around items-end w-full gap-4">
@@ -62,29 +57,3 @@ const AgentView = () => {
 
 export default AgentView;
 
-
-const RoleCategory = ({ roleFrameID }: { roleFrameID: number }) => {
-  const { roleID, isLoading, error } = useGetRole(roleFrameID);
-
-  if (isLoading) return null;
-  if (error) return null;
-
-  return (
-    <div className="flex text-[#03FCA9]">AI Type:<p className="px-2 text-white">{roleID}</p></div>
-  );
-};
-
-
-const FrameworkDetail = ({ FrameworkID }: { FrameworkID: number }) => {
-  const { data, isLoading, error } = useGetFramework(FrameworkID);
-
-  if (isLoading) return null;
-  if (error) return null;
-
-  return (
-    <>
-      <div className="flex text-[#03FCA9] border-b-[1px]">Framwork:<p className="px-2  text-white">{data?.framework?.Name}</p></div>
-      <div className="flex flex-col text-[#03FCA9] mt-8">อธิบาย Framwork:<p className="text-white">{data?.framework?.Detail}</p></div>
-    </>
-  );
-};

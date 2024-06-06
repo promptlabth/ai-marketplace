@@ -6,7 +6,6 @@ import InputDetial from "@/components/InputDetial";
 import Head from "next/head";
 import CreatorLayout from "../CreatorLayout";
 import { useGlobal } from "@/context/context";
-import { ChangeEvent } from "react";
 
 const CreateAgent = () => {
   const { setAgentDescribe } = useGlobal();

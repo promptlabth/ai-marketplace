@@ -1,7 +1,5 @@
 
-import CarouselTransition from "@/components/Corousel";
-import CarouselMarketplace from "@/components/Corousel_marketplace";
-import TextLandingpage from "@/components/TextLandingpage"
+import CarouselMarketplace from "@/components/CorouselMarketplace";
 import { useRouter } from "next/router";
 import Link from "next/link";
 

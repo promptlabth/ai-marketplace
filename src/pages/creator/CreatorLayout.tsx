@@ -1,4 +1,4 @@
-import StudioMenu from "@/components/Studioi_menu";
+import StudioMenu from "@/components/StudioiMenu";
 
 export default function CreatorLayout({
     children,

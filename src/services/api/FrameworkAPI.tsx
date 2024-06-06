@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export async function apiGetFrameworks() {
+export async function GetFrameworks() {
   const requestOptions = {
     headers: {
       "Content-Type": "application/json",

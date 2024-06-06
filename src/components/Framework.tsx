@@ -1,7 +1,7 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
-import Dropdown from "@/components/Dropdown_framework";
+import Dropdown from "@/components/DropdownFramework";
 import InputDetial from "@/components/InputDetial";
-import { apiGetFrameworks } from "@/services/api/FrameworkAPI";
+import { GetFrameworks } from "@/services/api/FrameworkAPI";
 import { Framework } from "@/models/interfaces/Framework.interface";
 
 import { useGlobal } from "@/context/context";
@@ -15,7 +15,7 @@ const FrameworkComponent = () => {
 
   
   const handleGetFrameworks = async () => {
-    const result = await apiGetFrameworks();
+    const result = await GetFrameworks();
     console.log("frameworks call");
     if (result) {
       console.log("frameworks", result.frameworks);

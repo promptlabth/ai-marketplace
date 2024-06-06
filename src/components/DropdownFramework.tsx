@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import useDropdown from "./hooks/Dropdown.hook";
 import { RoleFrameworksInterface } from "@/models/interfaces/RoleFramework.interface";
-import { apiGetRoleFrameworks } from "@/services/api/RoleFrameworkAPI";
+import { GetRoleFrameworks } from "@/services/api/RoleFrameworkAPI";
 import { Framework } from "@/models/interfaces/Framework.interface";
 import { useGlobal } from "@/context/context";
 
@@ -29,7 +29,7 @@ const Dropdown: React.FC<{
   const [searchTerm, setSearchTerm] = useState<string>("");
   const { role_framework_id, setRoleID } = useGlobal();
   const handleGetRoleFrameworks = async () => {
-    const result = await apiGetRoleFrameworks();
+    const result = await GetRoleFrameworks();
     if (result) {
       // Sort roles by name in ascending order (A-Z)
       const sortedRoles = result.roles.sort(

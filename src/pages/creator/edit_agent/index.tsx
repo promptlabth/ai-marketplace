@@ -5,7 +5,7 @@ import React from "react";
 import CreatorLayout from "../CreatorLayout";
 import { useRouter } from 'next/navigation';
 import { useGlobal } from "@/context/context";
-import { apiPostAgent } from "@/services/api/AgentAPI";
+import { CreatePostAgent } from "@/services/api/AgentAPI";
 
 const EditAgent = () => {
   const {
@@ -32,7 +32,7 @@ const EditAgent = () => {
     };
     console.log("AgentDetails", agentDetails);
 
-    const result = await apiPostAgent(agentDetails);
+    const result = await CreatePostAgent(agentDetails);
 
     if (result.status === "success") {
       console.log(result);

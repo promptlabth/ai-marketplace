@@ -2,7 +2,7 @@ import { AppProps } from "next/app";
 import "../styles/globals.css";
 import Head from 'next/head';
 import { Noto_Sans_Thai } from 'next/font/google'
-import FooterButton from "@/components/Footer_button";
+import FooterButton from "@/components/FooterButton";
 import Sidebar from "@/components/Sidebar";
 import { GlobalProvider } from "@/context/context";
 

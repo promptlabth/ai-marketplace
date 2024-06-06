@@ -7,7 +7,7 @@ import { AgentInterface } from "@/models/interfaces/Agent.interface";
 
 
 
-const listAgent = () => {
+const ListAgent = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [agents, setAgentList] = useState<AgentInterface[]>([]);
 
@@ -65,7 +65,7 @@ const listAgent = () => {
                 key={index}
                 className="flex flex-col items-center md:w-[250px] sm:w-[300px] lg:w-[300px] border border-blue-400 p-4 rounded-lg bg-[#1a1d21] hover:bg-[#2A73FF] transition-all duration-200"
               >
-                <div className="flex items-center justify-center rounded-full h-[75px] w-[75px] bg-[#2A73FF] mb-4">
+                <div className="flex items-center justify-center rounded-full h-[75px] w-[75px] bg-gray-800 mb-4">
                   <img src={agent.ImageURL} alt={agent.Name} className="h-full w-full object-cover rounded-full" />
                 </div>
                 <div className="text-center">
@@ -82,4 +82,4 @@ const listAgent = () => {
   );
 }
 
-export default listAgent;
+export default ListAgent;

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export async function apiGetRoleFrameworks() {
+export async function GetRoleFrameworks() {
 
   const requestOptions = {
     headers: {

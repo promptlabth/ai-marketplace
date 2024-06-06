@@ -4,7 +4,7 @@ import Image from "next/image";
 import data from "@/domain/creator/create_agent/__mock__/agent.json";
 import ButtonNext from "@/components/ButtonNext";
 import InputDetial from "@/components/InputDetial";
-import Dropdown from "@/components/Dropdown_use_agent";
+import Dropdown from "@/components/DropdownUseAgent";
 import Outputtext from "@/components/Outputtext";
 // import Reverse_button from "@/components/Reverse_button"
 const useAgent = () => {
