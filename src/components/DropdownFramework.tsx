@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Image from "next/image";
 import useDropdown from "./hooks/Dropdown.hook";
-import { RoleFrameworksInterface } from "@/models/interfaces/RoleFramework.interface";
-import { GetRoleFrameworks } from "@/services/api/RoleFrameworkAPI";
 import { Framework } from "@/models/interfaces/Framework.interface";
-import { useGlobal } from "@/context/context";
+import useDropdownFramwork from "./hooks/DropdownFramwork.hook";
 
 interface DropdownItemProps {
   label: string;
@@ -25,35 +23,8 @@ const Dropdown: React.FC<{
   label_name: string;
   data: Framework[];
 }> = ({ json_data, label_name, data }) => {
-  const [roles, setRoles] = useState<RoleFrameworksInterface[]>([]);
-  const [searchTerm, setSearchTerm] = useState<string>("");
-  const { role_framework_id, setRoleID } = useGlobal();
-  const handleGetRoleFrameworks = async () => {
-    const result = await GetRoleFrameworks();
-    if (result) {
-      // Sort roles by name in ascending order (A-Z)
-      const sortedRoles = result.roles.sort(
-        (a: RoleFrameworksInterface, b: RoleFrameworksInterface) =>
-          a.Name.localeCompare(b.Name)
-      );
-      console.log("sortedRoles",sortedRoles);
-      setRoles(sortedRoles);
-    }
-  };
-  const handlesetRoleID = (id: number) => {
-    setRoleID(id);
-  };
-
-  useEffect(() => {
-    handleGetRoleFrameworks();
-  }, []);
-
   const { DropdownItems } = useDropdown(data, json_data);
-
-  // Filter roles based on search term
-  const filteredRoles = roles.filter((role) =>
-    role.Name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const { DropdownFrameworkItems } = useDropdownFramwork();
 
   return (
     <div className="text-left p-[1px]">
@@ -61,11 +32,14 @@ const Dropdown: React.FC<{
       <div className="relative">
         <input
           type="text"
-          value={searchTerm}
+          value={DropdownFrameworkItems.searchTerm}
           onChange={(e) => {
-            setSearchTerm(e.target.value), DropdownItems.setIsOpen(true);
+            DropdownFrameworkItems.setSearchTerm(e.target.value),
+              DropdownItems.setIsOpen(true);
           }}
-          onClick={(e) => { DropdownItems.setIsOpen(true) }}
+          onClick={(e) => {
+            DropdownItems.setIsOpen(true);
+          }}
           placeholder="Search..."
           className="w-full p-2 text-[14px] text-gray-400 hover:bg-gray-500 rounded-lg bg-[#3D434A] ring-[0.2px] ring-white"
         />
@@ -83,32 +57,33 @@ const Dropdown: React.FC<{
         </button>
       </div>
 
-      {DropdownItems.isOpen && filteredRoles.length > 0 && (
-        <div
-          ref={DropdownItems.dropdownRef}
-          className="w-full origin-top-right right-0 rounded-md shadow-sm"
-        >
+      {DropdownItems.isOpen &&
+        DropdownFrameworkItems.filteredRoles.length > 0 && (
           <div
-            className="py-1"
-            role="menu"
-            aria-orientation="vertical"
-            aria-labelledby="options-menu"
+            ref={DropdownItems.dropdownRef}
+            className="w-full origin-top-right right-0 rounded-md shadow-sm"
           >
-            {filteredRoles.map((role, index) => (
-              <DropdownItem
-                key={index}
-                label={role.Name}
-                onSelect={() => {
-                  handlesetRoleID(Number(role.ID));
-                  DropdownItems.setNameList(role.Name);
-                  DropdownItems.setIsOpen(false);
-                  setSearchTerm(role.Name);
-                }}
-              />
-            ))}
+            <div
+              className="py-1"
+              role="menu"
+              aria-orientation="vertical"
+              aria-labelledby="options-menu"
+            >
+              {DropdownFrameworkItems.filteredRoles.map((role, index) => (
+                <DropdownItem
+                  key={index}
+                  label={role.Name}
+                  onSelect={() => {
+                    DropdownFrameworkItems.handlesetRoleID(Number(role.ID));
+                    DropdownItems.setNameList(role.Name);
+                    DropdownItems.setIsOpen(false);
+                    DropdownFrameworkItems.setSearchTerm(role.Name);
+                  }}
+                />
+              ))}
+            </div>
           </div>
-        </div>
-      )}
+        )}
     </div>
   );
 };

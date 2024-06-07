@@ -1,5 +1,3 @@
-import { PromptMessage } from "../types/agent.type";
-
 export interface AgentInterface {
   ID: number;
   Name: string;
