@@ -4,8 +4,9 @@ import ButtonNext from "@/components/ButtonNext";
 import GetAgent from "@/services/api/GetAgentID";
 import { useRouter } from "next/router";
 import Loading from "@/components/Loading";
-import  RoleCategory  from "@/components/RoleCategory";
+import RoleCategory from "@/components/RoleCategory";
 import FrameworkDetail from "@/components/FrameworkDetail";
+import ButtonChangeLanguage from "@/components/ButtonChangeLanguage"
 
 const AgentView = () => {
   const router = useRouter();
@@ -27,6 +28,7 @@ const AgentView = () => {
         <title>View Agent</title>
         <meta name="description" content="" />
       </Head>
+      <ButtonChangeLanguage />
       <div className="flex flex-col justify-between sm:w-[600px] h-full bg-[#33393F] overflow-hidden rounded-xl py-4 px-4 gap-4 mb-10">
         <div className="flex flex-col gap-12">
           <div className="flex flex-col justify-center items-center w-full h-full">

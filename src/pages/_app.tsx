@@ -5,6 +5,7 @@ import { Noto_Sans_Thai } from 'next/font/google'
 import FooterButton from "@/components/FooterButton";
 import Sidebar from "@/components/Sidebar";
 import { GlobalProvider } from "@/context/context";
+import { appWithTranslation } from 'next-i18next'
 
 const noto_sans_thai = Noto_Sans_Thai({ weight: '400', subsets: ['thai'] })
 
@@ -25,4 +26,4 @@ function App({ Component, pageProps }: AppProps) {
   );
 }
 
-export default App;
+export default appWithTranslation(App);

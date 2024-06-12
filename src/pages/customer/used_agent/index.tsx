@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import axios from "axios";
+import ButtonChangeLanguage from "@/components/ButtonChangeLanguage"
 
 const UsedAgent = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -47,6 +48,7 @@ const UsedAgent = () => {
         <title>List Agent</title>
         <meta name="description" content="List of recently used AI agents" />
       </Head>
+      <ButtonChangeLanguage />
       <div className="flex justify-center w-full mb-12">
         <div className="flex flex-col items-center mt-8 gap-4 md:w-[540px] lg:w-[940px] w-full">
           <h1 className="font-bold text-white text-[25px] mb-4">AI ที่ใช้งานล่าสุด</h1>

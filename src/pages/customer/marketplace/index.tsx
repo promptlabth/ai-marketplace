@@ -6,6 +6,7 @@ import GetRole from "@/services/api/GetRole";
 import Link from "next/link";
 import Image from "next/image";
 import Loading from "@/components/Loading";
+import ButtonChangeLanguage from "@/components/ButtonChangeLanguage"
 
 const CreateAgent = () => {
   const { data, isLoading, error } = useAgents();
@@ -64,6 +65,7 @@ const CreateAgent = () => {
         <title>Marketplace Agent</title>
         <meta name="description" content="" />
       </Head>
+      <ButtonChangeLanguage />
       <div className="flex justify-center w-full flex-col items-center mb-12">
         <div className="flex flex-start w-full sm:w-[750px] mt-6">
           <SearchInput
