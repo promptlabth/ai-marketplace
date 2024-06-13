@@ -30,6 +30,7 @@ const CreateAgent = () => {
             <InputDetial
               detail="อธิบายเกี่ยวกับ AI ของคุณ"
               setValue={(value) => handleDesChangeAgentDescribe(value)}
+              promptValues=""
             />
             <div className="flex justify-around items-center w-full h-[20%] gap-4">
               <ButtonNext
