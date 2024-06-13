@@ -6,6 +6,8 @@ import CreatorLayout from "../CreatorLayout";
 import { useRouter } from 'next/navigation';
 import { useGlobal } from "@/context/context";
 import { CreatePostAgent } from "@/services/api/AgentAPI";
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useTranslation } from 'next-i18next'
 
 const EditAgent = () => {
   const {
@@ -17,6 +19,7 @@ const EditAgent = () => {
     framework_id,
   } = useGlobal();
 
+  const { t } = useTranslation('common')
 
   const router = useRouter();
   console.log(">> agent_describe", agent_describe);
@@ -59,6 +62,7 @@ const EditAgent = () => {
               >
                 สร้าง
               </button>
+              <h1 className="font-extrabold  text-[40px] bg-clip-text text-transparent bg-gradient-to-r from-[#02F6A9] to-[#0DC19A]">{t('test')}</h1>
               <ButtonCancle name_button="ย้อนกลับ" />
             </div>
           </div>
@@ -69,3 +73,10 @@ const EditAgent = () => {
 };
 
 export default EditAgent;
+
+
+export const getServerSideProps = async ({ locale }: any) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ["common"])),
+  },
+});
