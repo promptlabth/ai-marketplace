@@ -71,6 +71,7 @@ const useFrameworks = () => {
         return [
           {
             expectation: promptFramwork.expectation,
+            action: promptFramwork.action,
           },
         ];
       case "RPPPP":
@@ -101,6 +102,7 @@ const useFrameworks = () => {
       "promise",
       "prove",
       "proposal",
+      "action"
     ];
     return initialPromptKeys.includes(key as keyof InitialsPeompt)
       ? (key as keyof InitialsPeompt)

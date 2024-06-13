@@ -13,6 +13,7 @@ export interface InitialsPeompt {
   promise: string;
   prove: string;
   proposal: string;
+  action: string;
 }
 
 export const initialPrompt: InitialsPeompt = {
@@ -29,4 +30,5 @@ export const initialPrompt: InitialsPeompt = {
   promise: "",
   prove: "",
   proposal: "",
+  action: "",
 };
