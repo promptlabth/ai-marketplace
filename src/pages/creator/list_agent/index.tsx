@@ -5,8 +5,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { AgentInterface } from "@/models/interfaces/Agent.interface";
 
-
-
 const ListAgent = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [agents, setAgentList] = useState<AgentInterface[]>([]);
@@ -33,7 +31,6 @@ const ListAgent = () => {
   useEffect(() => {
     fetchData();
   }, []);
-
 
   const filteredAgents = agents.filter((agent: any) =>
     new RegExp(searchQuery, "i").test(agent.Name)
