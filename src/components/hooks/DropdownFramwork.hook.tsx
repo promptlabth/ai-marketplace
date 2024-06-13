@@ -23,11 +23,11 @@ const useDropdownFramwork = () => {
     setRoleID(id);
   };
 
-  // const handlesetShowAll = () => {
-  //   if (searchTerm == "") {
-  //     setShowAll(false);
-  //   } 
-  // };
+  const handlesetShowAll = () => {
+    if (searchTerm == "") {
+      setShowAll(false);
+    } 
+  };
 
   useEffect(() => {
     handleGetRoleFrameworks();
@@ -56,7 +56,7 @@ const useDropdownFramwork = () => {
       filteredRoles,
       displayedItems,
       showAll,
-      // handlesetShowAll,
+      handlesetShowAll,
       setShowAll
     },
   };

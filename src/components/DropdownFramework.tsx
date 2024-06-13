@@ -40,7 +40,7 @@ const Dropdown: React.FC<{
           }}
           onClick={() => {
             DropdownItems.setIsOpen(true);
-            // DropdownFrameworkItems.handlesetShowAll();
+            DropdownFrameworkItems.handlesetShowAll();
           }}
           placeholder="Search..."
           className="w-full p-2 text-[14px] text-gray-400 hover:bg-gray-500 rounded-lg bg-[#3D434A] ring-[0.2px] ring-white"
@@ -50,7 +50,7 @@ const Dropdown: React.FC<{
           className="absolute inset-y-0 right-0 flex items-center justify-center w-10 h-10 text-white"
           onClick={() => {
             DropdownItems.setIsOpen(!DropdownItems.isOpen)
-            // DropdownFrameworkItems.handlesetShowAll();
+            DropdownFrameworkItems.handlesetShowAll();
            }}
         >
           <Image
