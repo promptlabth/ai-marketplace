@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import useDropdown from "./hooks/Dropdown.hook";
 import { Framework } from "@/models/interfaces/Framework.interface";
 import useDropdownFramwork from "./hooks/DropdownFramwork.hook";
+import { RoleFrameworksInterface } from "@/models/interfaces/RoleFramework.interface";
 
 interface DropdownItemProps {
   label: string;
@@ -37,8 +38,9 @@ const Dropdown: React.FC<{
             DropdownFrameworkItems.setSearchTerm(e.target.value),
               DropdownItems.setIsOpen(true);
           }}
-          onClick={(e) => {
+          onClick={() => {
             DropdownItems.setIsOpen(true);
+            // DropdownFrameworkItems.handlesetShowAll();
           }}
           placeholder="Search..."
           className="w-full p-2 text-[14px] text-gray-400 hover:bg-gray-500 rounded-lg bg-[#3D434A] ring-[0.2px] ring-white"
@@ -46,7 +48,10 @@ const Dropdown: React.FC<{
         <button
           ref={DropdownItems.toggleRef}
           className="absolute inset-y-0 right-0 flex items-center justify-center w-10 h-10 text-white"
-          onClick={() => DropdownItems.setIsOpen(!DropdownItems.isOpen)}
+          onClick={() => {
+            DropdownItems.setIsOpen(!DropdownItems.isOpen)
+            // DropdownFrameworkItems.handlesetShowAll();
+           }}
         >
           <Image
             src="/png/arrowdown.png"
@@ -69,7 +74,7 @@ const Dropdown: React.FC<{
               aria-orientation="vertical"
               aria-labelledby="options-menu"
             >
-              {DropdownFrameworkItems.filteredRoles.map((role, index) => (
+              {DropdownFrameworkItems.displayedItems.map((role, index) => (
                 <DropdownItem
                   key={index}
                   label={role.Name}
@@ -78,9 +83,16 @@ const Dropdown: React.FC<{
                     DropdownItems.setNameList(role.Name);
                     DropdownItems.setIsOpen(false);
                     DropdownFrameworkItems.setSearchTerm(role.Name);
+                    // DropdownFrameworkItems.handlesetShowAll();
                   }}
                 />
               ))}
+              {!DropdownFrameworkItems.showAll && (
+                  <DropdownItem
+                    label="..."
+                    onSelect={() => DropdownFrameworkItems.setShowAll(true)}
+                  />
+                )}
             </div>
           </div>
         )}

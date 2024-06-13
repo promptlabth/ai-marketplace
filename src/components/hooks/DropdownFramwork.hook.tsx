@@ -5,8 +5,9 @@ import { useGlobal } from "@/context/context";
 const useDropdownFramwork = () => {
   const [roles, setRoles] = useState<RoleFrameworksInterface[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>("");
-const { role_framework_id, setRoleID } = useGlobal();
-    
+  const {setRoleID } = useGlobal();
+  const [showAll, setShowAll] = useState(false);
+
   const handleGetRoleFrameworks = async () => {
     const result = await GetRoleFrameworks();
     if (result) {
@@ -22,14 +23,30 @@ const { role_framework_id, setRoleID } = useGlobal();
     setRoleID(id);
   };
 
+  // const handlesetShowAll = () => {
+  //   if (searchTerm == "") {
+  //     setShowAll(false);
+  //   } 
+  // };
+
   useEffect(() => {
     handleGetRoleFrameworks();
   }, []);
 
+  useEffect(() => {
+    if (searchTerm != "") {
+       setShowAll(true);
+    } else {
+      setShowAll(false);
+    }
+  }, [searchTerm]);
+
   const filteredRoles = roles.filter((role) =>
     role.Name.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
+  const displayedItems = showAll
+    ? filteredRoles
+    : filteredRoles.slice(0, 5);
   return {
     DropdownFrameworkItems: {
       roles,
@@ -37,6 +54,10 @@ const { role_framework_id, setRoleID } = useGlobal();
       setSearchTerm,
       handlesetRoleID,
       filteredRoles,
+      displayedItems,
+      showAll,
+      // handlesetShowAll,
+      setShowAll
     },
   };
 };
