@@ -1,6 +1,6 @@
 import React from "react";
 import Dropdown from "@/components/DropdownFramework";
-import InputDetial from "@/components/InputDetial";
+import InputDetail from "./InputDetial";
 import useFrameworks from "./hooks/Framework.hook";
 
 const FrameworkComponent = () => {
@@ -11,7 +11,7 @@ const FrameworkComponent = () => {
       <p className="text-white">เลือก Framework ของ AI</p>
       <div className="snap-x snap-mandatory overflow-auto">
         <div className="flex flex-row xl:justify-center space-x-2 p-2">
-          {FrameworkItems.data.length != 0 ? (
+          {FrameworkItems.data.length !== 0 ? (
             FrameworkItems.data.map((framework, index) => (
               <button
                 key={index}
@@ -32,51 +32,58 @@ const FrameworkComponent = () => {
           )}
         </div>
       </div>
-      {FrameworkItems.data.length != 0 ?
-      <div className="flex w-full flex-col gap-3 overflow-x-auto">
-        <p className="p-2 mt-4 text-white text-[12px] border-b-2">
-          {FrameworkItems.selectedFrameworkDetails?.Detail}
-        </p>
-        {FrameworkItems.selectedFrameworkDetails?.Component?.map(
-          (comp, index) => {
-            switch (comp.type) {
-              case "dropdown":
-                return (
-                  <Dropdown
-                    key={index}
-                    json_data={FrameworkItems.nameframework}
-                    data={FrameworkItems.data}
-                    label_name={comp.label}
-                  />
-                );
-              case "add_text":
-                return (
-                  <InputDetial
-                    key={index}
-                    detail={comp.label}
-                    setValue={(e) => {
-                      if (
-                        Object.keys(FrameworkItems.InitialsPeompt).includes(
-                          comp.key
-                        )
-                      ) {
-                        FrameworkItems.handleSetPromptFramwork(
-                          index,
-                          e,
-                          comp.key as keyof typeof FrameworkItems.InitialsPeompt
-                        );
-                      } else {
-                        console.error(`Invalid property name: ${comp.key}`);
+      {FrameworkItems.data.length !== 0 ? (
+        <div className="flex w-full flex-col gap-3 overflow-x-auto">
+          <p className="p-2 mt-4 text-white text-[12px] border-b-2">
+            {FrameworkItems.selectedFrameworkDetails?.Detail}
+          </p>
+          {FrameworkItems.selectedFrameworkDetails?.Component?.map(
+            (comp, index) => {
+              switch (comp.type) {
+                case "dropdown":
+                  return (
+                    <Dropdown
+                      key={index}
+                      json_data={FrameworkItems.nameframework}
+                      data={FrameworkItems.data}
+                      label_name={comp.label}
+                    />
+                  );
+                case "add_text":
+                  return (
+                    <InputDetail
+                      key={index}
+                      detail={comp.label}
+                      promptValues={
+                        FrameworkItems.promptFramwork[
+                          FrameworkItems.isKeyOfInitialsPeompt(comp.key)?? "context"
+                        ]
                       }
-                    }}
-                  />
-                );
-              default:
-                return null;
+                      setValue={(value: string) => {
+                        if (
+                          Object.keys(FrameworkItems.initialPrompt).includes(
+                            comp.key
+                          )
+                        ) {
+                          FrameworkItems.handleSetPromptFramwork(
+                            value,
+                            comp.key as keyof typeof FrameworkItems.initialPrompt
+                          );
+                        } else {
+                          console.error(`Invalid property name: ${comp.key}`);
+                        }
+                      }}
+                    />
+                  );
+                default:
+                  return null;
+              }
             }
-          }
-        )}
-      </div> : <></>}
+          )}
+        </div>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

@@ -3,6 +3,7 @@ import { GetFrameworks } from "@/services/api/FrameworkAPI";
 import { Framework } from "@/models/interfaces/Framework.interface";
 
 import { useGlobal } from "@/context/context";
+import { InitialsPeompt, initialPrompt } from "@/models/interfaces/InitialsPeompt.interface";
 
 const useFrameworks = () => {
   const [data, setData] = useState<Framework[]>([]);
@@ -20,30 +21,14 @@ const useFrameworks = () => {
     }
   };
 
-  const InitialsPeompt = {
-    instruction: "",
-    context: "",
-    example: "",
-    execute: "",
-    additionalProperty: "",
-    propose: "",
-    expectation: "",
-    task: "",
-    goal: "",
-    problem: "",
-    promise: "",
-    prove: "",
-    proposal: "",
-  };
-
-  const [promptFramwork, setPromptFramwork] = useState(InitialsPeompt);
+  const [promptFramwork, setPromptFramwork] =
+    useState<InitialsPeompt>(initialPrompt);
 
   const { setFramworkID, setPrompt } = useGlobal();
 
   const handleSetPromptFramwork = (
-    index: number,
     value: string,
-    key: keyof typeof InitialsPeompt
+    key: keyof typeof initialPrompt
   ) => {
     if (!promptFramwork || Object.keys(promptFramwork).length === 0) {
       console.log("promptFramwork is null or empty");
@@ -101,6 +86,27 @@ const useFrameworks = () => {
         return [];
     }
   };
+  const isKeyOfInitialsPeompt = (key: string): keyof InitialsPeompt | null => {
+    const initialPromptKeys: (keyof InitialsPeompt)[] = [
+      "instruction",
+      "context",
+      "example",
+      "execute",
+      "additionalProperty",
+      "propose",
+      "expectation",
+      "task",
+      "goal",
+      "problem",
+      "promise",
+      "prove",
+      "proposal",
+    ];
+    return initialPromptKeys.includes(key as keyof InitialsPeompt)
+      ? (key as keyof InitialsPeompt)
+      : null;
+  };
+
   const handleSetPrompt = () => {
     setPrompt(RenderComponent(nameframework)[0]);
   };
@@ -135,8 +141,10 @@ const useFrameworks = () => {
       data,
       nameframework,
       selectedFrameworkDetails,
-      InitialsPeompt,
+      initialPrompt,
       handleSetPromptFramwork,
+      promptFramwork,
+      isKeyOfInitialsPeompt,
     },
   };
 };
