@@ -10,7 +10,7 @@ const FrameworkComponent = () => {
     <div className="flex flex-col w-full h-full">
       <p className="text-white">เลือก Framework ของ AI</p>
       <div className="snap-x snap-mandatory overflow-auto">
-        <div className="flex flex-row xl:justify-center space-x-2 p-2">
+        <div className="flex flex-row xl:justify-center space-x-2 p-2 scroll-container">
           {FrameworkItems.data.length !== 0 ? (
             FrameworkItems.data.map((framework, index) => (
               <button
