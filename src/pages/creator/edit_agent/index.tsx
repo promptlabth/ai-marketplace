@@ -2,12 +2,14 @@ import ButtonCancle from "@/components/ButtonCancle";
 import Framework from "@/components/Framework";
 import Head from "next/head";
 import React from "react";
-import CreatorLayout from "../CreatorLayout";
 import { useRouter } from 'next/navigation';
 import { useGlobal } from "@/context/context";
 import { CreatePostAgent } from "@/services/api/AgentAPI";
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
+import StudioMenu from "@/components/StudioiMenu";
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import ButtonChangeLanguage from "@/components/ButtonChangeLanguage"
+
 
 const EditAgent = () => {
   const {
@@ -46,29 +48,32 @@ const EditAgent = () => {
   };
 
   return (
-    <CreatorLayout>
-      <div className="bg-[#212529] p-4 min-h-screen flex justify-center items-center">
-        <Head>
-          <title>Edit Agent</title>
-          <meta name="description" content="" />
-        </Head>
-        <div className="flex flex-col w-full min-h-screen sm:w-[650px] bg-[#33393F] rounded-xl gap-2 mb-12">
-          <div className="gap-2 p-2">
-            <Framework />
-            <div className="flex justify-around items-center w-full gap-2 pt-2">
-              <button
-                onClick={handleCreateAgent}
-                className="flex-auto hover:bg-[#03FFAB] hover:text-white focus:bg-[#03FFAB] sm:text-[17px] sm:font-bold focus:text-black h-[40px] w-full ring-2 ring-[#03FFAB] ring-inset rounded-full text-[12px] text-[#03FFAB]"
-              >
-                สร้าง
-              </button>
-              <h1 className="font-extrabold  text-[40px] bg-clip-text text-transparent bg-gradient-to-r from-[#02F6A9] to-[#0DC19A]">{t('test')}</h1>
-              <ButtonCancle name_button="ย้อนกลับ" />
-            </div>
+    <div className="bg-[#212529] p-4 min-h-screen flex justify-center items-center">
+      <Head>
+        <title>Edit Agent</title>
+        <meta name="description" content="" />
+      </Head>
+      <div className="absolute top-4 right-4">
+        <div className="flex gap-2">
+          <ButtonChangeLanguage />
+          <StudioMenu />
+        </div>
+      </div>
+      <div className="flex flex-col w-full min-h-screen sm:w-[650px] bg-[#33393F] rounded-xl gap-2 mb-12">
+        <div className="gap-2 p-2">
+          <Framework />
+          <div className="flex justify-around items-center w-full gap-2 pt-2">
+            <button
+              onClick={handleCreateAgent}
+              className="flex-auto hover:bg-[#03FFAB] hover:text-white focus:bg-[#03FFAB] sm:text-[17px] sm:font-bold focus:text-black h-[40px] w-full ring-2 ring-[#03FFAB] ring-inset rounded-full text-[12px] text-[#03FFAB]"
+            >
+              สร้าง
+            </button>
+            <ButtonCancle name_button="ย้อนกลับ" />
           </div>
         </div>
       </div>
-    </CreatorLayout>
+    </div>
   );
 };
 

@@ -7,6 +7,8 @@ import Loading from "@/components/Loading";
 import RoleCategory from "@/components/RoleCategory";
 import FrameworkDetail from "@/components/FrameworkDetail";
 import ButtonChangeLanguage from "@/components/ButtonChangeLanguage"
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
 
 const AgentView = () => {
   const router = useRouter();
@@ -28,7 +30,11 @@ const AgentView = () => {
         <title>View Agent</title>
         <meta name="description" content="" />
       </Head>
-      <ButtonChangeLanguage />
+      <div className="absolute top-4 right-4">
+        <div className="flex gap-2">
+          <ButtonChangeLanguage />
+        </div>
+      </div>
       <div className="flex flex-col justify-between sm:w-[600px] h-full bg-[#33393F] overflow-hidden rounded-xl py-4 px-4 gap-4 mb-10">
         <div className="flex flex-col gap-12">
           <div className="flex flex-col justify-center items-center w-full h-full">
@@ -59,3 +65,8 @@ const AgentView = () => {
 
 export default AgentView;
 
+export const getServerSideProps = async ({ locale }: any) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ["common"])),
+  },
+});

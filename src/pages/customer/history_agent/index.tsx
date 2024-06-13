@@ -4,6 +4,9 @@ import Image from "next/image";
 import data from "@/domain/customer/history_agent/__mock__/history_agent.json";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowUp } from "react-icons/io";
+import ButtonChangeLanguage from "@/components/ButtonChangeLanguage"
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
 
 const AgentHistory = () => {
   const [openStates, setOpenStates] = useState(
@@ -22,7 +25,11 @@ const AgentHistory = () => {
         <title>View Agent</title>
         <meta name="description" content="" />
       </Head>
-      <div className="flex flex-col justify-between sm:w-[600px] w-full min-h-screen bg-[#33393F] rounded-xl py-4 px-4 gap-4 mb-10">
+      <div className="absolute top-4 right-4">
+        <div className="flex gap-2">
+          <ButtonChangeLanguage />
+        </div>
+      </div>      <div className="flex flex-col justify-between sm:w-[600px] w-full min-h-screen bg-[#33393F] rounded-xl py-4 px-4 gap-4 mb-10">
         <div className="flex flex-col gap-12">
           <div className="flex flex-col justify-center items-center w-full h-full">
             <Image src="/judment.svg" alt="" width={100} height={100} />
@@ -60,3 +67,9 @@ const AgentHistory = () => {
 }
 
 export default AgentHistory;
+
+export const getServerSideProps = async ({ locale }: any) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ["common"])),
+  },
+});

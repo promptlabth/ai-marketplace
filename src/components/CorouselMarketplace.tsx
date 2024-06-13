@@ -2,7 +2,6 @@ import React from 'react';
 import { Carousel } from '@material-tailwind/react';
 import Image from 'next/image';
 import { MdScience } from "react-icons/md";
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
 
 const CarouselMarketplace: React.FC = () => {
@@ -26,10 +25,11 @@ const CarouselMarketplace: React.FC = () => {
                 <MdScience color='white' size={40} />
             </div>
             <div className='flex flex-col justify-center items-center h-full w-full'>
-                    <button className='flex items-center justify-center h-full w-full underline text-xl text-white hover:scale-105 focus:scale-105'>{t('components.carouselmarketplace.try')}</button>
+                <button className='flex items-center justify-center h-full w-full underline text-xl text-white hover:scale-105 focus:scale-105'>{t('components.carouselmarketplace.try')}</button>
             </div>
         </Carousel>
     );
 };
 
 export default CarouselMarketplace;
+

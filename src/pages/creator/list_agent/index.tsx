@@ -1,19 +1,22 @@
 import Head from 'next/head';
-import CreatorLayout from "../CreatorLayout";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { AgentInterface } from "@/models/interfaces/Agent.interface";
+import StudioMenu from "@/components/StudioiMenu";
+import ButtonChangeLanguage from "@/components/ButtonChangeLanguage"
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
 
 const ListAgent = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [agents, setAgentList] = useState<AgentInterface[]>([]);
 
-  const handleSearchChange = (e:any) => {
+  const handleSearchChange = (e: any) => {
     setSearchQuery(e.target.value);
   };
 
-  const mock_firebase_id = "u123"; 
+  const mock_firebase_id = "u123";
 
   const fetchData = async () => {
     try {
@@ -27,7 +30,7 @@ const ListAgent = () => {
       console.error("Error Get agentList", error);
     }
   };
-  
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -36,13 +39,19 @@ const ListAgent = () => {
     new RegExp(searchQuery, "i").test(agent.Name)
   );
   console.log("agents:", agents);
+
   return (
-    <CreatorLayout>
-      <div className="flex flex-col bg-[#212529] min-h-screen overflow-y-auto p-6">
+    <div className="flex flex-col bg-[#212529] min-h-screen overflow-y-auto p-6">
       <Head>
         <title>List Agent</title>
         <meta name="description" content="List of recently used AI agents" />
       </Head>
+      <div className="absolute top-4 right-4">
+        <div className="flex gap-2">
+          <ButtonChangeLanguage />
+          <StudioMenu />
+        </div>
+      </div>
       <div className="flex justify-center w-full mb-12">
         <div className="flex flex-col items-center mt-8 gap-4 md:w-[540px] lg:w-[940px] w-full">
           <h1 className="font-bold text-white text-[25px] mb-4">AI ที่ใช้งานล่าสุด</h1>
@@ -56,7 +65,7 @@ const ListAgent = () => {
             />
           </div>
           <div className="flex flex-wrap justify-center gap-4 w-full mt-4">
-            {filteredAgents.map((agent:any, index:number) => (
+            {filteredAgents.map((agent: any, index: number) => (
               <Link
                 href="/creator/dashboard_agent"
                 key={index}
@@ -67,7 +76,7 @@ const ListAgent = () => {
                 </div>
                 <div className="text-center">
                   <p className="text-white font-bold text-[15px] mb-1">{agent.Name}</p>
-                
+
                 </div>
               </Link>
             ))}
@@ -75,8 +84,14 @@ const ListAgent = () => {
         </div>
       </div>
     </div>
-    </CreatorLayout>
   );
 }
 
 export default ListAgent;
+
+
+export const getServerSideProps = async ({ locale }: any) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ["common"])),
+  },
+});

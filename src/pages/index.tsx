@@ -1,10 +1,10 @@
 
 import CarouselMarketplace from "@/components/CorouselMarketplace";
 import Link from "next/link";
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
 import ButtonChangeLanguage from "@/components/ButtonChangeLanguage"
 import Head from 'next/head';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 
 export default function Home() {
@@ -16,7 +16,11 @@ export default function Home() {
         <title>Prompt Marketplace</title>
         <meta name="description" content="" />
       </Head>
-      <ButtonChangeLanguage />
+      <div className="absolute top-4 right-4">
+        <div className="flex gap-2">
+          <ButtonChangeLanguage />
+        </div>
+      </div>
       <div className="flex items-center flex-col bg-[#212529] h-full mb-16">
         <div className="flex flex-col items-center justify-center pt-12">
           <h1 className="font-extrabold  text-[30px] bg-clip-text text-transparent bg-gradient-to-r from-[#02F6A9] to-[#0DC19A]">Prompt Lab</h1>
