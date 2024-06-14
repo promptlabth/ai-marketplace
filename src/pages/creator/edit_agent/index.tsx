@@ -4,6 +4,8 @@ import Head from "next/head";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import useEditAgents from "@/components/hooks/EditAgent.hook";
+import ButtonChangeLanguage from "@/components/ButtonChangeLanguage";
+import StudioMenu from "@/components/StudioiMenu";
 
 const EditAgent = () => {
   const { EditAgentItems } = useEditAgents();
@@ -15,6 +17,12 @@ const EditAgent = () => {
         <title>{t("editAagent.title")}</title>
         <meta name="description" content="" />
       </Head>
+      <div className="absolute top-4 right-4">
+        <div className="flex gap-2">
+          <ButtonChangeLanguage />
+          <StudioMenu />
+        </div>
+      </div>
       <div className="flex flex-col w-full min-h-screen sm:w-[650px] bg-[#33393F] rounded-xl gap-2 mb-12">
         <div className="gap-2 p-2">
           <Framework translations={t} />
