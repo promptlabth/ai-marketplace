@@ -27,7 +27,7 @@ export default function ButtonChangeLanguage() {
     }, [locale, router]);
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col animate-fade-down">
             <div>
                 <button
                     onClick={() => setIsOpen(!isOpen)}
