@@ -4,7 +4,6 @@ import { MdOutlineFormatListBulleted } from "react-icons/md";
 import { BsCart2 } from "react-icons/bs";
 import { RiHome2Line } from "react-icons/ri";
 import { MdOutlineAddBox } from "react-icons/md";
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
 const Sidebar: React.FC = () => {
     const router = useRouter();
