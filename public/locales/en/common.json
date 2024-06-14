@@ -1,12 +1,12 @@
 {
     "test": "test",
     "language": "Language",
-
     "listAgent.creator.title":"List Agent",
     "listAgent.creator.recentlyUseAI":"Recently used AI",
-    "listAgent.creator.placeholder.search":"search your AI",
+    "listAgent.creator.placeholder.search":"Search your AI",
     "editAagent.title":"Edit Agent",
     "button.create":"Create",
+    "button.back":"Back",
     "editAagent.framework.title":"Select AI Framework",
     "home.title.sub.head": "Create AI in various forms by yourself",
     "home.title.carousel": "There are various types of AI for you to try",
