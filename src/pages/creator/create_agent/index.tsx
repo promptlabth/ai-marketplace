@@ -5,9 +5,9 @@ import ImageUpload from "@/components/ImageUpload";
 import InputDetial from "@/components/InputDetial";
 import Head from "next/head";
 import { useGlobal } from "@/context/context";
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import StudioMenu from "@/components/StudioiMenu";
-import ButtonChangeLanguage from "@/components/ButtonChangeLanguage"
+import ButtonChangeLanguage from "@/components/ButtonChangeLanguage";
 
 const CreateAgent = () => {
   const { setAgentDescribe } = useGlobal();
@@ -18,20 +18,6 @@ const CreateAgent = () => {
   };
 
   return (
-    <CreatorLayout>
-      <div className="bg-[#212529] p-6 flex justify-center">
-        <Head>
-          <title>Create Agent</title>
-          <meta name="description" content="Create your AI agent" />
-        </Head>
-        <div className="flex flex-col w-full sm:w-[700px] min-h-screen rounded-xl py-4 gap-4">
-          <div className="flex flex-col gap-4 h-[80%]">
-            <InputNameAgent name_label="ตั้งชื่อ AI ของคุณ" />
-            <ImageUpload />
-            <InputDetial
-              detail="อธิบายเกี่ยวกับ AI ของคุณ"
-              promptValues={""}
-              setValue={(value) => handleDesChangeAgentDescribe(value)}
     <div className="bg-[#212529] p-6 flex justify-center">
       <Head>
         <title>Create Agent</title>
@@ -53,10 +39,7 @@ const CreateAgent = () => {
             promptValues=""
           />
           <div className="flex justify-around items-center w-full h-[20%] gap-4">
-            <ButtonNext
-              name_button="ถัดไป"
-              route_page="/creator/edit_agent"
-            />
+            <ButtonNext name_button="ถัดไป" route_page="/creator/edit_agent" />
             <ButtonCancle name_button="ย้อนกลับ" />
           </div>
         </div>
