@@ -7,6 +7,9 @@ import Link from "next/link";
 import Image from "next/image";
 import Loading from "@/components/Loading";
 import ButtonChangeLanguage from "@/components/ButtonChangeLanguage"
+import RoleButton from "@/components/marketplace/RoleButton";
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
 
 const CreateAgent = () => {
   const { data, isLoading, error } = useAgents();
@@ -65,7 +68,11 @@ const CreateAgent = () => {
         <title>Marketplace Agent</title>
         <meta name="description" content="" />
       </Head>
-      <ButtonChangeLanguage />
+      <div className="absolute top-4 right-8">
+        <div className="flex gap-2">
+          <ButtonChangeLanguage />
+        </div>
+      </div>
       <div className="flex justify-center w-full flex-col items-center mb-12">
         <div className="flex flex-start w-full sm:w-[750px] mt-6">
           <SearchInput
@@ -84,7 +91,6 @@ const CreateAgent = () => {
               roleFrameID={roleFrameID}
               onClick={handleCategoryClick}
             />
-            // <p key={index}>{roleFrameID}</p>
           ))}
         </div>
 
@@ -113,27 +119,6 @@ const CreateAgent = () => {
         </div>
       </div>
     </div>
-  );
-};
-
-const RoleButton = ({
-  roleFrameID,
-  onClick,
-}: {
-  roleFrameID: number;
-  onClick: (roleFrameID: number) => void;
-}) => {
-  const { roleName, isLoading, error } = GetRole(roleFrameID);
-  if (isLoading) return null;
-  if (error) return null;
-
-  return (
-    <button
-      onClick={() => onClick(roleFrameID)}
-      className="flex-none p-2 border-2 border-[#03FFAB] w-fit h-fit rounded hover:bg-[#03FFAB] focus:bg-[#03FFAB] text-sm text-[#03FFAB] focus:text-black hover:text-black scroll-item"
-    >
-      {roleName}
-    </button>
   );
 };
 
@@ -179,3 +164,10 @@ const RoleCategory = ({ roleFrameID, agents }: { roleFrameID: number, agents: an
 };
 
 export default CreateAgent;
+
+
+export const getServerSideProps = async ({ locale }: any) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ["common"])),
+  },
+});

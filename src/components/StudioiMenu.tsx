@@ -37,7 +37,7 @@ const StudioMenu = () => {
     }
 
     return (
-        <div className="fixed top-5 right-8">
+        <div>
             <Menu isOpen={open} />
             <button onClick={toggleMenu} className='flex focus:scale-95 hover:scale-95'>
                 <RiMenu4Fill size={30} color='#03FFAB' />

@@ -6,6 +6,9 @@ import ButtonNext from "@/components/ButtonNext";
 import InputDetial from "@/components/InputDetial";
 import Dropdown from "@/components/DropdownUseAgent";
 import Outputtext from "@/components/Outputtext";
+import ButtonChangeLanguage from "@/components/ButtonChangeLanguage"
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
 // import Reverse_button from "@/components/Reverse_button"
 const useAgent = () => {
   return (
@@ -14,6 +17,11 @@ const useAgent = () => {
         <title>Use Agent</title>
         <meta name="description" content="" />
       </Head>
+      <div className="absolute top-4 right-4">
+        <div className="flex gap-2">
+          <ButtonChangeLanguage />
+        </div>
+      </div>
       <div className="flex flex-col sm:w-[600px] w-full min-h-screen bg-[#33393F] rounded-xl py-4 px-4 gap-4 mb-10">
         {/* เก็บไว้เผื่อได้กลับมาใช้ */}
         {/* <Reverse_button route_path="/" /> */}
@@ -36,3 +44,10 @@ const useAgent = () => {
 }
 
 export default useAgent;
+
+
+export const getServerSideProps = async ({ locale }: any) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ["common"])),
+  },
+});

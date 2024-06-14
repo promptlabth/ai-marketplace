@@ -3,21 +3,22 @@ import Head from "next/head";
 import Link from "next/link";
 import axios from "axios";
 import ButtonChangeLanguage from "@/components/ButtonChangeLanguage"
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 const UsedAgent = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [agentList , setAgentList ] = useState<any>(null);
+  const [agentList, setAgentList] = useState<any>(null);
 
   // Handler for search input change
-  const handleSearchChange = (e:any) => {
+  const handleSearchChange = (e: any) => {
     setSearchQuery(e.target.value);
   };
 
-  const mock_firebase_id = "firebase_001"; 
+  const mock_firebase_id = "firebase_001";
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`http://localhost:8081/creator/${mock_firebase_id}`);
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/creator/${mock_firebase_id}`);
       console.log("successfully:", response.data);
       // setAgentList(response.data);//ไอ้นี่ทํางานได้
       if (response.status === 200 && response.data.status === "success") {
@@ -28,7 +29,7 @@ const UsedAgent = () => {
       console.error("Error Get agentList", error);
     }
   };
-  
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -40,7 +41,7 @@ const UsedAgent = () => {
   const filteredAgents = agents.filter((agent: any) =>
     new RegExp(searchQuery, "i").test(agent.Name)
   );
-  
+
 
   return (
     <div className="flex flex-col bg-[#212529] min-h-screen overflow-y-auto p-6">
@@ -48,7 +49,11 @@ const UsedAgent = () => {
         <title>List Agent</title>
         <meta name="description" content="List of recently used AI agents" />
       </Head>
-      <ButtonChangeLanguage />
+      <div className="absolute top-4 right-4">
+        <div className="flex gap-2">
+          <ButtonChangeLanguage />
+        </div>
+      </div>
       <div className="flex justify-center w-full mb-12">
         <div className="flex flex-col items-center mt-8 gap-4 md:w-[540px] lg:w-[940px] w-full">
           <h1 className="font-bold text-white text-[25px] mb-4">AI ที่ใช้งานล่าสุด XD</h1>
@@ -62,7 +67,7 @@ const UsedAgent = () => {
             />
           </div>
           <div className="flex flex-wrap justify-center gap-4 w-full mt-4">
-            {filteredAgents.map((agent:any, index:number) => (
+            {filteredAgents.map((agent: any, index: number) => (
               <Link
                 href="/customer/history_agent"
                 key={index}
@@ -86,3 +91,10 @@ const UsedAgent = () => {
 };
 
 export default UsedAgent;
+
+
+export const getServerSideProps = async ({ locale }: any) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ["common"])),
+  },
+});
