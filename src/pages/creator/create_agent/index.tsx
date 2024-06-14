@@ -29,6 +29,7 @@ const CreateAgent = () => {
             <ImageUpload />
             <InputDetial
               detail="อธิบายเกี่ยวกับ AI ของคุณ"
+              promptValues={""}
               setValue={(value) => handleDesChangeAgentDescribe(value)}
             />
             <div className="flex justify-around items-center w-full h-[20%] gap-4">

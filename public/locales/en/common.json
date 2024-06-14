@@ -1,4 +1,11 @@
 {
     "test": "test",
-    "language": "Language"
+    "language": "Language",
+
+    "listAgent.creator.title":"List Agent",
+    "listAgent.creator.recentlyUseAI":"Recently used AI",
+    "listAgent.creator.placeholder.search":"search your AI",
+    "editAagent.title":"Edit Agent",
+    "button.create":"Create",
+    "editAagent.framework.title":"Select AI Framework"
 }

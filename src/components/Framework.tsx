@@ -2,13 +2,17 @@ import React from "react";
 import Dropdown from "@/components/DropdownFramework";
 import InputDetail from "./InputDetial";
 import useFrameworks from "./hooks/Framework.hook";
+import { TFunction } from "next-i18next";
 
-const FrameworkComponent = () => {
+interface FrameworkProps {
+  translations: TFunction;
+}
+
+const FrameworkComponent: React.FC<FrameworkProps> = ({ translations }) => {
   const { FrameworkItems } = useFrameworks();
-
   return (
     <div className="flex flex-col w-full h-full">
-      <p className="text-white">เลือก Framework ของ AI</p>
+      <p className="text-white">{translations("editAagent.framework.title")}</p>
       <div className="snap-x snap-mandatory overflow-auto">
         <div className="flex flex-row xl:justify-center space-x-2 p-2 scroll-container">
           {FrameworkItems.data.length !== 0 ? (
@@ -56,7 +60,8 @@ const FrameworkComponent = () => {
                       detail={comp.label}
                       promptValues={
                         FrameworkItems.promptFramwork[
-                          FrameworkItems.isKeyOfInitialsPeompt(comp.key)?? "context"
+                          FrameworkItems.isKeyOfInitialsPeompt(comp.key) ??
+                            "context"
                         ]
                       }
                       setValue={(value: string) => {

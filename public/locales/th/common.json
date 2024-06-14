@@ -1,4 +1,10 @@
 {
     "test": "ทดสอบ",
-    "language": "ภาษา"
+    "language": "ภาษา",
+    "listAgent.creator.title":"รายการ AI",
+    "listAgent.creator.recentlyUseAI":"AI ที่ใช้งานล่าสุด",
+    "listAgent.creator.placeholder.search":"ค้นหา AI ของคุณ",
+    "editAagent.title":"แก้ไข Agent",
+    "button.create":"สร้าง",
+    "editAagent.framework.title":"เลือก Framework ของ AI"
 }
