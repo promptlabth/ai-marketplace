@@ -1,6 +1,6 @@
 import React from "react";
 import Dropdown from "@/components/DropdownFramework";
-import InputDetail from "./InputDetial";
+import InputDetailFramework from "./InputDetialFramework";
 import useFrameworks from "./hooks/Framework.hook";
 import { TFunction } from "next-i18next";
 
@@ -55,7 +55,7 @@ const FrameworkComponent: React.FC<FrameworkProps> = ({ translations }) => {
                   );
                 case "add_text":
                   return (
-                    <InputDetail
+                    <InputDetailFramework
                       key={index}
                       detail={comp.label}
                       promptValues={
