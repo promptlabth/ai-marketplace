@@ -16,11 +16,7 @@ const nextConfig = {
 
       return config;
   },
-  rewrites() {
-    return [
-      { source: '/:path*', destination: '/_next/:path*' }
-    ]
-  }
+  reactStrictMode: true,
   };
   
   module.exports = nextConfig
