@@ -3,26 +3,26 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 
 export default function ButtonChangeLanguage() {
-    const router = useRouter();
-    const { locale } = router;
-    const [isOpen, setIsOpen] = useState(false);
-    const [selectedLocale, setSelectedLocale] = useState(locale || 'th');
+    // const router = useRouter();
+    // const { locale } = router;
+    // const [isOpen, setIsOpen] = useState(false);
+    // const [selectedLocale, setSelectedLocale] = useState(locale || 'th');
 
-    const handleChangeLanguage = (newLocale: string) => {
-        setSelectedLocale(newLocale);
-        router.push(router.pathname, router.asPath, { locale: newLocale });
-        setIsOpen(false);
-    };
+    // const handleChangeLanguage = (newLocale: string) => {
+    //     setSelectedLocale(newLocale);
+    //     router.push(router.pathname, router.asPath, { locale: newLocale });
+    //     setIsOpen(false);
+    // };
 
-    useEffect(() => {
-        if (!locale) {
-            router.push(router.pathname, router.asPath, { locale: 'th' });
-        }
-    }, [locale, router]);
+    // useEffect(() => {
+    //     if (!locale) {
+    //         router.push(router.pathname, router.asPath, { locale: 'th' });
+    //     }
+    // }, [locale, router]);
 
     return (
         <div className="flex flex-col animate-fade-down">
-            <div>
+            {/* <div>
                 <button
                     onClick={() => setIsOpen(!isOpen)}
                     className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-gray-700 text-white text-sm font-medium hover:bg-gray-600 focus:outline-none"
@@ -60,7 +60,7 @@ export default function ButtonChangeLanguage() {
                         </li>
                     </ul>
                 </div>
-            )}
+            )} */}
 
             
         </div>
