@@ -40,7 +40,6 @@ const CreateAgent = () => {
           <InputDetial
             detail={t("create_agent.title.detail")}
             setValue={(value) => handleDesChangeAgentDescribe(value)}
-            promptValues=""
           />
           <div className="flex justify-around items-center w-full h-[20%] gap-4">
             <ButtonNext name_button={t("create_agent.button.next")} route_page="/creator/edit_agent" />
