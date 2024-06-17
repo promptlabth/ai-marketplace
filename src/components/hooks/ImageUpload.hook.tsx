@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useGlobal } from '@/context/context';
+import { useTranslation } from 'next-i18next';
 
 const useImageUpload = () => {
+  const { t } = useTranslation('common');
   const [file, setFile] = useState<File | null>(null);
   const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
-  const [fileName, setFileName] = useState<string>('ยังไม่ได้เลือกรูปโปรไฟล์');
+  const [fileName, setFileName] = useState<string>('');
   const { setAgentImage } = useGlobal();
+
+  useEffect(() => {
+    setFileName(t('create_agent.profile.select_status'));
+  }, [t]);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const fileList = event.target.files;

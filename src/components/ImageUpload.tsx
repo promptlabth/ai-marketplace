@@ -1,9 +1,12 @@
 
 import React from 'react';
 import useImageUpload from './hooks/ImageUpload.hook';
+import { useTranslation } from "next-i18next";
 
 const ImageUpload: React.FC = () => {
     const {uploadImage} = useImageUpload()
+
+    const { t } = useTranslation("common");
 
     return (
         <div className="flex flex-col items-center justify-center p-2 sm:items-start">
@@ -12,7 +15,7 @@ const ImageUpload: React.FC = () => {
                     {uploadImage.imagePreviewUrl ? (
                         <img src={uploadImage.imagePreviewUrl} alt="Preview" className="h-full w-full object-cover" />
                     ) : (
-                        <div className="text-white font-bold">เลือกโปรไฟล์</div>
+                        <div className="text-white font-bold">{t("create_agent.profile.select")}</div>
                     )}
                 </label>
                 <input id="file-upload" type="file" onChange={uploadImage.handleFileChange} accept="image/png" className="hidden" />
@@ -24,7 +27,7 @@ const ImageUpload: React.FC = () => {
                     {uploadImage.imagePreviewUrl ? (
                         <img src={uploadImage.imagePreviewUrl} alt="Preview" className="h-full w-full object-cover" />
                     ) : (
-                        <div className="text-white font-bold">เลือกโปรไฟล์</div>
+                        <div className="text-white font-bold">{t("create_agent.profile.select")}</div>
                     )}
                 </label>
                 <input id="file-upload" type="file" onChange={uploadImage.handleFileChange} accept="image/png" className="hidden" />

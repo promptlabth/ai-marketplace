@@ -35,5 +35,26 @@
     "components.sidebar.home": "Home",
     "components.sidebar.create_ai": "Create AI",
     "components.sidebar.list_ai": "List AI",
-    "components.sidebar.market_ai": "AI Shop"
-}
+    "components.sidebar.market_ai": "AI Shop",
+
+    "create_agent.title.agent_name": "Name your AI",
+    "create_agent.profile.select" : "Select profile",
+    "create_agent.profile.select_status" : "Profile picture not selected yet",
+    "create_agent.title.detail": "Describe your AI" ,
+    "create_agent.button.next": "Next" ,
+    "create_agent.button.prev": "Return" ,
+    "create_agent.APE.action" : "(Action) What profession would you like Agent's to perform actions with" ,
+    "create_agent.APE.propose" : "(Propose) Agent's objectives" ,
+    "create_agent.APE.expectation" : "(Expectation) Agent's outcomes/expectations" ,
+    "list_ai.customer.search_title" : "Recently used AI",
+    "list_ai.customer.search_placeholder" : "Search your AI",
+    "dashboard_overall.title.totalUsers": "Total Users",
+    "dashboard_overall.title.totalToday": "Users Today",
+    "dashboard_overall.graph_title.totalWeekPercent": "Week Growth",
+    "dashboard_overall.title.totalRevenue": "Total Revenue",
+    "dashboard_overall.graph_title.usersThisWeek": "Users this week",
+    "dashboard_overall.click_able.usersReport": "Users Report",
+    "dashboard_overall.title.revenueThisWeek": "Revenue this week",
+    "dashboard_overall.click_able.revenueReport": "Revenue Report",
+    "dashboard_overall.viewAgent": "View Agent"
+}  

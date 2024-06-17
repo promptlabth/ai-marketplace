@@ -4,11 +4,12 @@ import Link from "next/link";
 import axios from "axios";
 import ButtonChangeLanguage from "@/components/ButtonChangeLanguage"
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useTranslation } from "next-i18next";
 
 const UsedAgent = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [agentList, setAgentList] = useState<any>(null);
-
+  const { t } = useTranslation("common");
   // Handler for search input change
   const handleSearchChange = (e: any) => {
     setSearchQuery(e.target.value);
@@ -56,12 +57,12 @@ const UsedAgent = () => {
       </div>
       <div className="flex justify-center w-full mb-12">
         <div className="flex flex-col items-center mt-8 gap-4 md:w-[540px] lg:w-[940px] w-full">
-          <h1 className="font-bold text-white text-[25px] mb-4">AI ที่ใช้งานล่าสุด XD</h1>
+          <h1 className="font-bold text-white text-[25px] mb-4">{t("list_ai.customer.search_title")}</h1>
           <div className="w-full md:w-[540px] lg:w-[940px]">
             <input
               type="text"
               className="w-full px-4 py-2 rounded-lg border border-gray-300"
-              placeholder="ค้นหา AI ของคุณ"
+              placeholder={t("list_ai.customer.search_placeholder")}
               value={searchQuery}
               onChange={handleSearchChange}
             />
