@@ -9,6 +9,7 @@ import Loading from "@/components/Loading";
 import ButtonChangeLanguage from "@/components/ButtonChangeLanguage"
 import RoleButton from "@/components/marketplace/RoleButton";
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useTranslation } from "next-i18next";
 
 
 const CreateAgent = () => {
@@ -17,6 +18,8 @@ const CreateAgent = () => {
   const [filteredAgents, setFilteredAgents] = useState<any[]>([]);
   const categoryRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
   const [allRoles, setAllRoles] = useState<any[]>([]);
+  const { t } = useTranslation("common");
+
 
   useEffect(() => {
     if (data?.agents) {
@@ -76,7 +79,7 @@ const CreateAgent = () => {
       <div className="flex justify-center w-full flex-col items-center mb-12">
         <div className="flex flex-start w-full sm:w-[750px] mt-6">
           <SearchInput
-            name_label="ค้นหา AI ของคุณ"
+            name_label={t("customer.marketplace.input")}
             placeholder="Search"
             invisible=""
             onSearch={handleSearch}
@@ -103,7 +106,7 @@ const CreateAgent = () => {
             }
             className="text-white underline focus:text-gray-300 hover:text-gray-300 mt-4"
           >
-            ดูเพิ่มเติม
+            {t("customer.marketplace.more_role")}
           </button>
         </div>
         <div className="flex flex-col flex-initial w-full sm:w-[750px] items-center mt-4 gap-12">

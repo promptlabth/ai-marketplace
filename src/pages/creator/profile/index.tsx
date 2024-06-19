@@ -6,6 +6,8 @@ import Link from "next/link";
 import StudioMenu from "@/components/StudioiMenu";
 import ButtonChangeLanguage from "@/components/ButtonChangeLanguage"
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useTranslation } from 'next-i18next'
+
 
 interface Agent {
   name_agent: string;
@@ -27,6 +29,8 @@ interface ProfileData {
 const Profile = () => {
   const [agents, setAgents] = useState<Agent[]>([]);
   const profileData: ProfileData = data_profile;
+  const { t } = useTranslation('common')
+
 
   useEffect(() => {
     try {
@@ -75,16 +79,16 @@ const Profile = () => {
           <p className="text-white font-bold text-[15px]">{profileData.email}</p>
         </div>
         <div className="w-full h-full rounded-xl bg-[#33393F] p-6 pb-24">
-          <p className="text-white text-xl">จำนวน AI ที่สร้าง</p>
+          <p className="text-white text-xl">{t('creator.profile.ai_created')}</p>
           <div className="flex justify-between w-full">
-            <p className="text-white">{profileData.count_ai} ตัว</p>
+            <p className="text-white">{profileData.count_ai} {t('creator.profile.count_ai')}</p>
             <Link href="/creator/list_agent" className="underline text-white hover:text-gray-600 focus:text-gray-600">
-              ประวิติการสร้าง
+            {t('creator.profile.link')}
             </Link>
           </div>
-          <p className="mt-8 text-white text-xl">ประเภทของ AI ทั้งหมด</p>
+          <p className="mt-8 text-white text-xl"> {t('creator.profile.ai_type')}</p>
           <p className="text-white">{profileData.type_ai}</p>
-          <h1 className="text-white mt-8 text-xl">AI ที่ถูกใช้งานมากที่สุด</h1>
+          <h1 className="text-white mt-8 text-xl">{t('creator.profile.ai_used')}</h1>
           <div className='flex gap-4 flex-col'>
             {agents.map((agent, index) => (
               <div key={index} className={`flex ${getBackgrounMaindColor(index + 1)} p-2 rounded-lg w-full gap-2 justify-between items-center`}>

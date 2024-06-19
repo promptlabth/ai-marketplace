@@ -18,7 +18,7 @@ const StudioMenu = () => {
 
     const Menu: React.FC<{ isOpen: string }> = ({ isOpen }) => {
         return (
-            <div className={`fixed p-3 right-0 top-0 w-[250px] h-full z-50 bg-gray-700 ${isOpen}`}>
+            <div className={`fixed p-3 right-0 top-0 w-[250px] h-full z-50 bg-gray-700 ${isOpen} `} >
                 <button onClick={toggleMenu} className=' font-bold text-xl flex w-full text-white justify-end px-4 py-2'>x</button>
                 <div className='flex flex-col gap-2 w-full h-full'>
                     <button onClick={() => navigateTo('/creator/profile')} className={`flex justify-start w-full text-gray-200 p-2 hover:rounded-xl hover:border focus:rounded-xl focus:border ${isActive("/creator/profile")}`}>โปรไฟล์</button>
@@ -37,9 +37,9 @@ const StudioMenu = () => {
     }
 
     return (
-        <div>
+        <div >
             <Menu isOpen={open} />
-            <button onClick={toggleMenu} className='flex focus:scale-95 hover:scale-95'>
+            <button onClick={toggleMenu} className='flex focus:scale-95 hover:scale-95 animate-fade-down'>
                 <RiMenu4Fill size={30} color='#03FFAB' />
             </button>
         </div>

@@ -63,5 +63,15 @@
     "dashboard_overall.click_able.usersReport": "รายงานผู้ใช้งาน",
     "dashboard_overall.title.revenueThisWeek": "รายได้ในสัปดาห์นี้",
     "dashboard_overall.click_able.revenueReport": "รายงานรายได้",
-    "dashboard_overall.viewAgent": "ดู AI"
+    "dashboard_overall.viewAgent": "ดู AI",
+
+    "creator.profile.ai_created": "จำนวน AI ที่สร้าง",
+    "creator.profile.count_ai": "ตัว",
+    "creator.profile.link": "ประวิติการสร้าง",
+    "creator.profile.ai_type": "ประเภทของ AI ทั้งหมด",
+    "creator.profile.ai_used": "AI ที่ถูกใช้งานมากที่สุด",
+
+    "customer.marketplace.input": "ค้นหา AI ของคุณ",
+    "customer.marketplace.more_role": "ดูเพิ่มเติม"
+
 }
