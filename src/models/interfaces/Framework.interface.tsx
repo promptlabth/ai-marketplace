@@ -5,4 +5,5 @@ export interface Framework {
   Name: string;
   Detail: string;
   Component: JsonFrameworkMessage[];
+  Language: string;
 }

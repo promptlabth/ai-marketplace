@@ -12,7 +12,7 @@ const FrameworkComponent: React.FC<FrameworkProps> = ({ translations }) => {
   const { FrameworkItems } = useFrameworks();
   return (
     <div className="flex flex-col w-full h-full">
-      <p className="text-white">{translations("editAagent.framework.title")}</p>
+      <p className="text-white">{translations("editAgent.framework.title")}</p>
       <div className="snap-x snap-mandatory overflow-auto">
         <div className="flex flex-row xl:justify-center space-x-2 p-2 scroll-container">
           {FrameworkItems.data.length !== 0 ? (
@@ -51,6 +51,7 @@ const FrameworkComponent: React.FC<FrameworkProps> = ({ translations }) => {
                       json_data={FrameworkItems.nameframework}
                       data={FrameworkItems.data}
                       label_name={comp.label}
+                      translations={translations}
                     />
                   );
                 case "add_text":
@@ -78,6 +79,7 @@ const FrameworkComponent: React.FC<FrameworkProps> = ({ translations }) => {
                           console.error(`Invalid property name: ${comp.key}`);
                         }
                       }}
+                      translations={translations}
                     />
                   );
                 default:

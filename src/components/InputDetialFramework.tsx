@@ -1,3 +1,4 @@
+import { TFunction } from "next-i18next";
 import React, { ChangeEvent } from "react";
 
 interface InputDetailFrameworkProps {
@@ -5,6 +6,7 @@ interface InputDetailFrameworkProps {
   detail: string;
   promptValues: string;
   setValue: (value: string) => void;
+  translations: TFunction;
 }
 
 const InputDetailFramework: React.FC<InputDetailFrameworkProps> = ({
@@ -12,6 +14,7 @@ const InputDetailFramework: React.FC<InputDetailFrameworkProps> = ({
   detail,
   promptValues,
   setValue,
+  translations,
 }) => {
   const handleDesChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setValue(e.target.value);
@@ -32,7 +35,9 @@ const InputDetailFramework: React.FC<InputDetailFrameworkProps> = ({
           id="message"
           rows={rows}
           className="p-2.5 w-full text-sm text-white bg-[#3D434A] rounded-lg border border-[#6E6F70] focus:border-white"
-          placeholder="Add Text"
+          placeholder={translations(
+            "editAgent.inputDetailFramework.placeholder"
+          )}
         ></textarea>
       </form>
     </div>
