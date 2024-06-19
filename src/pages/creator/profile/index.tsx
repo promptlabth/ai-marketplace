@@ -108,10 +108,11 @@ const Profile = () => {
   );
 };
 
-export default Profile;
-
 export const getServerSideProps = async ({ locale }: any) => ({
   props: {
     ...(await serverSideTranslations(locale, ["common"])),
   },
 });
+
+export default Profile;
+
