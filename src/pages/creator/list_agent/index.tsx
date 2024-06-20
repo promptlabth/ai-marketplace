@@ -5,6 +5,8 @@ import axios from "axios";
 import { AgentInterface } from "@/models/interfaces/Agent.interface";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
+import ButtonChangeLanguage from "@/components/ButtonChangeLanguage";
+import StudioMenu from "@/components/StudioiMenu";
 
 const ListAgent = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -47,6 +49,12 @@ const ListAgent = () => {
         <title>{t("listAgent.creator.recentlyUseAI")}</title>
         <meta name="description" content="List of recently used AI agents" />
       </Head>
+      <div className="absolute top-4 right-4">
+        <div className="flex gap-2">
+          <ButtonChangeLanguage/>
+          <StudioMenu />
+        </div>
+      </div>
       <div className="flex justify-center w-full mb-12">
         <div className="flex flex-col items-center mt-8 gap-4 md:w-[540px] lg:w-[940px] w-full">
           <h1 className="font-bold text-white text-[25px] mb-4">
