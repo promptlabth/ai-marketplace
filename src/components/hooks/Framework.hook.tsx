@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ChangeEvent } from "react";
+import React, { useState, useEffect } from "react";
 import { GetFrameworks } from "@/services/api/FrameworkAPI";
 import { Framework } from "@/models/interfaces/Framework.interface";
 

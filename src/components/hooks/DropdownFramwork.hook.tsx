@@ -2,14 +2,16 @@ import React, { useEffect, useState } from "react";
 import { RoleFrameworksInterface } from "@/models/interfaces/RoleFramework.interface";
 import { GetRoleFrameworks } from "@/services/api/RoleFrameworkAPI";
 import { useGlobal } from "@/context/context";
+import { useTranslation } from "react-i18next";
 const useDropdownFramwork = () => {
   const [roles, setRoles] = useState<RoleFrameworksInterface[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const {setRoleID } = useGlobal();
   const [showAll, setShowAll] = useState(false);
+  const { i18n } = useTranslation();
 
   const handleGetRoleFrameworks = async () => {
-    const result = await GetRoleFrameworks();
+    const result = await GetRoleFrameworks(i18n.language);
     if (result) {
       const sortedRoles = result.roles.sort(
         (a: RoleFrameworksInterface, b: RoleFrameworksInterface) =>
@@ -19,6 +21,7 @@ const useDropdownFramwork = () => {
       setRoles(sortedRoles);
     }
   };
+  
   const handlesetRoleID = (id: number) => {
     setRoleID(id);
   };
@@ -32,6 +35,10 @@ const useDropdownFramwork = () => {
   useEffect(() => {
     handleGetRoleFrameworks();
   }, []);
+
+  useEffect(() => {
+    handleGetRoleFrameworks();
+  }, [i18n.language]);
 
   useEffect(() => {
     if (searchTerm != "") {
