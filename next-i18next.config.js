@@ -7,5 +7,4 @@ module.exports = {
         locales: ['th', 'en'],
         // localeDetection: false,
     },
-    localePath: path.resolve('./public/locales'),
 }
