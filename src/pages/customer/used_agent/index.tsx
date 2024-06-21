@@ -91,11 +91,11 @@ const UsedAgent = () => {
   );
 };
 
-export default UsedAgent;
-
-
 export const getServerSideProps = async ({ locale }: any) => ({
   props: {
     ...(await serverSideTranslations(locale, ["common"])),
   },
 });
+
+
+export default UsedAgent;

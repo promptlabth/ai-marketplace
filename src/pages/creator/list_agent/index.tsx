@@ -97,9 +97,12 @@ const ListAgent = () => {
   );
 };
 
-export default ListAgent;
+
 export const getServerSideProps = async ({ locale }: any) => ({
   props: {
     ...(await serverSideTranslations(locale, ["common"])),
   },
 });
+
+
+export default ListAgent;

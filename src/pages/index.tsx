@@ -7,7 +7,7 @@ import Head from 'next/head';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 
-export default function Home() {
+function Home() {
   const { t } = useTranslation('common')
 
   return (
@@ -73,3 +73,5 @@ export const getServerSideProps = async ({ locale }: any) => ({
     ...(await serverSideTranslations(locale, ["common"])),
   },
 });
+
+export default Home;

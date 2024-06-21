@@ -64,11 +64,12 @@ const AgentDashborard = () => {
     </div >
   );
 }
-
-export default AgentDashborard;
-
 export const getServerSideProps = async ({ locale }: any) => ({
   props: {
     ...(await serverSideTranslations(locale, ["common"])),
   },
 });
+
+
+export default AgentDashborard;
+

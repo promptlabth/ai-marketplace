@@ -66,10 +66,10 @@ const AgentHistory = () => {
   );
 }
 
-export default AgentHistory;
-
 export const getServerSideProps = async ({ locale }: any) => ({
   props: {
     ...(await serverSideTranslations(locale, ["common"])),
   },
 });
+
+export default AgentHistory;

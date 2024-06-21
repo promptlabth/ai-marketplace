@@ -92,10 +92,11 @@ const Payment = () => {
   );
 }
 
-export default Payment;
 
 export const getServerSideProps = async ({ locale }: any) => ({
   props: {
     ...(await serverSideTranslations(locale, ["common"])),
   },
 });
+
+export default Payment;
