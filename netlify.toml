@@ -1,6 +1,0 @@
-[build]
-  command = "npm run build" # or the build command you are using
-
-[build.lifecycle]
-  [[build.lifecycle.onPostBuild]]
-    command = "./post-build.sh"
