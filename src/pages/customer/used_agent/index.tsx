@@ -94,7 +94,7 @@ const UsedAgent = () => {
 export default UsedAgent;
 
 
-export const getServerSideProps = async ({ locale }: any) => ({
+export const getStaticProps = async ({ locale }: any) => ({
   props: {
     ...(await serverSideTranslations(locale, ["common"])),
   },

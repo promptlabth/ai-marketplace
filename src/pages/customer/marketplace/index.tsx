@@ -169,7 +169,7 @@ const RoleCategory = ({ roleFrameID, agents }: { roleFrameID: number, agents: an
 export default CreateAgent;
 
 
-export const getServerSideProps = async ({ locale }: any) => ({
+export const getStaticProps = async ({ locale }: any) => ({
   props: {
     ...(await serverSideTranslations(locale, ["common"])),
   },
