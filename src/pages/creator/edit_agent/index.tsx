@@ -20,7 +20,7 @@ const EditAgent = () => {
       <div className="absolute top-4 right-4">
         <div className="flex gap-2">
           <ButtonChangeLanguage />
-          <StudioMenu />
+          <StudioMenu translations={t} />
         </div>
       </div>
       <div className="flex flex-col w-full min-h-screen sm:w-[650px] bg-[#33393F] rounded-xl gap-2 mb-12">

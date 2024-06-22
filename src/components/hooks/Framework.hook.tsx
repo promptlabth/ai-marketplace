@@ -133,12 +133,12 @@ const useFrameworks = () => {
       setNameframework("");
       setTimeout(() => {
         setNameframework(oldNameframework);
-      }, 10);
+      }, 0.001);
     } else if (nameframework != "") {
       setNameframework("");
       setTimeout(() => {
         setNameframework(oldNameframework);
-      }, 10);
+      }, 0.001);
     }
   }, [data]);
 

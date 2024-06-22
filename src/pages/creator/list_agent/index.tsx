@@ -51,8 +51,8 @@ const ListAgent = () => {
       </Head>
       <div className="absolute top-4 right-4">
         <div className="flex gap-2">
-          <ButtonChangeLanguage/>
-          <StudioMenu />
+          <ButtonChangeLanguage />
+          <StudioMenu translations={t} />
         </div>
       </div>
       <div className="flex justify-center w-full mb-12">

@@ -72,6 +72,12 @@
     "creator.profile.ai_used": "AI ที่ถูกใช้งานมากที่สุด",
 
     "customer.marketplace.input": "ค้นหา AI ของคุณ",
-    "customer.marketplace.more_role": "ดูเพิ่มเติม"
+    "customer.marketplace.more_role": "ดูเพิ่มเติม",
 
+    "studio.Profile":"โปรไฟล์",
+    "studio.CreateAgent":"สร้าง AI",
+    "studio.AIReportOverview":"ภาพรวมรายงาน AI",
+    "studio.ListAI":"ลิสต์ AI",
+    "studio.Payment":"การชำระเงิน"
+   
 }

@@ -29,20 +29,23 @@ const CreateAgent = () => {
       <div className="absolute top-4 right-4">
         <div className="flex gap-2">
           <ButtonChangeLanguage />
-          <StudioMenu/>
+          <StudioMenu translations={t} />
         </div>
       </div>
       <div className="flex flex-col w-full sm:w-[700px] min-h-screen rounded-xl py-4 gap-4">
         <div className="flex flex-col gap-4 h-[80%]">
           <InputNameAgent name_label={t("create_agent.title.agent_name")} />
-          
+
           <ImageUpload />
           <InputDetial
             detail={t("create_agent.title.detail")}
             setValue={(value) => handleDesChangeAgentDescribe(value)}
           />
           <div className="flex justify-around items-center w-full h-[20%] gap-4">
-            <ButtonNext name_button={t("create_agent.button.next")} route_page="/creator/edit_agent" />
+            <ButtonNext
+              name_button={t("create_agent.button.next")}
+              route_page="/creator/edit_agent"
+            />
             <ButtonCancle name_button={t("create_agent.button.prev")} />
           </div>
         </div>

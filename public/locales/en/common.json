@@ -70,5 +70,11 @@
     "creator.profile.ai_type": "All AI types",
     "creator.profile.ai_used": "Most used AI",
     "customer.marketplace.input": "Search for your AI",
-    "customer.marketplace.more_role": "See more"
+    "customer.marketplace.more_role": "See more",
+
+    "studio.Profile":"Profile",
+    "studio.CreateAgent":"Create Agent",
+    "studio.ListAI":"List AI",
+    "studio.Payment":"Payment",
+    "studio.AIReportOverview":"AI Report Overview"
 }
