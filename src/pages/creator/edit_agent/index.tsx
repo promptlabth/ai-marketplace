@@ -41,9 +41,11 @@ const EditAgent = () => {
   );
 };
 
-export default EditAgent;
 export const getServerSideProps = async ({ locale }: any) => ({
   props: {
     ...(await serverSideTranslations(locale, ["common"])),
   },
 });
+
+
+export default EditAgent;

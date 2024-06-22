@@ -55,10 +55,10 @@ const AgentDashboardOverall = () => {
     );
 }
 
-export default AgentDashboardOverall;
-
 export const getServerSideProps = async ({ locale }: any) => ({
     props: {
         ...(await serverSideTranslations(locale, ["common"])),
     },
 });
+
+export default AgentDashboardOverall;

@@ -43,11 +43,11 @@ const useAgent = () => {
   );
 }
 
-export default useAgent;
-
-
 export const getServerSideProps = async ({ locale }: any) => ({
   props: {
     ...(await serverSideTranslations(locale, ["common"])),
   },
 });
+
+export default useAgent;
+
