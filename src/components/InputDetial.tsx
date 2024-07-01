@@ -17,8 +17,6 @@ const InputDetail: React.FC<InputDetailProps> = ({
     setValue(e.target.value);
   };
 
-  const { FrameworkItems } = useFrameworks();
-  
   return (
     <div className="flex flex-col h-full">
       <form className="w-full">

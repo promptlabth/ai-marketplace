@@ -78,6 +78,12 @@
     "studio.CreateAgent":"สร้าง AI",
     "studio.AIReportOverview":"ภาพรวมรายงาน AI",
     "studio.ListAI":"ลิสต์ AI",
-    "studio.Payment":"การชำระเงิน"
+    "studio.Payment":"การชำระเงิน",
+
+    "customer.useAgent.title":"ใช้งาน AI",
+    "customer.useAgent.Dropdown.name":"สไตล์ข้อความ",
+    "customer.useAgent.Outputtext.name":"ข้อความที่ได้",
+    "customer.useAgent.button.name":"สร้าง",
+    "customer.useAgent.Dropdown.placeholder":"เลือกสไตล์"
    
 }
