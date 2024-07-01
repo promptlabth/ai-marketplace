@@ -84,6 +84,8 @@
     "customer.useAgent.Dropdown.name":"สไตล์ข้อความ",
     "customer.useAgent.Outputtext.name":"ข้อความที่ได้",
     "customer.useAgent.button.name":"สร้าง",
-    "customer.useAgent.Dropdown.placeholder":"เลือกสไตล์"
+    "customer.useAgent.Dropdown.placeholder":"เลือกสไตล์",
+    "customer.useAgent.InputDetail.name":"ถามคำถามที่ต้องการ",
+    "inputDetail.placeholder": "เพิ่มข้อความ"
    
 }

@@ -14,7 +14,6 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
   const [role_framework_id, setRoleID] = useState<number>(0);
   const [framework_id, setFramworkID] = useState<number>(0);
 
-
   //for customer useAgent
   const [user_prompt, setUserPrompt] = useState<string>("");
   return (

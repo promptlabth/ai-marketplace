@@ -39,8 +39,11 @@ const useAgent = () => {
           </div>
         </div>
         <InputDetail
-          detail={"ถามคำถามเกี่ยวกับกฏหมาย"}
-          setValue={(value)=>{setUserPrompt(value)}}
+          detail={t("customer.useAgent.InputDetail.name")}
+          setValue={(value) => {
+            setUserPrompt(value);
+          }}
+          text_placeholder={t("inputDetail.placeholder")}
         />
         <Dropdown
           content={t("customer.useAgent.Dropdown.name")}

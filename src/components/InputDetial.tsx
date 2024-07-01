@@ -5,12 +5,14 @@ import useFrameworks from "./hooks/Framework.hook";
 interface InputDetailProps {
   rows?: number;
   detail: string;
+  text_placeholder: string;
   setValue: (value: string) => void;
 }
 
 const InputDetail: React.FC<InputDetailProps> = ({
   rows = 4,
   detail,
+  text_placeholder,
   setValue,
 }) => {
   const handleDesChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -31,7 +33,7 @@ const InputDetail: React.FC<InputDetailProps> = ({
           id="message"
           rows={rows}
           className="p-2.5 w-full text-sm text-white bg-[#3D434A] rounded-lg border border-[#6E6F70] focus:border-white"
-          placeholder="Add Text"
+          placeholder={text_placeholder}
         ></textarea>
       </form>
     </div>

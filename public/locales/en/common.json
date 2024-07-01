@@ -78,8 +78,10 @@
     "studio.Payment":"Payment",
 
     "customer.useAgent.title":"Use Agent",
-    "customer.useAgent.Dropdown.name":"Text style",
-    "customer.useAgent.Outputtext.name":"Text output",
+    "customer.useAgent.Dropdown.name":"Text style.",
+    "customer.useAgent.Outputtext.name":"Text output.",
     "customer.useAgent.button.name":"Generate",
-    "customer.useAgent.Dropdown.placeholder":"Select an Option"
+    "customer.useAgent.Dropdown.placeholder":"Select an Option.",
+    "customer.useAgent.InputDetail.name":"Ask the desired question.",
+    "inputDetail.placeholder": "Add Text"
 }
