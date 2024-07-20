@@ -1,3 +1,4 @@
+import { AgentInterface } from "@/models/interfaces/Agent.interface";
 import React, { createContext, useContext, useState, ReactNode } from "react";
 
 const GlobalContext = createContext<any>(undefined);
@@ -16,6 +17,9 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
 
   //for customer useAgent
   const [user_prompt, setUserPrompt] = useState<string>("");
+  const [agent, setAgent] = useState<AgentInterface>();
+  const [style_message_id, setStyleMessageID] = useState<number>(0);
+
   return (
     <GlobalContext.Provider
       value={{
@@ -33,6 +37,10 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
         setRoleID,
         user_prompt,
         setUserPrompt,
+        style_message_id,
+        setStyleMessageID,
+        agent,
+        setAgent,
       }}
     >
       {children}

@@ -1,4 +1,5 @@
 
+import { useGlobal } from "@/context/context";
 import { StylePromptsInterface } from "@/models/interfaces/StylePrompt.interface";
 import { GetStylePrompts } from "@/services/api/StylePrompAPI";
 import { useState, useEffect } from "react";
@@ -10,12 +11,13 @@ const useDropdownUseAgent = (placeholder: string) => {
   const [stylePrompts, setStylePrompts] = useState<StylePromptsInterface[]>([]);
 
   const { i18n } = useTranslation();
+  const { style_message_id, setStyleMessageID } = useGlobal();
 
   const handleGetStylePrompts = async () => {
     const result = await GetStylePrompts(i18n.language);
     console.log("result", result);
     if (result) {
-      const sortedStylePrompts = result.data.sort(
+      const sortedStylePrompts = result.data?.sort(
         (a: StylePromptsInterface, b: StylePromptsInterface) =>
           a.Name.localeCompare(b.Name)
       );
@@ -35,6 +37,7 @@ const useDropdownUseAgent = (placeholder: string) => {
       nameList,
       setIsOpen,
       isOpen,
+      setStyleMessageID,
     },
   };
 };

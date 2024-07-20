@@ -57,6 +57,7 @@ const Dropdown: React.FC<DropdownProps> = ({ content, placeholder }) => {
                 key={index}
                 label={stylePrompt.Name}
                 onSelect={() => {
+                  useDropdownUseAgentItems.setStyleMessageID(stylePrompt.ID);
                   useDropdownUseAgentItems.setNameList(stylePrompt.Name);
                   useDropdownUseAgentItems.setIsOpen(false);
                 }}
