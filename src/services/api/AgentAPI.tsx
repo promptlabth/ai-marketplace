@@ -5,9 +5,10 @@ export async function CreatePostAgent(data: {
   description: string;
   image_url: string;
   prompt: any;
-  user_id: string;
+  firebase_id: string;
   framework_id: number;
   role_framework_id: number;
+  total_used: number;
 }) {
   const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/creator/agent_detail`;
   try {

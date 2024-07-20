@@ -21,9 +21,10 @@ const useEditAgents = () => {
       description: agent_describe,
       image_url: agent_image,
       prompt: prompt,
-      user_id: "u123",
+      firebase_id: "u123",
       framework_id: framework_id,
       role_framework_id: role_framework_id,
+      total_used: 0
     };
     console.log("AgentDetails", agentDetails);
 
