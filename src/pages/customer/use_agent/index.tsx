@@ -1,7 +1,6 @@
 import React from "react";
 import Head from 'next/head';
 import Image from "next/image";
-import data from "@/domain/creator/create_agent/__mock__/agent.json";
 import Dropdown from "@/components/DropdownUseAgent";
 import Outputtext from "@/components/Outputtext";
 import ButtonChangeLanguage from "@/components/ButtonChangeLanguage"
@@ -59,9 +58,9 @@ const useAgent = () => {
           <Image src="/judment.svg" alt="" width={100} height={100} />
           <div className="flex justify-center flex-col p-4 gap-2">
             <p className="flex w-full justify-center text-white font-bold text-[30px]">
-              {data[0].name_agent}
+              {agent?.Name}
             </p>
-            <p className="text-sm text-[#616870]">{data[0].agent_detial}</p>
+            <p className="text-sm text-[#616870]">{agent?.Description}</p>
           </div>
         </div>
         <InputDetail

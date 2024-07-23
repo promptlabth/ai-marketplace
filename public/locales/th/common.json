@@ -86,6 +86,13 @@
     "customer.useAgent.button.name":"สร้าง",
     "customer.useAgent.Dropdown.placeholder":"เลือกสไตล์",
     "customer.useAgent.InputDetail.name":"ถามคำถามที่ต้องการ",
-    "inputDetail.placeholder": "เพิ่มข้อความ"
+    "inputDetail.placeholder": "เพิ่มข้อความ",
+
+    "customer.marketplace.viewAgent": "ข้อมูล AI",
+    "customer.marketplace.viewAgent.ImageStatus": "รูปภาพไม่สามารถแสดงได้",
+    "customer.marketplace.viewAgent.AIDescription": "อธิบาย AI",
+    "customer.marketplace.viewAgent.Framework": "อธิบายเฟรมเวิร์ค",
+    "customer.marketplace.viewAgent.FrameworkDetail": "รายละเอียดเฟรมเวิร์ค",
+    "customer.marketplace.viewAgent.AIType": "รูปแบบ AI"
    
 }

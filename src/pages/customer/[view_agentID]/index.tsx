@@ -11,13 +11,14 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import type { GetStaticPaths } from "next";
 import { useGlobal } from "@/context/context";
 import { useEffect } from "react";
-
+import { useTranslation } from "next-i18next";
 const AgentView = () => {
   const router = useRouter();
   const { view_agentID } = router.query;
   const { data, isLoading, error } = GetAgent(Number(view_agentID));
   const { agent, setAgent } = useGlobal();
-
+  const { t } = useTranslation("common");
+  const { i18n } = useTranslation();
   useEffect(() => {
     console.log(data?.agent);
     setAgent(data?.agent);
@@ -34,7 +35,7 @@ const AgentView = () => {
   return (
     <div className="bg-[#212529] p-6 min-h-screen flex justify-center">
       <Head>
-        <title>View Agent</title>
+        <title>{t("customer.marketplace.viewAgent")}</title>
         <meta name="description" content="" />
       </Head>
       <div className="absolute top-4 right-4">
@@ -55,7 +56,7 @@ const AgentView = () => {
                     className="object-cover"
                   />
                 ) : (
-                  <p>Image not available</p>
+                  <p>{t("customer.marketplace.viewAgent.ImageStatusnt")}</p>
                 )}
               </div>
             </div>
@@ -64,10 +65,16 @@ const AgentView = () => {
             </p>
           </div>
           <div className="flex flex-col">
-            <RoleCategory roleFrameID={data?.agent?.RoleFrameID || 0} />
-            <FrameworkDetail FrameworkID={data?.agent?.FrameworkID || 0} />
+            <RoleCategory
+              roleFrameID={data?.agent?.RoleFrameID || 0}
+              translations={t}
+            />
+            <FrameworkDetail
+              FrameworkID={data?.agent?.FrameworkID || 0}
+              translations={t}
+            />
             <div className="flex flex-col text-[#03FCA9] mt-8">
-              อธิบาย AI:
+              {t("customer.marketplace.viewAgent.AIDescription")}:
               <p className="text-white text-wrap break-words">
                 {data?.agent?.Description}
               </p>

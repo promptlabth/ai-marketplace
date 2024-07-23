@@ -83,5 +83,14 @@
     "customer.useAgent.button.name":"Generate",
     "customer.useAgent.Dropdown.placeholder":"Select an Option.",
     "customer.useAgent.InputDetail.name":"Ask the desired question.",
-    "inputDetail.placeholder": "Add Text"
+    "inputDetail.placeholder": "Add Text",
+
+
+    "customer.marketplace.viewAgent": "View Agent",
+    "customer.marketplace.viewAgent.ImageStatus": "Image not available",
+    "customer.marketplace.viewAgent.AIDescription": "AI Description",
+    "customer.marketplace.viewAgent.Framework": "Framework AI",
+    "customer.marketplace.viewAgent.FrameworkDetail": "Framework Detail",
+    "customer.marketplace.viewAgent.AIType": "AI type"
+
 }
