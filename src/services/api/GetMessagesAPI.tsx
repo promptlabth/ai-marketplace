@@ -22,11 +22,9 @@ export async function GetMessages(
     console.log("response", response);
     if (response.status === 201) {
       return response.data;
-    } else {
-      return response.data;
     }
   } catch (error) {
-    console.error("Error in GetMessages: ", error);
-    return { reply: "Error: Please try again" };
+    console.error("Error GetMessages ", error);
+    return { reply: "Error Please try again" };
   }
 }

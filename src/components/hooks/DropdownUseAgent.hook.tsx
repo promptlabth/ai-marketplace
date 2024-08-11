@@ -1,4 +1,3 @@
-
 import { useGlobal } from "@/context/context";
 import { StylePromptsInterface } from "@/models/interfaces/StylePrompt.interface";
 import { GetStylePrompts } from "@/services/api/StylePrompAPI";
@@ -9,7 +8,6 @@ const useDropdownUseAgent = (placeholder: string) => {
   const [isOpen, setIsOpen] = useState(false);
   const [nameList, setNameList] = useState(`${placeholder}`);
   const [stylePrompts, setStylePrompts] = useState<StylePromptsInterface[]>([]);
-
   const { i18n } = useTranslation();
   const { style_message_id, setStyleMessageID } = useGlobal();
 
