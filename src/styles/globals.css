@@ -33,4 +33,18 @@
     scroll-snap-align: start;
     flex: 0 0 auto; /* Prevent flex items from shrinking */
   }
+
+  @keyframes fly {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  
+  .animate-fly {
+    animation: fly 3s ease-in-out infinite;
+  }
+  
   

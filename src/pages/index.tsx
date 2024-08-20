@@ -16,83 +16,100 @@ export default function Home() {
   const closeModal = () => setIsModalOpen(false);
 
   return (
-    <div className="flex items-center flex-col bg-[#212529] min-h-screen p-6">
+    <div className="relative min-h-screen">
       <Head>
         <title>Prompt Marketplace</title>
         <meta name="description" content="" />
       </Head>
-      <div className="absolute top-4 right-32">
-        <div className="flex gap-2">
-          <ButtonChangeLanguage />
+
+      <video
+        autoPlay
+        loop
+        muted
+        className="absolute inset-0 w-full h-full object-cover filter blur-md grayscale-[50%] z-0"
+      >
+        <source src="/videos/background.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
+      <div className="absolute inset-0 bg-gray-800 opacity-50 z-0"></div>
+
+      <div className="relative z-10 flex items-center flex-col min-h-screen p-6">
+        <div className="absolute top-4 right-32">
+          <div className="flex gap-2">
+            <ButtonChangeLanguage />
+          </div>
         </div>
-      </div>
-      <div className="absolute top-4 right-8">
-        <div className="flex gap-2">
-          <ButtonLogin onClick={openModal}/>
+        <div className="absolute top-4 right-8">
+          <div className="flex gap-2">
+            <ButtonLogin onClick={openModal} />
+          </div>
         </div>
-      </div>
-      {isModalOpen && <LoginModal onClose={closeModal} />}
-      <div className="flex items-center flex-col bg-[#212529] h-full mb-16">
-        <div className="flex flex-col items-center justify-center pt-12 animate-fade-down">
-          <h1 className="font-extrabold  text-[30px] bg-clip-text text-transparent bg-gradient-to-r from-[#02F6A9] to-[#0DC19A] ">
-            Prompt Lab
-          </h1>
-          <h1 className="font-extrabold  text-[40px] bg-clip-text text-transparent bg-gradient-to-r from-[#02F6A9] to-[#0DC19A]">
-            AI Marketplace
-          </h1>
-          <p className="text-white text-center">{t("home.title.sub.head")}</p>
-        </div>
-        <div className="flex flex-col items-start mt-12 sm:w-[600px] gap-8">
-          <div className="mt-8">
-            <p className=" text-white font-bold">{t("home.title.carousel")}</p>
-            <div className="w-full h-[300px] rounded-xl flex justify-center ">
-              <CarouselMarketplace />
-            </div>
-            <div className="py-4">
-              <h1 className="text-white font-bold text-lg">
-                {t("home.title.customer")}
-              </h1>
-              <div className="text-white">
-                <p>
-                  {t("home.title.customer.step1")}{" "}
-                  <strong>{t("home.title.customer.step1.strong")}</strong>
-                </p>
-                <p>{t("home.title.customer.step2")}</p>
-                <p>
-                  {t("home.title.customer.step3")}{" "}
-                  <strong>{t("home.title.customer.step1.strong")}</strong>{" "}
-                  {t("home.title.customer.step1.tail")}
-                </p>
-                <p>
-                  {t("home.title.customer.step4")}{" "}
-                  <strong>{t("home.title.customer.step4.strong")}</strong>
-                </p>
-                <p>
-                  {t("home.title.customer.step5")}
-                  <Link href="/customer/marketplace" className="underline">
-                    <strong> {t("home.title.customer.step5.link")}</strong>
-                  </Link>
-                </p>
+        {isModalOpen && <LoginModal onClose={closeModal} />}
+        <div className="flex items-center flex-col h-full mb-16">
+          <div className="flex flex-col items-center justify-center pt-12 animate-fade-down">
+            <h1 className="font-extrabold text-[30px] bg-clip-text text-transparent bg-gradient-to-r from-[#02F6A9] to-[#0DC19A] animate-fly">
+              Prompt Lab
+            </h1>
+            <h1 className="font-extrabold text-[40px] bg-clip-text text-transparent bg-gradient-to-r from-[#02F6A9] to-[#0DC19A] animate-fly">
+              AI Marketplace
+            </h1>
+            <p className="text-white text-center">{t("home.title.sub.head")}</p>
+          </div>
+          <div className="flex flex-col items-start mt-12 sm:w-[600px] gap-8">
+            <div className="mt-8">
+              <div className="w-full h-[300px] rounded-xl flex justify-center scroll-container">
+                <CarouselMarketplace />
               </div>
-            </div>
-            <div className="py-8">
-              <h1 className="text-white font-bold text-lg">
-                {t("home.title.creator")}
-              </h1>
-              <div className="text-white">
-                <p>
-                  {t("home.title.creator.step1")}{" "}
-                  <strong>{t("home.title.creator.step1.strong")}</strong>
-                </p>
-                <p>{t("home.title.creator.step2")}</p>
-                <p>{t("home.title.creator.step3")}</p>
-                <p>{t("home.title.creator.step4")}</p>
-                <p>
-                  {t("home.title.creator.step5")}
-                  <Link href="/creator/create_agent" className="underline">
-                    <strong> {t("home.title.creator.step5.link")}</strong>
-                  </Link>
-                </p>
+              <div className="mt-8 space-y-16">
+                <div className="bg-white/10 backdrop-blur-md rounded-xl p-8">
+                  <h1 className="text-white font-bold text-2xl mb-4">
+                    {t("home.title.customer")}
+                  </h1>
+                  <div className="text-white space-y-4">
+                    <p>
+                      {t("home.title.customer.step1")}{" "}
+                      <strong style={{ color: "#00FFAB" }}>{t("home.title.customer.step1.strong")}</strong>
+                    </p>
+                    <p>{t("home.title.customer.step2")}</p>
+                    <p>
+                      {t("home.title.customer.step3")}{" "}
+                      <strong style={{ color: "#00FFAB" }}>{t("home.title.customer.step1.strong")}</strong>{" "}
+                      {t("home.title.customer.step1.tail")}
+                    </p>
+                    <p>
+                      {t("home.title.customer.step4")}{" "}
+                      <strong style={{ color: "#00FFAB" }}>{t("home.title.customer.step4.strong")}</strong>
+                    </p>
+                    <p>
+                      {t("home.title.customer.step5")}
+                      <Link href="/customer/marketplace" className="underline">
+                        <strong style={{ color: "#00FFAB" }}>{t("home.title.customer.step5.link")}</strong>
+                      </Link>
+                    </p>
+                  </div>
+                </div>
+
+                <div className="bg-white/10 backdrop-blur-md rounded-xl p-8">
+                  <h1 className="text-white font-bold text-2xl mb-4">
+                    {t("home.title.creator")}
+                  </h1>
+                  <div className="text-white space-y-4">
+                    <p>
+                      {t("home.title.creator.step1")}{" "}
+                      <strong style={{ color: "#00FFAB" }}>{t("home.title.creator.step1.strong")}</strong>
+                    </p>
+                    <p>{t("home.title.creator.step2")}</p>
+                    <p>{t("home.title.creator.step3")}</p>
+                    <p>{t("home.title.creator.step4")}</p>
+                    <p>
+                      {t("home.title.creator.step5")}
+                      <Link href="/creator/create_agent" className="underline">
+                        <strong style={{ color: "#00FFAB" }}>{t("home.title.creator.step5.link")}</strong>
+                      </Link>
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -102,7 +119,8 @@ export default function Home() {
   );
 }
 
-export const getStaticProps = async ({ locale }: any) => ({
+// Explicitly typing the `locale` parameter as a string
+export const getStaticProps = async ({ locale }: { locale: string }) => ({
   props: {
     ...(await serverSideTranslations(locale, ["common"])),
   },
