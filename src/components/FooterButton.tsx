@@ -20,7 +20,7 @@ const FooterButton: React.FC = () => {
     }
 
     return (
-        <footer className="fixed md:invisible bottom-0 inset-x-0 bg-gray-700 shadow-lg shadow-gray-900/50 w-full h-[70px] flex justify-evenly items-center">
+        <footer className="fixed md:invisible bottom-0 inset-x-0 bg-gray-700 shadow-lg shadow-gray-900/50 w-full h-[70px] flex justify-evenly items-center z-3">
             <button onClick={() => navigateTo('/')} className={`flex text-[13px] justify-center flex-col items-center text-white focus:outline-none hover:scale-105 ${isActive('/')} rounded-lg p-1 shadow-lg shadow-gray-600/30`}>
                 <RiHome2Line color='white' size={30} />
                 {t('components.sidebar.home')}
