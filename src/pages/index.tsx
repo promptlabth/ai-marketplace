@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import CarouselMarketplace from "@/components/CorouselMarketplace";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
@@ -6,7 +6,7 @@ import ButtonChangeLanguage from "@/components/ButtonChangeLanguage";
 import Head from "next/head";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import ButtonLogin from "@/components/ButtonLogin";
-import LoginModal from '@/components/LoginModal';
+import LoginModal from "@/components/LoginModal";
 
 export default function Home() {
   const { t } = useTranslation("common");
@@ -69,24 +69,54 @@ export default function Home() {
                   <div className="text-white space-y-4">
                     <p>
                       {t("home.title.customer.step1")}{" "}
-                      <strong style={{ color: "#00FFAB" }}>{t("home.title.customer.step1.strong")}</strong>
+                      <strong style={{ color: "#00FFAB" }}>
+                        {t("home.title.customer.step1.strong")}
+                      </strong>
                     </p>
                     <p>{t("home.title.customer.step2")}</p>
                     <p>
                       {t("home.title.customer.step3")}{" "}
-                      <strong style={{ color: "#00FFAB" }}>{t("home.title.customer.step1.strong")}</strong>{" "}
-                      {t("home.title.customer.step1.tail")}
+                      <strong style={{ color: "#00FFAB" }}>
+                        {t("home.title.customer.step3.strong")}
+                      </strong>{" "}
                     </p>
                     <p>
                       {t("home.title.customer.step4")}{" "}
-                      <strong style={{ color: "#00FFAB" }}>{t("home.title.customer.step4.strong")}</strong>
+                      <strong style={{ color: "#00FFAB" }}>
+                        {t("home.title.customer.step4.strong")}
+                      </strong>
                     </p>
                     <p>
                       {t("home.title.customer.step5")}
-                      <Link href="/customer/marketplace" className="underline">
-                        <strong style={{ color: "#00FFAB" }}>{t("home.title.customer.step5.link")}</strong>
+                      <Link
+                        href="/customer/marketplace"
+                        className="underline"
+                        style={{ textDecorationColor: "#00FFAB" }}
+                      >
+                        <strong style={{ color: "#00FFAB" }}>
+                          {t("home.title.customer.step5.link")}
+                        </strong>
                       </Link>
                     </p>
+
+                    {/* Video Section for Tutorial */}
+                    <div className="mt-8">
+                      <h2 className="text-white font-bold text-xl mb-4">
+                        {t("home.title.customer.tutorial")}
+                      </h2>
+                      <div className="relative w-full h-0 pb-[56.25%]">
+                        {" "}
+                        {/* 16:9 Aspect Ratio */}
+                        <iframe
+                          className="absolute top-0 left-0 w-full h-full"
+                          src="/videos/How To Use AI.mp4"
+                          title="YouTube video player"
+                          frameBorder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        ></iframe>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
@@ -97,15 +127,23 @@ export default function Home() {
                   <div className="text-white space-y-4">
                     <p>
                       {t("home.title.creator.step1")}{" "}
-                      <strong style={{ color: "#00FFAB" }}>{t("home.title.creator.step1.strong")}</strong>
+                      <strong style={{ color: "#00FFAB" }}>
+                        {t("home.title.creator.step1.strong")}
+                      </strong>
                     </p>
                     <p>{t("home.title.creator.step2")}</p>
                     <p>{t("home.title.creator.step3")}</p>
                     <p>{t("home.title.creator.step4")}</p>
                     <p>
                       {t("home.title.creator.step5")}
-                      <Link href="/creator/create_agent" className="underline">
-                        <strong style={{ color: "#00FFAB" }}>{t("home.title.creator.step5.link")}</strong>
+                      <Link
+                        href="/creator/create_agent"
+                        className="underline"
+                        style={{ textDecorationColor: "#00FFAB" }}
+                      >
+                        <strong style={{ color: "#00FFAB" }}>
+                          {t("home.title.creator.step5.link")}
+                        </strong>
                       </Link>
                     </p>
                   </div>
