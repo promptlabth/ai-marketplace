@@ -68,11 +68,11 @@ const CarouselMarketplace: React.FC = () => {
                     />
                 </div>
             ))}
-            <div className='flex flex-col justify-center items-center h-full w-full'>
+            {/* <div className='flex flex-col justify-center items-center h-full w-full'>
                 <button className='flex items-center justify-center h-full w-full underline text-xl text-white hover:scale-105 focus:scale-105'>
                     {t('components.carouselmarketplace.try')}
                 </button>
-            </div>
+            </div> */}
         </Carousel>
     );
 };
