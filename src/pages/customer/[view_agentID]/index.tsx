@@ -94,17 +94,4 @@ export const getServerSideProps = async ({ locale }: any) => ({
   },
 });
 
-export const getStaticPaths = (async () => {
-  return {
-    paths: [
-      {
-        params: {
-          view_agentID: "next.js",
-        },
-      }, // See the "paths" section below
-    ],
-    fallback: true, // false or "blocking"
-  };
-}) satisfies GetStaticPaths;
-
 export default AgentView;
