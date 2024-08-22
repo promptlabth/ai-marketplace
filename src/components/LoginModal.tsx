@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { Profile } from "@/models/interfaces/Login.interface";
+import { LoginFunction } from "@/services/api/LoginConfig";
+import React, { useState, useEffect, ButtonHTMLAttributes } from "react";
 import { FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { IoCloseOutline } from "react-icons/io5";
@@ -29,6 +31,38 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
     }
   };
 
+  const handleLoginOnClick = async (e: React.MouseEvent<HTMLButtonElement>) =>{
+
+    var platform :string = ""
+
+    switch (e.currentTarget.name){
+      case process.env.NEXT_PUBLIC_LOGIN_WITH_FACEBOOK:
+        platform = "facebook"
+        break;
+      case process.env.NEXT_PUBLIC_LOGIN_WITH_GOOGLE:
+        platform = "google"
+        break;
+      default:
+        // tigger something of project (ex model error, notification side bar)
+        return 
+    }
+
+
+    const result = await LoginFunction<Profile>(
+      {
+        accessToken: "",
+        platform: platform
+      },
+      ""
+    )
+
+    localStorage.setItem("authorization", "")
+    localStorage.setItem("accessToken", "")
+
+    // tigger for update profile
+
+  }
+
   return (
     <div
       className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-20"
@@ -52,7 +86,11 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
           </button>
         </div>
         <div className="p-6 space-y-4">
-          <button className="w-full bg-[#1877F2] text-white py-2 px-4 rounded-md flex items-center justify-center space-x-2 hover:bg-[#166fe5]">
+          <button 
+            name={process.env.NEXT_PUBLIC_LOGIN_WITH_FACEBOOK}
+            className="w-full bg-[#1877F2] text-white py-2 px-4 rounded-md flex items-center justify-center space-x-2 hover:bg-[#166fe5]"
+            onClick={handleLoginOnClick}
+          >
             <FaFacebook size={24} />
             <span>เข้าสู่ระบบด้วย Facebook</span>
           </button>
@@ -61,7 +99,11 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
             <span className="flex-shrink mx-4 text-gray-400">- or -</span>
             <div className="flex-grow border-t border-gray-600"></div>
           </div>
-          <button className="w-full border border-gray-600 text-white py-2 px-4 rounded-md flex items-center justify-center space-x-2 hover:bg-gray-700">
+          <button 
+            name={process.env.NEXT_PUBLIC_LOGIN_WITH_GOOGLE}
+            className="w-full border border-gray-600 text-white py-2 px-4 rounded-md flex items-center justify-center space-x-2 hover:bg-gray-700"
+            onClick={handleLoginOnClick}  
+          >
             <FcGoogle size={24} />
             <span>เข้าสู่ระบบด้วย Gmail</span>
           </button>
