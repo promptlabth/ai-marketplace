@@ -47,7 +47,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
         authResult = await signInWithFacebook()
         break;
       case process.env.NEXT_PUBLIC_LOGIN_WITH_GOOGLE:
-        platform = "google"
+        platform = "gmail"
         authResult = await signInWithGmail()
         break;
       default:
