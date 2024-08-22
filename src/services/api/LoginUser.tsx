@@ -1,6 +1,7 @@
 import { ProfileUser } from "@/models/interfaces/Login.interface";
 import axios from "axios";
 import { APIResponse } from "./Constant";
+import { randomUUID } from "crypto";
 
 
 
@@ -19,6 +20,7 @@ export async function LoginFunction(
             headers:{
                 "Content-Type": "application/json",
                 "Authorization": "Bearer " + authorizationToken,
+                "X-Request-ID" : randomUUID()
             }
         });
         if (response.status !== 200){
