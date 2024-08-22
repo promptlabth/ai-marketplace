@@ -1,18 +1,17 @@
+import { ProfileUser } from "@/models/interfaces/Login.interface";
 import axios from "axios";
+import { APIResponse } from "./Constant";
 
-interface APIResponse<T = any> {
-    data?: T;
-    reply?: string;
-}
+
 
 interface LoginData {
     accessToken: string;
     platform: string;
 }
-export async function LoginFunction<T = any>(
+export async function LoginFunction(
     data: LoginData, 
     authorizationToken: string
-) : Promise<APIResponse<T>> {
+) : Promise<APIResponse<ProfileUser>> {
     const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/user/login`
 
     try {
@@ -23,15 +22,15 @@ export async function LoginFunction<T = any>(
             }
         });
         if (response.status !== 200){
-            return {reply: "Service Error" }
+            return {error: "Service Error" }
         }
 
         if (response.data.code === 1000){
             return {data: response.data}
         }
-        return {reply: "Error Please try again" }
+        return {error: "Error Please try again" }
     }catch (error){
         console.error("Error GetMessages ", error);
-        return {reply: "Error Please try again" };
+        return {error: "Error Please try again" };
     }
 }   

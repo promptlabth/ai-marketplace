@@ -1,5 +1,7 @@
-import { Profile } from "@/models/interfaces/Login.interface";
-import { LoginFunction } from "@/services/api/LoginConfig";
+import { ProfileUser, SignInUserCredential } from "@/models/interfaces/Login.interface";
+import { LoginFunction } from "@/services/api/LoginUser";
+import signInWithFacebook from "@/services/firebase/auth/AuthFacebook";
+import signInWithGmail from "@/services/firebase/auth/AuthGmail";
 import React, { useState, useEffect, ButtonHTMLAttributes } from "react";
 import { FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
@@ -15,6 +17,9 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
   const handleClose = () => {
     setIsClosing(true);
   };
+
+
+  // i think we will use context to this part for get some user detail
 
   useEffect(() => {
     if (isClosing) {
@@ -35,29 +40,34 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
 
     var platform :string = ""
 
+    var authResult: SignInUserCredential | null
     switch (e.currentTarget.name){
       case process.env.NEXT_PUBLIC_LOGIN_WITH_FACEBOOK:
         platform = "facebook"
+        authResult = await signInWithFacebook()
         break;
       case process.env.NEXT_PUBLIC_LOGIN_WITH_GOOGLE:
         platform = "google"
+        authResult = await signInWithGmail()
         break;
       default:
         // tigger something of project (ex model error, notification side bar)
         return 
     }
+    if (authResult){
+      const authorizationToken = await authResult.user.getIdToken()
+      const result = await LoginFunction(
+        {
+          accessToken: authResult.accessToken == undefined ? "" : authResult.accessToken,
+          platform: platform
+        },
+        authorizationToken
+      )
+      
+      localStorage.setItem("authorization", authorizationToken)
+      localStorage.setItem("typeLogin", platform)
+    }
 
-
-    const result = await LoginFunction<Profile>(
-      {
-        accessToken: "",
-        platform: platform
-      },
-      ""
-    )
-
-    localStorage.setItem("authorization", "")
-    localStorage.setItem("accessToken", "")
 
     // tigger for update profile
 
