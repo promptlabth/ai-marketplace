@@ -63,13 +63,16 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
         },
         authorizationToken
       )
-      
+
       localStorage.setItem("authorization", authorizationToken)
       localStorage.setItem("typeLogin", platform)
+     
+      // tigger for update profile
+
+      // TODO: add context user info 
     }
 
 
-    // tigger for update profile
 
   }
 
