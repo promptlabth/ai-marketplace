@@ -6,14 +6,14 @@ import React, { useState, useEffect, ButtonHTMLAttributes } from "react";
 import { FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { IoCloseOutline } from "react-icons/io5";
-
+import { useGlobal } from "@/context/context";
 interface LoginModalProps {
   onClose: () => void;
 }
 
 const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
   const [isClosing, setIsClosing] = useState(false);
-
+  const { handleSetUser } = useGlobal();
   const handleClose = () => {
     setIsClosing(true);
   };
@@ -38,9 +38,10 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
 
   const handleLoginOnClick = async (e: React.MouseEvent<HTMLButtonElement>) =>{
 
-    var platform :string = ""
+    let platform :string = ""
 
-    var authResult: SignInUserCredential | null
+    let authResult: SignInUserCredential | null;
+    console.log(e.currentTarget.name)
     switch (e.currentTarget.name){
       case process.env.NEXT_PUBLIC_LOGIN_WITH_FACEBOOK:
         platform = "facebook"
@@ -58,22 +59,23 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
       const authorizationToken = await authResult.user.getIdToken()
       const result = await LoginFunction(
         {
-          accessToken: authResult.accessToken == undefined ? "" : authResult.accessToken,
+          accessToken: authResult.accessToken ?? "",
           platform: platform
         },
         authorizationToken
       )
-
-      localStorage.setItem("authorization", authorizationToken)
-      localStorage.setItem("typeLogin", platform)
-     
-      // tigger for update profile
-
-      // TODO: add context user info 
+      
+      if (result.error) {
+        console.error(result.error)
+        return;
+      }
+      if (result.data) {
+        localStorage.setItem("authorization", authorizationToken)
+        localStorage.setItem("typeLogin", platform)
+        handleSetUser(result.data)
+      }
+      
     }
-
-
-
   }
 
   return (

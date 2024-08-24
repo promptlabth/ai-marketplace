@@ -1,7 +1,6 @@
 import { AgentInterface } from "@/models/interfaces/Agent.interface";
 import React, { createContext, useContext, useState, ReactNode } from "react";
-
-const GlobalContext = createContext<any>(undefined);
+import { ProfileUser } from "@/models/interfaces/Login.interface";
 
 interface GlobalProviderProps {
   children: ReactNode;
@@ -26,9 +25,15 @@ interface IGlobalExportContext {
   user_prompt: string;
   agent: AgentInterface | undefined;
   style_message_id: number;
+  user?: ProfileUser;
+  handleSetUser: (user: ProfileUser) => void;
 }
 
+const GlobalContext = createContext<IGlobalExportContext>({} as IGlobalExportContext);
+
+
 export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
+  const [user, setUser] = useState<ProfileUser>();
 
   const [agent_name, setAgentName] = useState<string>("");
   const [agent_image, setAgentImage] = useState<string>("");
@@ -41,6 +46,10 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
   const [user_prompt, setUserPrompt] = useState<string>("");
   const [agent, setAgent] = useState<AgentInterface>();
   const [style_message_id, setStyleMessageID] = useState<number>(0);
+
+  const handleSetUser = (user: ProfileUser) => {
+    setUser(user);
+  }
 
   const AgentData: IGlobalExportContext = {
     agent_name,
@@ -61,6 +70,7 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
     setStyleMessageID,
     agent,
     setAgent,
+    handleSetUser,
   }
   return (
     <GlobalContext.Provider
