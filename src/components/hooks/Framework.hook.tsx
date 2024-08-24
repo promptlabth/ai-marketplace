@@ -149,7 +149,7 @@ const useFrameworks = () => {
     if (frameworkDetails) {
       setSelectedFrameworkDetails(frameworkDetails);
     }
-    setFramworkID(frameworkDetails?.ID);
+    setFramworkID(+(frameworkDetails?.ID === undefined ? 0 : frameworkDetails?.ID));
   }, [nameframework]);
 
   useEffect(() => {

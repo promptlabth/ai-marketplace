@@ -21,7 +21,7 @@ const useAgent = () => {
   const handleGetMessages = async () => {
     const data = {
       firebase_id: "123ID",
-      agent_id: agent?.ID,
+      agent_id: (agent?.ID === undefined ? 0 : agent.ID),
       prompt: user_prompt,
       style_message_id: style_message_id,
     };
@@ -47,15 +47,16 @@ const useAgent = () => {
         {/* <Reverse_button route_path="/" /> */}
         <div className="flex flex-col justify-center items-center w-full h-full">
           <div className="flex flex-col overflow-hidden rounded-full relative w-20 h-20 justify-center items-center">
-            <Image src={agent?.ImageURL} alt="" width={100} height={100} />
+            {agent?.ImageURL && <Image src={agent.ImageURL} alt="" width={100} height={100} />}
           </div>
           <div className="flex justify-center flex-col p-4 gap-2">
             <p className="flex w-full justify-center text-white font-bold text-[30px]">
               {agent?.Name}
             </p>
-            <p className="text-sm text-[#616870]">{agent?.Description}</p>
+            {agent?.Description && <p className="text-sm text-[#616870]">{agent.Description}</p>}
           </div>
         </div>
+
         <InputDetail
           detail={t("customer.useAgent.InputDetail.name")}
           setValue={(value) => {
@@ -77,7 +78,7 @@ const useAgent = () => {
             handleGenerate={() => {
               handleGetMessages();
             }}
-            // route_page="/customer/use_agent"
+          // route_page="/customer/use_agent"
           />
         </div>
       </div>

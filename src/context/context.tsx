@@ -10,7 +10,7 @@ interface IGlobalExportContext {
   setAgentName: React.Dispatch<React.SetStateAction<string>>;
   setAgentImage: React.Dispatch<React.SetStateAction<string>>;
   setAgentDescribe: React.Dispatch<React.SetStateAction<string>>;
-  setPrompt: React.Dispatch<React.SetStateAction<undefined>>;
+  setPrompt: React.Dispatch<React.SetStateAction<any>>;
   setRoleID: React.Dispatch<React.SetStateAction<number>>;
   setFramworkID: React.Dispatch<React.SetStateAction<number>>;
   setUserPrompt: React.Dispatch<React.SetStateAction<string>>;
@@ -19,7 +19,7 @@ interface IGlobalExportContext {
   agent_name: string;
   agent_image: string;
   agent_describe: string;
-  prompt: undefined;
+  prompt: any;
   role_framework_id: number;
   framework_id: number;
   user_prompt: string;
