@@ -113,7 +113,7 @@ const CreateAgent = () => {
           {Object.keys(groupedAgents).map((roleFrameID: any) => (
             <div
               key={roleFrameID}
-              ref={categoryRefs.current[roleFrameID]}
+              ref={(el) => {categoryRefs.current[roleFrameID] = el}}
               className="flex flex-col sm:items-start gap-4 mb-4 w-full snap-x snap-mandatory hide-scrollbar overflow-x-scroll space-x-4"
             >
               <RoleCategory roleFrameID={roleFrameID} agents={groupedAgents[roleFrameID]} />
