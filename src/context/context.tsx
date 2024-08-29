@@ -74,7 +74,27 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
   }
   return (
     <GlobalContext.Provider
-      value={AgentData}
+      value={{
+    agent_name,
+    agent_image,
+    agent_describe,
+    prompt,
+    role_framework_id,
+    framework_id,
+    setAgentName,
+    setAgentImage,
+    setAgentDescribe,
+    setPrompt,
+    setFramworkID,
+    setRoleID,
+    user_prompt,
+    setUserPrompt,
+    style_message_id,
+    setStyleMessageID,
+    agent,
+    setAgent,
+    handleSetUser,
+  }}
     >
       {children}
     </GlobalContext.Provider>
