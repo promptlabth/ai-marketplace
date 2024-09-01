@@ -3,7 +3,7 @@ import axios from "axios";
 export async function GetMessages(
   language: string,
   data: {
-    firebase_id: string;
+    firebase_id: string; 
     agent_id: number;
     prompt: string;
     style_message_id: number;

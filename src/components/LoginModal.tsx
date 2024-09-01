@@ -1,18 +1,25 @@
-import React, { useState, useEffect } from "react";
+import { ProfileUser, SignInUserCredential } from "@/models/interfaces/Login.interface";
+import { LoginFunction } from "@/services/api/LoginUser";
+import signInWithFacebook from "@/services/firebase/auth/AuthFacebook";
+import signInWithGmail from "@/services/firebase/auth/AuthGmail";
+import React, { useState, useEffect, ButtonHTMLAttributes } from "react";
 import { FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { IoCloseOutline } from "react-icons/io5";
-
+import { useGlobal } from "@/context/context";
 interface LoginModalProps {
   onClose: () => void;
 }
 
 const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
   const [isClosing, setIsClosing] = useState(false);
-
+  const { handleSetUser } = useGlobal();
   const handleClose = () => {
     setIsClosing(true);
   };
+
+
+  // i think we will use context to this part for get some user detail
 
   useEffect(() => {
     if (isClosing) {
@@ -28,6 +35,48 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
       handleClose();
     }
   };
+
+  const handleLoginOnClick = async (e: React.MouseEvent<HTMLButtonElement>) =>{
+
+    let platform :string = ""
+
+    let authResult: SignInUserCredential | null;
+    console.log(e.currentTarget.name)
+    switch (e.currentTarget.name){
+      case process.env.NEXT_PUBLIC_LOGIN_WITH_FACEBOOK:
+        platform = "facebook"
+        authResult = await signInWithFacebook()
+        break;
+      case process.env.NEXT_PUBLIC_LOGIN_WITH_GOOGLE:
+        platform = "gmail"
+        authResult = await signInWithGmail()
+        break;
+      default:
+        // tigger something of project (ex model error, notification side bar)
+        return 
+    }
+    if (authResult){
+      const authorizationToken = await authResult.user.getIdToken()
+      const result = await LoginFunction(
+        {
+          accessToken: authResult.accessToken ?? "",
+          platform: platform
+        },
+        authorizationToken
+      )
+      
+      if (result.error) {
+        console.error(result.error)
+        return;
+      }
+      if (result.data) {
+        localStorage.setItem("authorization", authorizationToken)
+        localStorage.setItem("typeLogin", platform)
+        handleSetUser(result.data)
+      }
+      
+    }
+  }
 
   return (
     <div
@@ -52,7 +101,11 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
           </button>
         </div>
         <div className="p-6 space-y-4">
-          <button className="w-full bg-[#1877F2] text-white py-2 px-4 rounded-md flex items-center justify-center space-x-2 hover:bg-[#166fe5]">
+          <button 
+            name={process.env.NEXT_PUBLIC_LOGIN_WITH_FACEBOOK}
+            className="w-full bg-[#1877F2] text-white py-2 px-4 rounded-md flex items-center justify-center space-x-2 hover:bg-[#166fe5]"
+            onClick={handleLoginOnClick}
+          >
             <FaFacebook size={24} />
             <span>เข้าสู่ระบบด้วย Facebook</span>
           </button>
@@ -61,7 +114,11 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
             <span className="flex-shrink mx-4 text-gray-400">- or -</span>
             <div className="flex-grow border-t border-gray-600"></div>
           </div>
-          <button className="w-full border border-gray-600 text-white py-2 px-4 rounded-md flex items-center justify-center space-x-2 hover:bg-gray-700">
+          <button 
+            name={process.env.NEXT_PUBLIC_LOGIN_WITH_GOOGLE}
+            className="w-full border border-gray-600 text-white py-2 px-4 rounded-md flex items-center justify-center space-x-2 hover:bg-gray-700"
+            onClick={handleLoginOnClick}  
+          >
             <FcGoogle size={24} />
             <span>เข้าสู่ระบบด้วย Gmail</span>
           </button>
