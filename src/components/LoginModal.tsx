@@ -64,7 +64,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
         },
         authorizationToken
       )
-      
+      console.log(result)
       if (result.error) {
         console.error(result.error)
         return;
