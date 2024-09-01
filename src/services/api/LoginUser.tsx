@@ -25,9 +25,12 @@ export async function LoginFunction(
         if (response.status !== 200){
             return {error: "Service Error" }
         }
+        if (response.data.code !== 1000){
+            return {error: response.data.message}
+        }
 
         if (response.data.code === 1000){
-            return {data: response.data}
+            return {data: response.data.data}
         }
         return {error: "Error Please try again" }
     }catch (error){
