@@ -21,11 +21,14 @@ const CarouselMarketplace: React.FC = () => {
 
     const carouselProps: any = {
         transition: { duration: 1.5 },
-        className: "rounded-xl py-2 sm:w-[600px]",
+        className: "rounded-xl py-2 sm:w-[600px] z-[10]", // Ensure lower z-index for carousel
         autoplay: true,
         autoplayDelay: 4500,
         loop: true,
+        indicators: false, // Ensure indicators are disabled
+        showDots: false, // Ensure dots are disabled
     };
+    
     const { t } = useTranslation('common');
 
     const images = isMobile 
@@ -47,8 +50,22 @@ const CarouselMarketplace: React.FC = () => {
     return (
         <Carousel {...carouselProps}>
             {images.map((src, index) => (
-                <div key={index} className='w-full h-full flex justify-center items-center'>
-                    <Image src={src} alt='' width={isMobile ? 600 : 1875} height={isMobile ? 284 : 888} />
+                <div key={index} className='w-full h-full flex justify-center items-center carousel-item'>
+                    <Image 
+                        src={src} 
+                        alt='' 
+                        width={isMobile ? 600 : 1875} 
+                        height={isMobile ? 284 : 888} 
+                        onClick={() => {
+                            const carousel = document.querySelector('.carousel');
+                            if (carousel) {
+                                const items = carousel.querySelectorAll('.carousel-item');
+                                if (items[index]) {
+                                    items[index].scrollIntoView({ behavior: 'smooth' });
+                                }
+                            }
+                        }}
+                    />
                 </div>
             ))}
             <div className='flex flex-col justify-center items-center h-full w-full'>
