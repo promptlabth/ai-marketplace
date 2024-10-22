@@ -52,7 +52,7 @@ const Dropdown: React.FC<DropdownProps> = ({ content, placeholder }) => {
             aria-orientation="vertical"
             aria-labelledby="options-menu"
           >
-            {useDropdownUseAgentItems.stylePrompts.map((stylePrompt, index) => (
+            {useDropdownUseAgentItems.stylePrompts?.map((stylePrompt, index) => (
               <DropdownItem
                 key={index}
                 label={stylePrompt.Name}

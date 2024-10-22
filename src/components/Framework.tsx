@@ -15,8 +15,8 @@ const FrameworkComponent: React.FC<FrameworkProps> = ({ translations }) => {
       <p className="text-white">{translations("editAgent.framework.title")}</p>
       <div className="snap-x snap-mandatory overflow-auto">
         <div className="flex flex-row xl:justify-center space-x-2 p-2 scroll-container">
-          {FrameworkItems.data.length !== 0 ? (
-            FrameworkItems.data.map((framework, index) => (
+          {FrameworkItems.data?.length !== 0 ? (
+            FrameworkItems.data?.map((framework, index) => (
               <button
                 key={index}
                 className={`flex-none snap-center w-[90px] h-[40px] sm:w-[220px] items-center flex justify-center ${
@@ -36,7 +36,7 @@ const FrameworkComponent: React.FC<FrameworkProps> = ({ translations }) => {
           )}
         </div>
       </div>
-      {FrameworkItems.data.length !== 0 ? (
+      {FrameworkItems.data?.length !== 0 ? (
         <div className="flex w-full flex-col gap-3 overflow-x-auto">
           <p className="p-2 mt-4 text-white text-[12px] border-b-2">
             {FrameworkItems.selectedFrameworkDetails?.Detail}

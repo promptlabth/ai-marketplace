@@ -6,7 +6,7 @@ export async function GetRoleFrameworks(language:string) {
       "Content-Type": "application/json",
     },
   };
-  const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/${language}/creator/roles`;
+  const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/creator/roles/${language}`;
   try {
     const response = await axios.get(apiUrl, requestOptions);
     if (response.status === 200) {

@@ -2,8 +2,6 @@ import { ProfileUser } from "@/models/interfaces/Login.interface";
 import axios from "axios";
 import { APIResponse } from "./Constant";
 // import { v4 as uuidv4 } from "uuid";
-
-
 interface LoginData {
     accessToken: string;
     platform: string;

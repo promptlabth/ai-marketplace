@@ -6,7 +6,7 @@ export async function GetStylePrompts(language: string) {
       "Content-Type": "application/json",
     },
   };
-  const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/${language}/customer/style_prompts`;
+  const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/customer/style_prompts/${language}`;
   try {
     const response = await axios.get(apiUrl, requestOptions);
     if (response.status === 200) {

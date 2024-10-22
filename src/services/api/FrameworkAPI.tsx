@@ -8,7 +8,7 @@ export async function GetFrameworks(language:string) {
       "Content-Type": "application/json",
     },
   };
-  const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/${language}/creator/frameworks`;
+  const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/creator/frameworks/${language}`;
   try {
     const response = await axios.get(apiUrl, requestOptions);
     if (response.status === 200) {

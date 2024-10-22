@@ -12,9 +12,7 @@ import { useTranslation } from "react-i18next";
 const useFrameworks = () => {
   const [data, setData] = useState<Framework[]>([]);
   const [nameframework, setNameframework] = useState<string>("");
-  const [selectedFrameworkDetails, setSelectedFrameworkDetails] = useState(
-    data[0]
-  );
+  const [selectedFrameworkDetails, setSelectedFrameworkDetails] = useState<Framework>();
   const { i18n } = useTranslation();
   const handleGetFrameworks = async () => {
     const result = await GetFrameworks(i18n.language);
@@ -127,7 +125,7 @@ const useFrameworks = () => {
 
   useEffect(() => {
     const oldNameframework = nameframework;
-    if (data.length > 0 && nameframework == "") {
+    if (data?.length > 0 && nameframework == "") {
       setNameframework(data[0]?.Name);
     } else if (nameframework != "" && nameframework != data[0]?.Name) {
       setNameframework("");

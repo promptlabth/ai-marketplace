@@ -15,7 +15,7 @@ export async function GetMessages(
     },
   };
 
-  const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/${language}/customer/use_agent/messages`;
+  const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/customer/use_agent/messages/${language}`;
 
   try {
     const response = await axios.post(apiUrl, data, requestOptions);
