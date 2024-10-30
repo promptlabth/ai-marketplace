@@ -64,7 +64,8 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
         },
         authorizationToken
       )
-      console.log(result)
+      console.log("Login result:", result);
+      
       if (result.error) {
         console.error(result.error)
         return;
@@ -72,7 +73,9 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
       if (result.data) {
         localStorage.setItem("authorization", authorizationToken)
         localStorage.setItem("typeLogin", platform)
+        localStorage.setItem("userData", JSON.stringify(result.data));
         handleSetUser(result.data)
+        window.location.href = "/creator/profile";
       }
       
     }

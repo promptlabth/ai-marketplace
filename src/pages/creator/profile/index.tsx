@@ -8,7 +8,6 @@ import ButtonChangeLanguage from "@/components/ButtonChangeLanguage"
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
 
-
 interface Agent {
   name_agent: string;
   image_url: string;
@@ -26,13 +25,38 @@ interface ProfileData {
   type_ai: string;
 }
 
+interface UserData {
+  firebaseId: string;
+  name: string;
+  email: string | null;
+  accessToken: string;
+  balanceMessage: number;
+  platform: string;
+  profilePic: string;
+  stripeId: string | null;
+  count_ai: number | null;
+  type_ai: string | null; 
+}
+
+interface PlanData {
+  planType: string;
+  maxMessages: number;
+}
+
 const Profile = () => {
   const [agents, setAgents] = useState<Agent[]>([]);
-  const profileData: ProfileData = data_profile;
+  const [userData, setUserData] = useState<UserData | null>(null);
+  const [planData, setPlanData] = useState<PlanData | null>(null);
   const { t } = useTranslation('common')
 
-
   useEffect(() => {
+    const storedUserData = localStorage.getItem("userData");
+    if (storedUserData) {
+      const parsedUserData = JSON.parse(storedUserData);
+      setUserData(parsedUserData.user);
+      setPlanData(parsedUserData.plan);
+    }
+
     try {
       const sortedAgents = data_list.sort((a: Agent, b: Agent) => b.count_use - a.count_use);
       setAgents(sortedAgents.slice(0, 3));
@@ -73,21 +97,21 @@ const Profile = () => {
       <div className="flex flex-col w-full sm:w-[650px] min-h-screen rounded-xl py-4 px-4 gap-4">
         <div className="flex flex-col justify-center items-center w-full">
           <div className="w-32 h-32 border flex justify-center items-center rounded-full mt-6 bg-orange-500 text-white">
-            <img src={profileData.profile_url} alt="Profile" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <img src={userData?.profilePic} alt="Profile" className="rounded-full w-full h-full object-cover" />
           </div>
-          <p className="text-white font-bold text-[30px] mt-4">{profileData.creator_name}</p>
-          <p className="text-white font-bold text-[15px]">{profileData.email}</p>
+          <p className="text-white font-bold text-[30px] mt-4">{userData?.name}</p>
+          <p className="text-white font-bold text-[15px]">{userData?.email}</p>
         </div>
         <div className="w-full h-full rounded-xl bg-[#33393F] p-6 pb-24">
           <p className="text-white text-xl">{t('creator.profile.ai_created')}</p>
           <div className="flex justify-between w-full">
-            <p className="text-white">{profileData.count_ai} {t('creator.profile.count_ai')}</p>
+            <p className="text-white">{userData?.count_ai} {t('creator.profile.count_ai')}</p>
             <Link href="/creator/list_agent" className="underline text-white hover:text-gray-600 focus:text-gray-600">
             {t('creator.profile.link')}
             </Link>
           </div>
           <p className="mt-8 text-white text-xl"> {t('creator.profile.ai_type')}</p>
-          <p className="text-white">{profileData.type_ai}</p>
+          <p className="text-white">{userData?.type_ai}</p>
           <h1 className="text-white mt-8 text-xl">{t('creator.profile.ai_used')}</h1>
           <div className='flex gap-4 flex-col'>
             {agents.map((agent, index) => (
@@ -119,4 +143,3 @@ export const getStaticProps = async ({ locale }: any) => ({
 });
 
 export default Profile;
-
