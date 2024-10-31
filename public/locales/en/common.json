@@ -1,4 +1,7 @@
 {
+    "nav.profile.title" : "Profile" ,
+    "nav.dashboard.title" : "Dashboard" ,
+    "nav.logout.title" : "Logout" ,
     "test": "test",
     "language": "Language",
     "listAgent.creator.title": "List Agent",
@@ -75,6 +78,7 @@
 
     "studio.Profile":"Profile",
     "studio.CreateAgent":"Create Agent",
+    "studio.AIReportOverview":"AI dashboard",
     "studio.ListAI":"List AI",
     "studio.Payment":"Payment",
 

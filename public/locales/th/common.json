@@ -1,4 +1,7 @@
 {
+    "nav.profile.title" : "โปรไฟล์" ,
+    "nav.dashboard.title" : "แดชบอร์ด" ,
+    "nav.logout.title" : "ออกจากระบบ" ,
     "test": "ทดสอบ",
     "language": "ภาษา",
     "listAgent.creator.title":"รายการ AI",
