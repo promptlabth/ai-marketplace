@@ -5,6 +5,7 @@ import ButtonChangeLanguage from "@/components/ButtonChangeLanguage";
 import LoginModal from "@/components/LoginModal";
 import StudioMenu from "@/components/StudioiMenu"; // import your SampleComponent
 import { useTranslation } from "next-i18next";
+import Link from "next/link";
 
 const Navbar: React.FC = () => {
   const { t } = useTranslation("common");
@@ -61,19 +62,19 @@ const Navbar: React.FC = () => {
             {isDropdownOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
                 <div className="py-2">
-                  <a
+                  <Link
                     href="/creator/profile"
                     className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
                   >
                     {t("nav.profile.title")}
-                  </a>
-                  <a
+                  </Link>
+                  <Link
                     href="/creator/dashboard_overall"
                     className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
                   >
                     {t("nav.dashboard.title")}
-                  </a>
-                    <a
+                  </Link>
+                    <Link
                     href="/"
                     className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
                     onClick={() => {
@@ -83,7 +84,7 @@ const Navbar: React.FC = () => {
                     }}
                     >
                     {t("nav.logout.title")}
-                    </a>
+                    </Link>
                 </div>
               </div>
             )}
