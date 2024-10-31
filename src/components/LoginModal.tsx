@@ -83,11 +83,11 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
 
   return (
     <div
-      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-20"
+      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-5"
       onClick={handleOutsideClick}
     >
       <div
-        className={`bg-[#212529] border-2 border-[#d0d4db] rounded-lg shadow-xl w-full max-w-md
+        className={`bg-[#212529] border-2 border-[#d0d4db] rounded-lg z-5 shadow-xl w-full max-w-md
                     ${isClosing ? 'animate-fade-up' : 'animate-fade-down'}
                     animate-duration-300 animate-ease-out`}
         onClick={(e) => e.stopPropagation()}

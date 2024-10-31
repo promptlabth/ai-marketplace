@@ -18,7 +18,7 @@ const Sidebar: React.FC = () => {
     const { t } = useTranslation('common')
 
     return (
-        <div className="fixed z-50 flex flex-col justify-between gap-6 md:visible invisible top-4 left-4 h-[94%] w-fit bg-gray-700 shadow-lg shadow-gray-900/50 p-2 rounded-xl animate-fade-right">
+        <div className="fixed z-10 flex flex-col justify-between gap-6 md:visible invisible top-4 left-4 h-[94%] w-fit bg-gray-700 shadow-lg shadow-gray-900/50 p-2 rounded-xl animate-fade-right">
             <div className='flex flex-col gap-6'>
                 <button onClick={() => navigateTo('/')} className={`flex justify-center flex-col items-center text-white focus:bg-gray-800 hover:scale-105 ${isActive('/')} hover:bg-gray-800  rounded-lg p-1 shadow-lg shadow-gray-600/30`}>
                     <RiHome2Line color='white' size={40} />

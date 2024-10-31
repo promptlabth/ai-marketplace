@@ -22,7 +22,7 @@ export default function ButtonChangeLanguage() {
     }, [locale, router]);
 
     return (
-        <div className="flex flex-col animate-fade-down">
+        <div className="relative flex flex-col animate-fade-down">
             <div>
                 <button
                     onClick={() => setIsOpen(!isOpen)}
@@ -44,8 +44,8 @@ export default function ButtonChangeLanguage() {
             </div>
 
             {isOpen && (
-                <div className="rounded-md shadow-lg bg-gray-100 ring-1 ring-black ring-opacity-5 focus:outline-none">
-                    <ul className="space-y ">
+                <div className="absolute mt-2 rounded-md shadow-lg bg-gray-100 ring-1 mt-8 ring-black ring-opacity-5 focus:outline-none">
+                    <ul className="space-y-1">
                         <li
                             onClick={() => handleChangeLanguage('th')}
                             className="cursor-pointer flex items-center p-1 text-sm text-gray-700 hover:bg-gray-300 hover:rounded-md"
@@ -63,7 +63,6 @@ export default function ButtonChangeLanguage() {
                     </ul>
                 </div>
             )}
-
         </div>
     );
 }

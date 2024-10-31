@@ -23,7 +23,7 @@ const StudioMenu: React.FC<StudioMenuProps> = ({ translations }) => {
     const Menu: React.FC<{ isOpen: string }> = ({ isOpen }) => {
         return (
           <div
-            className={`fixed p-3 right-0 top-0 w-[250px] h-full z-50 bg-gray-700 ${isOpen} `}
+            className={`fixed p-3 right-0 top-0 w-[250px] h-full bg-gray-700 ${isOpen} `}
           >
             <button
               onClick={toggleMenu}

@@ -4,6 +4,7 @@ import InputNameAgent from "@/components/InputNameAgent";
 import ImageUpload from "@/components/ImageUpload";
 import InputDetial from "@/components/InputDetial";
 import Head from "next/head";
+import Navbar from "@/components/Navbar";
 import { useGlobal } from "@/context/context";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import StudioMenu from "@/components/StudioiMenu";
@@ -28,8 +29,7 @@ const CreateAgent = () => {
       </Head>
       <div className="absolute top-4 right-4">
         <div className="flex gap-2">
-          <ButtonChangeLanguage />
-          <StudioMenu translations={t} />
+          <Navbar />
         </div>
       </div>
       <div className="flex flex-col w-full sm:w-[700px] min-h-screen rounded-xl py-4 gap-4">

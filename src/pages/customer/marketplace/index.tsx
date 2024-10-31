@@ -4,6 +4,7 @@ import Head from "next/head";
 import useAgents from "@/services/api/GetAgents";
 import GetRole from "@/services/api/GetRole";
 import Link from "next/link";
+import Navbar from "@/components/Navbar";
 import Image from "next/image";
 import Loading from "@/components/Loading";
 import ButtonChangeLanguage from "@/components/ButtonChangeLanguage"
@@ -71,11 +72,8 @@ const CreateAgent = () => {
         <title>Marketplace Agent</title>
         <meta name="description" content="" />
       </Head>
-      <div className="absolute top-4 right-8">
-        <div className="flex gap-2">
-          <ButtonChangeLanguage />
-        </div>
-      </div>
+      <Navbar />
+
       <div className="flex justify-center w-full flex-col items-center mb-12">
         <div className="flex flex-start w-full sm:w-[750px] mt-6">
           <SearchInput

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import CarouselMarketplace from "@/components/CorouselMarketplace";
+import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
 import ButtonChangeLanguage from "@/components/ButtonChangeLanguage";
@@ -22,6 +23,7 @@ export default function Home() {
         <meta name="description" content="" />
       </Head>
 
+
       <video
         autoPlay
         loop
@@ -31,11 +33,13 @@ export default function Home() {
         <source src="/videos/background.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
+      
 
       <div className="absolute inset-0 bg-gray-800 opacity-50 z-0"></div>
 
+      
       <div className="relative z-2 flex items-center flex-col min-h-screen p-6">
-        <div className="absolute top-4 right-32">
+        {/* <div className="absolute top-4 right-32">
           <div className="flex gap-2">
             <ButtonChangeLanguage />
           </div>
@@ -45,8 +49,9 @@ export default function Home() {
             <ButtonLogin onClick={openModal} />
           </div>
         </div>
-        {isModalOpen && <LoginModal onClose={closeModal} />}
+        {isModalOpen && <LoginModal onClose={closeModal} />} */}
         <div className="flex items-center flex-col h-full mb-16">
+        <Navbar />
           <div className="flex flex-col items-center justify-center pt-12 animate-fade-down">
             <h1 className="font-extrabold text-[30px] bg-clip-text text-transparent bg-gradient-to-r from-[#02F6A9] to-[#0DC19A] animate-fly">
               Prompt Lab
@@ -54,6 +59,7 @@ export default function Home() {
             <h1 className="font-extrabold text-[40px] bg-clip-text text-transparent bg-gradient-to-r from-[#02F6A9] to-[#0DC19A] animate-fly">
               AI Marketplace
             </h1>
+            
             <p className="text-white text-center">{t("home.title.sub.head")}</p>
           </div>
           <div className="flex flex-col items-start mt-12 sm:w-[600px] gap-8">
