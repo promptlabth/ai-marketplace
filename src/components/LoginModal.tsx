@@ -2,11 +2,13 @@ import { ProfileUser, SignInUserCredential } from "@/models/interfaces/Login.int
 import { LoginFunction } from "@/services/api/LoginUser";
 import signInWithFacebook from "@/services/firebase/auth/AuthFacebook";
 import signInWithGmail from "@/services/firebase/auth/AuthGmail";
-import React, { useState, useEffect, ButtonHTMLAttributes } from "react";
+import { RegisterUser } from "@/services/api/RegisterUser"; // Import the registration function
+import React, { useState, useEffect } from "react";
 import { FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { IoCloseOutline } from "react-icons/io5";
 import { useGlobal } from "@/context/context";
+
 interface LoginModalProps {
   onClose: () => void;
 }
@@ -14,18 +16,16 @@ interface LoginModalProps {
 const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
   const [isClosing, setIsClosing] = useState(false);
   const { handleSetUser } = useGlobal();
+
   const handleClose = () => {
     setIsClosing(true);
   };
-
-
-  // i think we will use context to this part for get some user detail
 
   useEffect(() => {
     if (isClosing) {
       const timer = setTimeout(() => {
         onClose();
-      }, 300); 
+      }, 300);
       return () => clearTimeout(timer);
     }
   }, [isClosing, onClose]);
@@ -36,58 +36,67 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
     }
   };
 
-  const handleLoginOnClick = async (e: React.MouseEvent<HTMLButtonElement>) =>{
+  const handleLoginOnClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    let platform: string = "";
+    let authResult: SignInUserCredential | null = null;
 
-    let platform :string = ""
-
-    let authResult: SignInUserCredential | null;
-    console.log(e.currentTarget.name)
-    switch (e.currentTarget.name){
+    console.log(e.currentTarget.name);
+    switch (e.currentTarget.name) {
       case process.env.NEXT_PUBLIC_LOGIN_WITH_FACEBOOK:
-        platform = "facebook"
-        authResult = await signInWithFacebook()
+        platform = "facebook";
+        authResult = await signInWithFacebook();
         break;
       case process.env.NEXT_PUBLIC_LOGIN_WITH_GOOGLE:
-        platform = "gmail"
-        authResult = await signInWithGmail()
+        platform = "gmail";
+        authResult = await signInWithGmail();
         break;
       default:
-        // tigger something of project (ex model error, notification side bar)
-        return 
+        // trigger something of project (ex model error, notification side bar)
+        return;
     }
-    if (authResult){
-      const authorizationToken = await authResult.user.getIdToken()
-      const result = await LoginFunction(
-        {
-          accessToken: authResult.accessToken ?? "",
-          platform: platform
-        },
-        authorizationToken
-      )
+
+    if (authResult) {
+      const authorizationToken = await authResult.user.getIdToken();
+      const userData = {
+        firebase_id: authResult.user.uid,
+        name: authResult.user.displayName || "Anonymous",
+        email: authResult.user.email || "",
+        platform: platform,
+        stripe_id: "stripe_id_example",
+        plan_id: "plan_id_example",
+        profile_pic: authResult.user.photoURL || "",
+        access_token: authorizationToken,
+      };
+
+      const result = await RegisterUser(userData, authorizationToken);
       console.log("Login result:", result);
       
-      if (result.error) {
-        console.error(result.error)
-        return;
-      }
+
       if (result.data) {
-        localStorage.setItem("authorization", authorizationToken)
-        localStorage.setItem("typeLogin", platform)
-        localStorage.setItem("userData", JSON.stringify(result.data));
-        handleSetUser(result.data)
+        const profileUser: ProfileUser = {
+          user: result.data.user,
+          plan: result.data.plan,
+        };
+        localStorage.setItem("authorization", authorizationToken);
+        localStorage.setItem("typeLogin", platform);
+        localStorage.setItem("userData", JSON.stringify(profileUser));
+        handleSetUser(profileUser);
         window.location.href = "/creator/profile";
+      } else {
+        console.error(result.error);
       }
-      
+    } else {
+      console.error("Authentication failed");
     }
-  }
+  };
 
   return (
     <div
-      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-5"
+      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
       onClick={handleOutsideClick}
     >
       <div
-        className={`bg-[#212529] border-2 border-[#d0d4db] rounded-lg z-5 shadow-xl w-full max-w-md
+        className={`bg-[#212529] border-2 border-[#d0d4db] rounded-lg shadow-xl w-full max-w-md
                     ${isClosing ? 'animate-fade-up' : 'animate-fade-down'}
                     animate-duration-300 animate-ease-out`}
         onClick={(e) => e.stopPropagation()}

@@ -1,4 +1,5 @@
 {
+    "nav.title": "Login" ,
     "nav.profile.title" : "Profile" ,
     "nav.dashboard.title" : "Dashboard" ,
     "nav.logout.title" : "Logout" ,
