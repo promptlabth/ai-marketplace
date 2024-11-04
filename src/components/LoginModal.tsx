@@ -1,4 +1,7 @@
-import { ProfileUser, SignInUserCredential } from "@/models/interfaces/Login.interface";
+import {
+  ProfileUser,
+  SignInUserCredential,
+} from "@/models/interfaces/Login.interface";
 import { LoginFunction } from "@/services/api/LoginUser";
 import signInWithFacebook from "@/services/firebase/auth/AuthFacebook";
 import signInWithGmail from "@/services/firebase/auth/AuthGmail";
@@ -48,8 +51,12 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
         break;
       case process.env.NEXT_PUBLIC_LOGIN_WITH_GOOGLE:
         platform = "gmail";
-        authResult = await signInWithGmail();
-        console.log(authResult)
+        authResult = (await signInWithGmail()) || null;
+        if (authResult != null) {
+          const authToken = await authResult.user.getIdToken();
+          localStorage.setItem("authorization",authToken);
+          console.log(authResult);
+        }
         break;
       default:
         // trigger something of project (ex model error, notification side bar)
@@ -71,7 +78,6 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
 
       const result = await RegisterUser(userData, authorizationToken);
       console.log("Login result:", result);
-      
 
       if (result.data) {
         const profileUser: ProfileUser = {
@@ -98,7 +104,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
     >
       <div
         className={`bg-[#212529] border-2 border-[#d0d4db] rounded-lg shadow-xl w-full max-w-md
-                    ${isClosing ? 'animate-fade-up' : 'animate-fade-down'}
+                    ${isClosing ? "animate-fade-up" : "animate-fade-down"}
                     animate-duration-300 animate-ease-out`}
         onClick={(e) => e.stopPropagation()}
       >
@@ -114,7 +120,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
           </button>
         </div>
         <div className="p-6 space-y-4">
-          <button 
+          <button
             name={process.env.NEXT_PUBLIC_LOGIN_WITH_FACEBOOK}
             className="w-full bg-[#1877F2] text-white py-2 px-4 rounded-md flex items-center justify-center space-x-2 hover:bg-[#166fe5]"
             onClick={handleLoginOnClick}
@@ -127,10 +133,10 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
             <span className="flex-shrink mx-4 text-gray-400">- or -</span>
             <div className="flex-grow border-t border-gray-600"></div>
           </div>
-          <button 
+          <button
             name={process.env.NEXT_PUBLIC_LOGIN_WITH_GOOGLE}
             className="w-full border border-gray-600 text-white py-2 px-4 rounded-md flex items-center justify-center space-x-2 hover:bg-gray-700"
-            onClick={handleLoginOnClick}  
+            onClick={handleLoginOnClick}
           >
             <FcGoogle size={24} />
             <span>เข้าสู่ระบบด้วย Gmail</span>

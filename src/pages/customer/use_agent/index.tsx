@@ -27,7 +27,7 @@ const useAgent = () => {
     };
     const result = await GetMessages(i18n.language, data);
     if (result.result) {
-      setMessages(result.result);
+      // setMessages(result.result);
     }
   }
 
