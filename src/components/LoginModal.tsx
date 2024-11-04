@@ -49,6 +49,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
       case process.env.NEXT_PUBLIC_LOGIN_WITH_GOOGLE:
         platform = "gmail";
         authResult = await signInWithGmail();
+        console.log(authResult)
         break;
       default:
         // trigger something of project (ex model error, notification side bar)
