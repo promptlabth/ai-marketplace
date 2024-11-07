@@ -38,7 +38,7 @@ export default function Home() {
       <div className="absolute inset-0 bg-gray-800 opacity-50 z-0"></div>
 
       
-      <div className="relative z-2 flex items-center flex-col min-h-screen p-6">
+      <div className="relative z-0 flex items-center flex-col min-h-screen p-6">
         {/* <div className="absolute top-4 right-32">
           <div className="flex gap-2">
             <ButtonChangeLanguage />
@@ -62,7 +62,7 @@ export default function Home() {
             
             <p className="text-white text-center">{t("home.title.sub.head")}</p>
           </div>
-          <div className="flex flex-col items-start mt-12 sm:w-[600px] gap-8">
+          <div className="flex flex-col items-start mt-12 sm:w-[600px] gap-8 z-[-1]">
             <div className="mt-8">
               <div className="w-full h-[300px] rounded-xl flex justify-center scroll-container">
                 <CarouselMarketplace />

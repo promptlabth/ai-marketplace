@@ -21,7 +21,7 @@ const CarouselMarketplace: React.FC = () => {
 
     const carouselProps: any = {
         transition: { duration: 1.5 },
-        className: "rounded-xl py-2 sm:w-[600px] z-[10]", // Ensure lower z-index for carousel
+        className: "rounded-xl py-2 sm:w-[600px] z-[0]", // Ensure lower z-index for carousel
         autoplay: true,
         autoplayDelay: 4500,
         loop: true,

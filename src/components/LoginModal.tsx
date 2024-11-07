@@ -54,7 +54,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
         authResult = (await signInWithGmail()) || null;
         if (authResult != null) {
           const authToken = await authResult.user.getIdToken();
-          localStorage.setItem("authorization",authToken);
+          localStorage.setItem("authorization", authToken);
           console.log(authResult);
         }
         break;
@@ -99,17 +99,17 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
 
   return (
     <div
-      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
+      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4"
       onClick={handleOutsideClick}
     >
       <div
         className={`bg-[#212529] border-2 border-[#d0d4db] rounded-lg shadow-xl w-full max-w-md
                     ${isClosing ? "animate-fade-up" : "animate-fade-down"}
-                    animate-duration-300 animate-ease-out`}
+                    animate-duration-300 animate-ease-out `}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="relative pt-6 pb-2">
-          <h2 className="text-xl font-semibold text-center text-white">
+          <h2 className="text-xl font-semibold text-center text-white ">
             เข้าสู่ระบบ
           </h2>
           <button
