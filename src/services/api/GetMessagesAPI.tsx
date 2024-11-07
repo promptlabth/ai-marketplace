@@ -33,14 +33,11 @@ export async function GetMessages(
     maxBodyLength: Infinity,
     url: 'https://be-ms-realtime-generate-760358261832.asia-southeast1.run.app/realtime-generate/generate/message/stream',
     headers: {
-      'Content-Type': 'text/event-stream',
-      'Cache-Control': 'no-cache',
-      // 'Connection': 'keep-alive', 
-      // 'Transfer-Encoding': 'chunked', 
+      "Content-Type": "application/json",
       'Authorization': "Bearer " + localStorage.getItem("authorization"),
     }, 
     data: datas,
-    responseType: 'stream'
+    responseType: "stream"
   }
 
 
@@ -49,11 +46,7 @@ export async function GetMessages(
   //   inputMessage: "test",
   //   genModel: "GPT",
   // };
-  const response = await axios.post(
-    'https://be-ms-realtime-generate-760358261832.asia-southeast1.run.app/realtime-generate/generate/message/stream', 
-    config.data,
-    config 
-  )
+  const response = await axios.request(config)
   const stream = response.data
 
   stream.on('data', (data: string) => {
