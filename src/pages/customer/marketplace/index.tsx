@@ -7,11 +7,10 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Image from "next/image";
 import Loading from "@/components/Loading";
-import ButtonChangeLanguage from "@/components/ButtonChangeLanguage"
+import ButtonChangeLanguage from "@/components/ButtonChangeLanguage";
 import RoleButton from "@/components/marketplace/RoleButton";
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
-
 
 const CreateAgent = () => {
   const { data, isLoading, error } = useAgents();
@@ -21,11 +20,12 @@ const CreateAgent = () => {
   const [allRoles, setAllRoles] = useState<any[]>([]);
   const { t } = useTranslation("common");
 
-
   useEffect(() => {
     if (data?.agents) {
       setFilteredAgents(data.agents);
-      const uniqueRoles = Array.from(new Set(data.agents.map((agent: any) => agent.RoleFrameID)));
+      const uniqueRoles = Array.from(
+        new Set(data.agents.map((agent: any) => agent.RoleFrameID))
+      );
       setAllRoles(uniqueRoles);
     }
   }, [data]);
@@ -50,18 +50,18 @@ const CreateAgent = () => {
     const newFilteredAgents = data.agents.filter((agent: any) => {
       const agentRoleFrameID = Number(agent.RoleFrameID);
       const comparedRoleFrameID = Number(roleFrameID);
-      console.log(`Agent ID: ${agent.ID}, Agent RoleFrameID: ${agentRoleFrameID}, Compared RoleFrameID: ${comparedRoleFrameID}`);
+      console.log(
+        `Agent ID: ${agent.ID}, Agent RoleFrameID: ${agentRoleFrameID}, Compared RoleFrameID: ${comparedRoleFrameID}`
+      );
       return agentRoleFrameID === comparedRoleFrameID;
     });
     setFilteredAgents(newFilteredAgents);
   };
 
-
   const handleSearch = (searchTerm: string) => {
     const searchLower = searchTerm.toLowerCase();
-    const newFilteredAgents = data.agents.filter(
-      (agent: any) =>
-        agent.Name.toLowerCase().includes(searchLower)
+    const newFilteredAgents = data.agents.filter((agent: any) =>
+      agent.Name.toLowerCase().includes(searchLower)
     );
     setFilteredAgents(newFilteredAgents);
   };
@@ -72,8 +72,9 @@ const CreateAgent = () => {
         <title>Marketplace Agent</title>
         <meta name="description" content="" />
       </Head>
-      <Navbar />
-
+      <div className="">
+        <Navbar />
+      </div>
       <div className="flex justify-center w-full flex-col items-center mb-12">
         <div className="flex flex-start w-full sm:w-[750px] mt-6">
           <SearchInput
@@ -111,10 +112,15 @@ const CreateAgent = () => {
           {Object.keys(groupedAgents).map((roleFrameID: any) => (
             <div
               key={roleFrameID}
-              ref={(el) => {categoryRefs.current[roleFrameID] = el}}
+              ref={(el) => {
+                categoryRefs.current[roleFrameID] = el;
+              }}
               className="flex flex-col sm:items-start gap-4 mb-4 w-full snap-x snap-mandatory hide-scrollbar overflow-x-scroll space-x-4"
             >
-              <RoleCategory roleFrameID={roleFrameID} agents={groupedAgents[roleFrameID]} />
+              <RoleCategory
+                roleFrameID={roleFrameID}
+                agents={groupedAgents[roleFrameID]}
+              />
             </div>
           ))}
         </div>
@@ -123,7 +129,13 @@ const CreateAgent = () => {
   );
 };
 
-const RoleCategory = ({ roleFrameID, agents }: { roleFrameID: number, agents: any[] }) => {
+const RoleCategory = ({
+  roleFrameID,
+  agents,
+}: {
+  roleFrameID: number;
+  agents: any[];
+}) => {
   const { roleName, isLoading, error } = GetRole(roleFrameID);
 
   if (isLoading) return null;
@@ -131,7 +143,9 @@ const RoleCategory = ({ roleFrameID, agents }: { roleFrameID: number, agents: an
 
   return (
     <>
-      <h3 className="text-lg font-bold text-white w-full justify-start">{roleName}</h3>
+      <h3 className="text-lg font-bold text-white w-full justify-start">
+        {roleName}
+      </h3>
       <div className="flex gap-4">
         {agents.map((agent: any) => (
           <Link
@@ -165,7 +179,6 @@ const RoleCategory = ({ roleFrameID, agents }: { roleFrameID: number, agents: an
 };
 
 export default CreateAgent;
-
 
 export const getStaticProps = async ({ locale }: any) => ({
   props: {
