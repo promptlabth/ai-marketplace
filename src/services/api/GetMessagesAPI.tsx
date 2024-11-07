@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 
 type Payload = {
   content: string;
@@ -24,22 +24,24 @@ export async function GetMessages(
       Authorization: "Bearer " + localStorage.getItem("authorization"), // Replace token if needed
     },
   };
-  let datas =
-  '{\r\n    "content" : "Can you teach me a golang",\r\n    "inputMessage" : "test",\r\n    "genModel": "GPT"\r\n}';
-const apiUrl = `${process.env.NEXT_PUBLIC_BASE_GENERATE_URL}/realtime-generate/generate/message/stream`;
+  let datas ='{\r\n    "content" : "Can you teach me a golang",\r\n    "inputMessage" : "test",\r\n    "genModel": "GPT"\r\n}';
+  const apiUrl = `${process.env.NEXT_PUBLIC_BASE_GENERATE_URL}/realtime-generate/generate/message/stream`;
 
 
-  let config = {
+  let config : AxiosRequestConfig = {
     method: 'post',
     maxBodyLength: Infinity,
     url: 'https://be-ms-realtime-generate-760358261832.asia-southeast1.run.app/realtime-generate/generate/message/stream',
-    headers: { 
-      'Content-Type': 'text/event-stream', 
-      'Cache-Control': 'no-cache', 
+    headers: {
+      'Content-Type': 'text/event-stream',
+      'Cache-Control': 'no-cache',
       // 'Connection': 'keep-alive', 
       // 'Transfer-Encoding': 'chunked', 
       'Authorization': "Bearer " + localStorage.getItem("authorization"),
-    },data:datas}
+    }, 
+    data: datas,
+    responseType: 'stream'
+  }
 
 
   // const mock: Payload = {
@@ -47,14 +49,16 @@ const apiUrl = `${process.env.NEXT_PUBLIC_BASE_GENERATE_URL}/realtime-generate/g
   //   inputMessage: "test",
   //   genModel: "GPT",
   // };
+  const response = await axios.post(
+    'https://be-ms-realtime-generate-760358261832.asia-southeast1.run.app/realtime-generate/generate/message/stream', 
+    config.data,
+    config 
+  )
+  const stream = response.data
 
-  axios.request(config)
-.then((response) => {
-  console.log(JSON.stringify(response.data));
-})
-.catch((error) => {
-  console.log(error);
-});
+  stream.on('data', (data: string) => {
+    console.log(data)
+  })
 
 
   // try {
@@ -68,6 +72,6 @@ const apiUrl = `${process.env.NEXT_PUBLIC_BASE_GENERATE_URL}/realtime-generate/g
   //   return { reply: "Error Please try again" };
   // }
   return {
-    result : ""
+    result: ""
   }
 }
