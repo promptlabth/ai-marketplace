@@ -19,8 +19,8 @@ export async function GetMessages(
     headers: {
       "Content-Type": "text/event-stream",
       "Cache-Control": "no-cache",
-      "Connection": "keep-alive",
-      "Transfer-Encoding": "chunked",
+      // "Connection": "keep-alive",
+      // "Transfer-Encoding": "chunked",
       Authorization: "Bearer " + localStorage.getItem("authorization"), // Replace token if needed
     },
   };
