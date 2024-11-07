@@ -17,7 +17,7 @@ export async function GetMessages(
 ) {
   const requestOptions = {
     headers: {
-      "Content-Type": "text/event-stream",
+      "Content-Type": "application/json",
       "Cache-Control": "no-cache",
       // "Connection": "keep-alive",
       // "Transfer-Encoding": "chunked",
