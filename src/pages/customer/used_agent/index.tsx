@@ -46,21 +46,7 @@ const useAgent = () => {
     setFirebaseId(firebase_id);
   }, []);
 
-  const handleGetMessages = async () => {
-    const data = {
-      firebase_id: firebaseId,
-      agent_id: agent?.ID === undefined ? 0 : agent.ID,
-      prompt: user_prompt,
-      style_message_id: style_message_id,
-    };
 
-    const result = await GetMessages(i18n.language, data, (message) => {
-      console.log(message);
-    });
-    if (result.result) {
-      // setMessages(result.result);
-    }
-  };
 
   const fetchData = async () => {
     try {

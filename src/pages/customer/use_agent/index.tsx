@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import Dropdown from "@/components/DropdownUseAgent";
@@ -10,7 +10,6 @@ import InputDetail from "@/components/InputDetial";
 import { useGlobal } from "@/context/context";
 import ButtonGenerate from "@/components/ButtonGenerate";
 import { GetMessages } from "@/services/api/GetMessagesAPI";
-import { useState } from "react";
 
 const useAgent = () => {
   const { t } = useTranslation("common");
@@ -27,13 +26,12 @@ const useAgent = () => {
       prompt: user_prompt,
       style_message_id: style_message_id,
     };
-    const result = await GetMessages(i18n.language, data, (message) => {
-      console.log(message);
-    });
+    const result = await GetMessages(i18n.language, data);
     if (result.result) {
+      console.log(result.result);
       // setMessages(result.result);
     }
-  }
+  };
 
   return (
     <div className="bg-[#212529] p-6 min-h-screen flex flex-col justify-center items-center">
