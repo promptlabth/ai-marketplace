@@ -16,6 +16,8 @@ interface IGlobalExportContext {
   setUserPrompt: React.Dispatch<React.SetStateAction<string>>;
   setStyleMessageID: React.Dispatch<React.SetStateAction<number>>;
   setAgent: React.Dispatch<React.SetStateAction<AgentInterface | undefined>>;
+  setRealTimeMessage: React.Dispatch<React.SetStateAction<string | undefined>>;
+  realTimeMessage: string | undefined;
   agent_name: string;
   agent_image: string;
   agent_describe: string;
@@ -27,6 +29,7 @@ interface IGlobalExportContext {
   style_message_id: number;
   user?: ProfileUser;
   handleSetUser: (user: ProfileUser) => void;
+
 }
 
 const GlobalContext = createContext<IGlobalExportContext>({} as IGlobalExportContext);
@@ -46,32 +49,14 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
   const [user_prompt, setUserPrompt] = useState<string>("");
   const [agent, setAgent] = useState<AgentInterface>();
   const [style_message_id, setStyleMessageID] = useState<number>(0);
+  
+  const [realTimeMessage, setRealTimeMessage] = useState<string>();
 
   const handleSetUser = (user: ProfileUser) => {
     setUser(user);
   }
 
-  const AgentData: IGlobalExportContext = {
-    agent_name,
-    agent_image,
-    agent_describe,
-    prompt,
-    role_framework_id,
-    framework_id,
-    setAgentName,
-    setAgentImage,
-    setAgentDescribe,
-    setPrompt,
-    setFramworkID,
-    setRoleID,
-    user_prompt,
-    setUserPrompt,
-    style_message_id,
-    setStyleMessageID,
-    agent,
-    setAgent,
-    handleSetUser,
-  }
+  
   return (
     <GlobalContext.Provider
       value={{
@@ -94,6 +79,8 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
     agent,
     setAgent,
     handleSetUser,
+    setRealTimeMessage,
+    realTimeMessage,
   }}
     >
       {children}

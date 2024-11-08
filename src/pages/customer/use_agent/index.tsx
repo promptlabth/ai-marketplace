@@ -16,20 +16,43 @@ const useAgent = () => {
   const { user_prompt, setUserPrompt, style_message_id, agent } = useGlobal();
   const { i18n } = useTranslation();
   const [messages, setMessages] = useState(null);
+  const [realTimeMessage, setRealTimeMessage] = useState("");
+  const [isActive, setIsActive] = useState(false);
+
+  useEffect(() => {
+    if (isActive) {
+      console.log("Streaming is active"); // Logs when isActive becomes true
+    }
+  }, [isActive]);
+
+  const handleNewCharacter = (newChar: string) => {
+      setRealTimeMessage((prev) => prev + newChar);
+  };
+
 
   const handleGetMessages = async () => {
+
+    // Clear previous message and set the request as active immediately
+    setRealTimeMessage("");
+    setIsActive(true);
+    
+
+    // Prepare data for the request
     const userData = JSON.parse(localStorage.getItem("userData") || "{}");
     const firebase_id = userData.user?.firebase_id || "null";
     const data = {
       firebase_id: localStorage.getItem("firebase_id") || "Test",
-      agent_id: (agent?.ID === undefined ? 0 : agent.ID),
+      agent_id: agent?.ID || 0,
       prompt: user_prompt,
-      style_message_id: style_message_id,
+      style_message_id,
     };
-    const result = await GetMessages(i18n.language, data);
-    if (result.result) {
-      console.log(result.result);
-      // setMessages(result.result);
+
+    // Call GetMessages and update the realTimeMessage with each character received
+    try {
+      await GetMessages( i18n.language, data, handleNewCharacter);
+    } finally {
+      // Set isActive to false once the request is complete
+      setIsActive(false);
     }
   };
 
@@ -72,7 +95,7 @@ const useAgent = () => {
         />
         <Outputtext
           content={t("customer.useAgent.Outputtext.name")}
-          generate={messages ?? "..."}
+          generate={realTimeMessage ?? "..."}
         />
         <div className="flex justify-around items-center w-full gap-4 pt-4">
           <ButtonGenerate
