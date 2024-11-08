@@ -19,13 +19,17 @@ const useAgent = () => {
   const [messages, setMessages] = useState(null);
 
   const handleGetMessages = async () => {
+    const userData = JSON.parse(localStorage.getItem("userData") || "{}");
+    const firebase_id = userData.user?.firebase_id || "null";
     const data = {
-      firebase_id: "123ID",
+      firebase_id: localStorage.getItem("firebase_id") || "Test",
       agent_id: (agent?.ID === undefined ? 0 : agent.ID),
       prompt: user_prompt,
       style_message_id: style_message_id,
     };
-    const result = await GetMessages(i18n.language, data);
+    const result = await GetMessages(i18n.language, data, (message) => {
+      console.log(message);
+    });
     if (result.result) {
       // setMessages(result.result);
     }

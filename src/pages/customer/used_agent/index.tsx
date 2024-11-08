@@ -1,58 +1,100 @@
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import axios from "axios";
-import ButtonChangeLanguage from "@/components/ButtonChangeLanguage"
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useGlobal } from "@/context/context";
+import ButtonChangeLanguage from "@/components/ButtonChangeLanguage";
+import { GetMessages } from "@/services/api/GetMessagesAPI";
+import Navbar from "@/components/Navbar";
 
-const UsedAgent = () => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [agentList, setAgentList] = useState<any>(null);
+
+interface Agent {
+  ID: number;
+  FirebaseID: string;
+  AgentID: number;
+  FrameworkID: number;
+  Prompt: string;
+  StyleMessageID: number;
+  Language: string;
+  Result: string;
+  Model: string;
+  Completion_tokens: number;
+  Prompt_tokens: number;
+  TimeStamp: string;
+  Name: string;
+  Description: string;
+  ImageURL: string;
+  AgentPrompt: string | null;
+  AgentFrameworkID: number;
+  RoleFrameID: number;
+  TotalUsed: number;
+}
+
+const useAgent = () => {
   const { t } = useTranslation("common");
-  // Handler for search input change
-  const handleSearchChange = (e: any) => {
-    setSearchQuery(e.target.value);
-  };
+  const { user_prompt, setUserPrompt, style_message_id, agent } = useGlobal();
+  const { i18n } = useTranslation();
+  const [messages, setMessages] = useState(null);
+  const [firebaseId, setFirebaseId] = useState("");
+  const [agentList, setAgentList] = useState<Agent[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const mock_firebase_id = "firebase_001";
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem("userData") || "{}");
+    const firebase_id = userData.user?.firebase_id || "";
+    setFirebaseId(firebase_id);
+  }, []);
+
+  const handleGetMessages = async () => {
+    const data = {
+      firebase_id: firebaseId,
+      agent_id: agent?.ID === undefined ? 0 : agent.ID,
+      prompt: user_prompt,
+      style_message_id: style_message_id,
+    };
+
+    const result = await GetMessages(i18n.language, data, (message) => {
+      console.log(message);
+    });
+    if (result.result) {
+      // setMessages(result.result);
+    }
+  };
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/creator/${mock_firebase_id}`);
-      console.log("successfully:", response.data);
-      // setAgentList(response.data);//ไอ้นี่ทํางานได้
-      if (response.status === 200 && response.data.status === "success") {
-        console.log("Get agentList success");
-        setAgentList(response.data);//ไอ้นี่ไม่ทํางานได้
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/customer/agent_usage/${firebaseId}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
+      const data: Agent[] = await response.json();
+      setAgentList(data);
     } catch (error) {
-      console.error("Error Get agentList", error);
+      console.error("Error fetching agent list:", error);
     }
   };
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    if (firebaseId) {
+      fetchData();
+    }
+  }, [firebaseId]);
 
-  // If agentList is null or undefined, return an empty array
-  const agents = agentList?.agents || [];
-
-  // Filtered agents based on the search query
-  const filteredAgents = agents.filter((agent: any) =>
+  const filteredAgents = agentList.filter((agent: Agent) =>
     new RegExp(searchQuery, "i").test(agent.Name)
   );
 
-
   return (
-    <div className="flex flex-col bg-[#212529] min-h-screen overflow-y-auto p-6">
+    <div className="bg-[#212529] p-6 min-h-screen flex flex-col justify-center items-center">
       <Head>
-        <title>List Agent</title>
-        <meta name="description" content="List of recently used AI agents" />
+        <title>{t("customer.useAgent.title")}</title>
+        <meta name="description" content="" />
       </Head>
+      <Navbar />
       <div className="absolute top-4 right-4">
         <div className="flex gap-2">
-          <ButtonChangeLanguage />
+          
         </div>
       </div>
       <div className="flex justify-center w-full mb-12">
@@ -64,23 +106,24 @@ const UsedAgent = () => {
               className="w-full px-4 py-2 rounded-lg border border-gray-300"
               placeholder={t("list_ai.customer.search_placeholder")}
               value={searchQuery}
-              onChange={handleSearchChange}
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
           <div className="flex flex-wrap justify-center gap-4 w-full mt-4">
-            {filteredAgents.map((agent: any, index: number) => (
-              <Link
-                href="/customer/history_agent"
-                key={index}
-                className="flex flex-col items-center md:w-[250px] sm:w-[300px] lg:w-[300px] border border-blue-400 p-4 rounded-lg bg-[#1a1d21] hover:bg-[#2A73FF] transition-all duration-200"
-              >
-                <div className="flex items-center justify-center rounded-full h-[75px] w-[75px] bg-[#2A73FF] mb-4">
-                  <img src={agent.ImageURL} alt={agent.Name} className="h-full w-full object-cover rounded-full" />
-                </div>
-                <div className="text-center">
-                  <p className="text-white font-bold text-[15px] mb-1">{agent.Name}</p>
-                  {/* <p className="text-white text-[10px] mb-1">{agent.time_used}</p>
-                  <p className="text-white text-[10px]">ใช้งาน: {agent.count_use} ครั้ง</p> */}
+            {filteredAgents.map((agent: Agent, index: number) => (
+              <Link href={`/customer/${agent.AgentID}`} key={index}>
+                <div
+                  className="flex flex-col items-center md:w-[250px] sm:w-[300px] lg:w-[300px] border border-blue-400 p-4 rounded-lg bg-[#1a1d21] hover:bg-[#2A73FF] transition-all duration-200 cursor-pointer"
+                >
+                  <div className="flex items-center justify-center rounded-full h-[75px] w-[75px] bg-[#2A73FF] mb-4">
+                    <img src={agent.ImageURL} alt={agent.Name} className="h-full w-full object-cover rounded-full" />
+                  </div>
+                  <div className="text-center">
+                    <p className="text-white font-bold text-[15px] mb-1">{agent.Name}</p>
+                    <p className="text-white text-[12px] mb-1">{agent.Description}</p>
+                    <p className="text-white text-[12px] mb-1">{agent.Prompt}</p>
+                    <p className="text-white text-[12px] mb-1">{new Date(agent.TimeStamp).toLocaleString("en-GB", { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
+                  </div>
                 </div>
               </Link>
             ))}
@@ -91,8 +134,7 @@ const UsedAgent = () => {
   );
 };
 
-export default UsedAgent;
-
+export default useAgent;
 
 export const getStaticProps = async ({ locale }: any) => ({
   props: {

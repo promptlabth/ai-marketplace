@@ -1,8 +1,8 @@
 import {
   ProfileUser,
   SignInUserCredential,
+  UserDetail
 } from "@/models/interfaces/Login.interface";
-import { LoginFunction } from "@/services/api/LoginUser";
 import signInWithFacebook from "@/services/firebase/auth/AuthFacebook";
 import signInWithGmail from "@/services/firebase/auth/AuthGmail";
 import { RegisterUser } from "@/services/api/RegisterUser"; // Import the registration function
@@ -79,10 +79,18 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
       const result = await RegisterUser(userData, authorizationToken);
       console.log("Login result:", result);
 
-      if (result.data) {
+      if (result && result.id) {
         const profileUser: ProfileUser = {
-          user: result.data.user,
-          plan: result.data.plan,
+          user: {
+            id: result.id,
+            firebase_id: result.firebase_id,
+            name: result.name,
+            email: result.email,
+            platform: result.platform,
+            plan_id: result.plan_id,
+            profile_pic: result.profile_pic,
+            access_token: result.access_token,
+          },
         };
         localStorage.setItem("authorization", authorizationToken);
         localStorage.setItem("typeLogin", platform);
@@ -90,7 +98,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
         handleSetUser(profileUser);
         window.location.href = "/creator/profile";
       } else {
-        console.error(result.error);
+        console.error("Login failed:", result);
       }
     } else {
       console.error("Authentication failed");

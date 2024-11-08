@@ -2,19 +2,17 @@ import { UserCredential } from "firebase/auth";
 
 export interface ProfileUser {
     user: UserDetail;
-    plan: UserPlan
 }
 
 export interface UserDetail{
-    user: UserDetail;
-    plan: UserPlan;
-    firebaseId: string;
-    name: string;
-    email?: string;
-    profilePic? :string;
-    platform: string;
-    stripeId: string;
-    balanceMessage: number;
+    id : number
+    firebase_id : string
+    access_token : string
+    email : string | undefined
+    name : string
+    plan_id :string | undefined
+    platform : string
+    profile_pic : string
 }
 
 export interface UserRegister {

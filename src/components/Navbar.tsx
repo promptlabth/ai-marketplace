@@ -13,11 +13,16 @@ const Navbar: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userData, setUserData] = useState<any>(null);
+  const [userPic, setUserPic] = useState<any>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null); // Ref for dropdown
 
   useEffect(() => {
     const storedUserData = localStorage.getItem("userData");
+    const userData = JSON.parse(localStorage.getItem("userData") || "{}");
+    const profile_pic = userData.user?.profile_pic ;
+    console.log(profile_pic);
+    setUserPic(profile_pic);
     if (storedUserData) {
       setIsLoggedIn(true);
       setUserData(JSON.parse(storedUserData).user);
@@ -54,7 +59,7 @@ const Navbar: React.FC = () => {
         {isLoggedIn ? (
           <div className="relative animate-fade-down" ref={dropdownRef}>
             <img
-              src={userData.profilePic}
+              src={userPic}
               alt="Profile"
               className="w-10 h-10 rounded-full cursor-pointer mx-3"
               onClick={toggleDropdown}
@@ -79,6 +84,10 @@ const Navbar: React.FC = () => {
                     className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
                     onClick={() => {
                       localStorage.removeItem("userData");
+                      localStorage.removeItem("user_id");
+                      localStorage.removeItem("authorization");
+                      localStorage.removeItem("token");
+                      localStorage.removeItem("username");
                       setIsLoggedIn(false);
                       setUserData(null);
                     }}
