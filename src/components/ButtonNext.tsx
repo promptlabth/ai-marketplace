@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 interface ButtonProps {
     name_button: string;
     route_page: string;
+    className?: string;
 }
 
 const ButtonNext: React.FC<ButtonProps> = ({ name_button, route_page }) => {

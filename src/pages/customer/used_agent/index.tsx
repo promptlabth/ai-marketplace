@@ -8,7 +8,6 @@ import ButtonChangeLanguage from "@/components/ButtonChangeLanguage";
 import { GetMessages } from "@/services/api/GetMessagesAPI";
 import Navbar from "@/components/Navbar";
 
-
 interface Agent {
   ID: number;
   FirebaseID: string;
@@ -45,8 +44,6 @@ const useAgent = () => {
     const firebase_id = userData.user?.firebase_id || "";
     setFirebaseId(firebase_id);
   }, []);
-
-
 
   const fetchData = async () => {
     try {
@@ -89,7 +86,7 @@ const useAgent = () => {
           <div className="w-full md:w-[540px] lg:w-[940px]">
             <input
               type="text"
-              className="w-full px-4 py-2 rounded-lg border border-gray-300"
+              className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-[#02ffac]"
               placeholder={t("list_ai.customer.search_placeholder")}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -99,16 +96,16 @@ const useAgent = () => {
             {filteredAgents.map((agent: Agent, index: number) => (
               <Link href={`/customer/${agent.AgentID}`} key={index}>
                 <div
-                  className="flex flex-col items-center md:w-[250px] sm:w-[300px] lg:w-[300px] border border-blue-400 p-4 rounded-lg bg-[#1a1d21] hover:bg-[#2A73FF] transition-all duration-200 cursor-pointer"
+                  className="flex flex-col items-center md:w-[250px] sm:w-[300px] lg:w-[300px] border border-blue-400 p-4 rounded-lg bg-[#1a1d21] hover:bg-[#02ffac] transition-all duration-200 cursor-pointer shadow-lg transform hover:scale-105"
                 >
-                  <div className="flex items-center justify-center rounded-full h-[75px] w-[75px] bg-[#2A73FF] mb-4">
+                  <div className="flex items-center justify-center rounded-full h-[75px] w-[75px] bg-[#02ffac] mb-4">
                     <img src={agent.ImageURL} alt={agent.Name} className="h-full w-full object-cover rounded-full" />
                   </div>
                   <div className="text-center">
                     <p className="text-white font-bold text-[15px] mb-1">{agent.Name}</p>
                     <p className="text-white text-[12px] mb-1">{agent.Description}</p>
                     <p className="text-white text-[12px] mb-1">{agent.Prompt}</p>
-                    <p className="text-white text-[12px] mb-1">{new Date(agent.TimeStamp).toLocaleString("en-GB", { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
+                    <p className="text-white text-[12px] mb-1">{t("list_ai.customer.recent_use")}{new Date(agent.TimeStamp).toLocaleString("en-GB", { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
                   </div>
                 </div>
               </Link>

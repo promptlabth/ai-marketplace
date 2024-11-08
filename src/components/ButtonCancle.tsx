@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 
 interface ButtonProps {
     name_button: string;
+    className?: string;
 }
 
 const ButtonCancle: React.FC<ButtonProps> = ({ name_button }) => {

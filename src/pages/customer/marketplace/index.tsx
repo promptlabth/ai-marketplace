@@ -16,6 +16,7 @@ const CreateAgent = () => {
   const { data, isLoading, error } = useAgents();
   const [clickOpencategory, setOpencategory] = useState<string>("flex-nowrap");
   const [filteredAgents, setFilteredAgents] = useState<any[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
   const categoryRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
   const [allRoles, setAllRoles] = useState<any[]>([]);
   const { t } = useTranslation("common");
@@ -47,15 +48,21 @@ const CreateAgent = () => {
   }, {});
 
   const handleCategoryClick = (roleFrameID: number) => {
-    const newFilteredAgents = data.agents.filter((agent: any) => {
-      const agentRoleFrameID = Number(agent.RoleFrameID);
-      const comparedRoleFrameID = Number(roleFrameID);
-      console.log(
-        `Agent ID: ${agent.ID}, Agent RoleFrameID: ${agentRoleFrameID}, Compared RoleFrameID: ${comparedRoleFrameID}`
-      );
-      return agentRoleFrameID === comparedRoleFrameID;
-    });
-    setFilteredAgents(newFilteredAgents);
+    if (selectedCategory === roleFrameID) {
+      setFilteredAgents(data.agents);
+      setSelectedCategory(null);
+    } else {
+      const newFilteredAgents = data.agents.filter((agent: any) => {
+        const agentRoleFrameID = Number(agent.RoleFrameID);
+        const comparedRoleFrameID = Number(roleFrameID);
+        console.log(
+          `Agent ID: ${agent.ID}, Agent RoleFrameID: ${agentRoleFrameID}, Compared RoleFrameID: ${comparedRoleFrameID}`
+        );
+        return agentRoleFrameID === comparedRoleFrameID;
+      });
+      setFilteredAgents(newFilteredAgents);
+      setSelectedCategory(roleFrameID);
+    }
   };
 
   const handleSearch = (searchTerm: string) => {
@@ -91,7 +98,7 @@ const CreateAgent = () => {
             <RoleButton
               key={index}
               roleFrameID={roleFrameID}
-              onClick={handleCategoryClick}
+              onClick={() => handleCategoryClick(roleFrameID)}
             />
           ))}
         </div>
