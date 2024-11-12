@@ -44,6 +44,7 @@ interface PlanData {
 }
 
 const Profile = () => {
+  const [userPic, setUserPic] = useState<any>(null);
   const [agents, setAgents] = useState<Agent[]>([]);
   const [userData, setUserData] = useState<UserData | null>(null);
   const [planData, setPlanData] = useState<PlanData | null>(null);
@@ -52,9 +53,9 @@ const Profile = () => {
   useEffect(() => {
     const storedUserData = localStorage.getItem("userData");
     if (storedUserData) {
-      const parsedUserData = JSON.parse(storedUserData);
-      setUserData(parsedUserData.user);
-      setPlanData(parsedUserData.plan);
+      const userData = JSON.parse(localStorage.getItem("userData") || "{}");
+      const profile_pic = userData.user?.profile_pic ;
+      setUserPic(profile_pic);
     }
 
     try {
@@ -97,7 +98,7 @@ const Profile = () => {
       <div className="flex flex-col w-full sm:w-[650px] min-h-screen rounded-xl py-4 px-4 gap-4">
         <div className="flex flex-col justify-center items-center w-full">
           <div className="w-32 h-32 border flex justify-center items-center rounded-full mt-6 bg-orange-500 text-white">
-            <img src={userData?.profilePic} alt="Profile" className="rounded-full w-full h-full object-cover" />
+            <img src={userPic} alt="Profile" className="rounded-full w-full h-full object-cover" />
           </div>
           <p className="text-white font-bold text-[30px] mt-4">{userData?.name}</p>
           <p className="text-white font-bold text-[15px]">{userData?.email}</p>
