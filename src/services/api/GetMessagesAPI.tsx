@@ -50,11 +50,12 @@ export async function GetMessages(
       const lines = chunk.split('\n').filter(Boolean);
 
       for (const line of lines) {
-        if (line !== "event:message" && line !== "status:complete") {
-          const newChar = line.split(":")[1] || ""; // Extract the character part
-          onNewCharacter(newChar); // Pass each new character to the callback
-          await new Promise((resolve) => setTimeout(resolve, 10)); // Control display speed
+        if (line.startsWith("event:") || line.startsWith("status:") || line.includes("complete")) {
+          continue; // Skip lines that start with "event:" or "status:"
         }
+        const newChar = line.split(":")[1] || ""; // Extract the character part
+        onNewCharacter(newChar); // Pass each new character to the callback
+        await new Promise((resolve) => setTimeout(resolve, 10)); // Control display speed
       }
     }
   }
