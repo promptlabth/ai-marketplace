@@ -11,15 +11,16 @@ export async function GetMessages(
   onNewCharacter: (char: string) => void // Callback function to handle each new character
 ) {
 
-    // TODO: เอา agent_id ไปยิง api หา prompt แล้ว prompt มาประกอบ
-    const fullPrompt = "";
+  // Use the prompt from the data parameter
+  const fullPrompt = data.prompt;
 
   const requestData = JSON.stringify({
     content: fullPrompt,
-    inputMessage: "test",
+    inputMessage: "", //input mock
     genModel: "GPT",
   });
 
+  console.log("Request Data:", requestData); // Log the request data to verify
 
   const apiUrl = `${process.env.NEXT_PUBLIC_BASE_GENERATE_URL}/realtime-generate/generate/message/stream`;
 
