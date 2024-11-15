@@ -62,6 +62,8 @@
     "list_ai.customer.search_title" : "AI ที่ใช้งานล่าสุด" ,
     "list_ai.customer.search_placeholder" : "ค้นหา AI ของคุณ",
     "list_ai.customer.recent_use": "ใช้งานล่าสุดเมื่อ : ",
+    "list_ai.customer.no_agents_used" : "ไม่มี AI ที่ใช้งานล่าสุด",
+    "list_ai.customer.agents_market_redirect" : "เข้าสู่ร้านค้า AI หรือไม่ ?  ",
     "dashboard_overall.title.totalUsers": "ผู้ใช้งานทั้งหมด",
     "dashboard_overall.title.totalToday": "ผู้ใช้งานวันนี้",
     "dashboard_overall.graph_title.totalWeekPercent": "การเติบโตของสัปดาห์",

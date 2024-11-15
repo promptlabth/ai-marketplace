@@ -4,6 +4,7 @@ import Link from "next/link";
 import ButtonChangeLanguage from "@/components/ButtonChangeLanguage";
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
+import Navbar from "@/components/Navbar";
 
 interface Agent {
   ID: number;
@@ -77,7 +78,7 @@ const Profile = () => {
       </Head>
       <div className="absolute top-4 right-4">
         <div className="flex gap-2">
-          <ButtonChangeLanguage />
+          <Navbar />
         </div>
       </div>
       <div className="flex flex-col w-full sm:w-[650px] min-h-screen rounded-xl py-4 px-4 gap-4">
