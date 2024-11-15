@@ -10,6 +10,7 @@ import InputDetail from "@/components/InputDetial";
 import { useGlobal } from "@/context/context";
 import ButtonGenerate from "@/components/ButtonGenerate";
 import { GetMessages } from "@/services/api/GetMessagesAPI";
+import useGetFullPrompt from "@/components/hooks/GetFullPrompt"; // Import the custom hook
 
 const useAgent = () => {
   const { t } = useTranslation("common");
@@ -19,6 +20,16 @@ const useAgent = () => {
   const [realTimeMessage, setRealTimeMessage] = useState("");
   const [isActive, setIsActive] = useState(false);
 
+  const { fullPrompt, loading, error } = useGetFullPrompt(agent?.ID.toString() || ""); // Use the custom hook
+
+  useEffect(() => {
+    console.log('fullPrompt updated:', fullPrompt);
+    if (fullPrompt) {
+      console.log('Setting full_prompt in local storage:', fullPrompt);
+      localStorage.setItem("full_prompt", fullPrompt);
+    }
+  }, [fullPrompt]);
+
   useEffect(() => {
     if (isActive) {
       console.log("Streaming is active"); // Logs when isActive becomes true
@@ -26,35 +37,40 @@ const useAgent = () => {
   }, [isActive]);
 
   const handleNewCharacter = (newChar: string) => {
-      setRealTimeMessage((prev) => prev + newChar);
+    setRealTimeMessage((prev) => prev + newChar);
   };
 
-
   const handleGetMessages = async () => {
-
-    // Clear previous message and set the request as active immediately
     setRealTimeMessage("");
     setIsActive(true);
-    
-
-    // Prepare data for the request
+  
+    // Check if fullPrompt is null; handle it if so
+    if (!fullPrompt) {
+      console.error("fullPrompt is null");
+      setIsActive(false);
+      return; // Return early if fullPrompt is null to avoid errors
+    }
+  
     const userData = JSON.parse(localStorage.getItem("userData") || "{}");
     const firebase_id = userData.user?.firebase_id || "null";
+  
+    // Replace `[user_input]` in `fullPrompt` with `user_prompt`
+    const filledPrompt = fullPrompt.replace("[user_input]", user_prompt);
+  
     const data = {
       firebase_id: localStorage.getItem("firebase_id") || "Test",
       agent_id: agent?.ID || 0,
-      prompt: user_prompt,
+      prompt: filledPrompt, // Send the modified prompt here
       style_message_id,
     };
-
-    // Call GetMessages and update the realTimeMessage with each character received
+  
     try {
-      await GetMessages( i18n.language, data, handleNewCharacter);
+      await GetMessages(i18n.language, data, handleNewCharacter);
     } finally {
-      // Set isActive to false once the request is complete
       setIsActive(false);
     }
   };
+  
 
   return (
     <div className="bg-[#212529] p-6 min-h-screen flex flex-col justify-center items-center">
@@ -68,9 +84,7 @@ const useAgent = () => {
         </div>
       </div>
       <div className="flex flex-col sm:w-[600px] w-full min-h-screen bg-[#33393F] rounded-xl py-4 px-4 gap-4 mb-10">
-        {/* เก็บไว้เผื่อได้กลับมาใช้ */}
-        {/* <Reverse_button route_path="/" /> */}
-        <div className="flex flex-col justify-center items-center w-full h-full">
+        <div className="flex flex-col justify-center items-center w-full">
           <div className="flex flex-col overflow-hidden rounded-full relative w-20 h-20 justify-center items-center">
             {agent?.ImageURL && <Image src={agent.ImageURL} alt="" width={100} height={100} />}
           </div>
@@ -103,7 +117,6 @@ const useAgent = () => {
             handleGenerate={() => {
               handleGetMessages();
             }}
-          // route_page="/customer/use_agent"
           />
         </div>
       </div>
