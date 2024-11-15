@@ -9,7 +9,7 @@ const useGetFullPrompt = (callerInput: string) => {
     const fetchFullPrompt = async () => {
       console.log(`Fetching full prompt for callerInput: ${callerInput}`);
       try {
-        const response = await fetch(`http://localhost:8080/customer/get_full_prompt/${callerInput}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/customer/get_full_prompt/${callerInput}`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
