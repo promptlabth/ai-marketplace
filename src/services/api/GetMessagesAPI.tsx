@@ -50,8 +50,30 @@ export async function GetMessages(
       const lines = chunk.split('\n').filter(Boolean);
 
       for (const line of lines) {
-        if (line.startsWith("event:") || line.startsWith("status:") || line.includes("complete")) {
+        if (line.startsWith("event:") || line.startsWith("status:")) {
           continue; // Skip lines that start with "event:" or "status:"
+        }
+        if (line.includes("complete")) {
+          // Call the additional API when "complete" is found
+          await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/customer/create_history/th/SampleID`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              firebase_id: data.firebase_id,
+              language,
+              agent_id: data.agent_id,
+              framework_id: 2, // Assuming framework_id is 2
+              prompt: data.prompt,
+              style_message_id: data.style_message_id,
+              result: "This is a sample result.", // Replace with actual result if available
+              model: "sampleModel", // Replace with actual model if available
+              completion_tokens: 150, // Replace with actual completion tokens if available
+              prompt_tokens: 50, // Replace with actual prompt tokens if available
+            }),
+          });
+          continue;
         }
         const newChar = line.split(":")[1] || ""; // Extract the character part
         onNewCharacter(newChar); // Pass each new character to the callback
