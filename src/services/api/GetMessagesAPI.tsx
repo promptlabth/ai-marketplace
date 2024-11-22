@@ -76,6 +76,13 @@ export async function GetMessages(
               prompt_tokens: 50, // Replace with actual prompt tokens if available
             }),
           });
+
+          await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/customer/increase_used/${data.agent_id}`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
           continue;
         }
         const newChar = line.split(":")[1] || ""; // Extract the character part
