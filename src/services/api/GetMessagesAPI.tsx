@@ -10,6 +10,7 @@ export async function GetMessages(
   },
   onNewCharacter: (char: string) => void // Callback function to handle each new character
 ) {
+  
 
   // Use the prompt from the data parameter
   const fullPrompt = data.prompt;
@@ -19,6 +20,7 @@ export async function GetMessages(
     inputMessage: "", //input mock
     genModel: "GPT",
   });
+
 
   console.log("Request Data:", requestData); // Log the request data to verify
 
@@ -40,6 +42,7 @@ export async function GetMessages(
 
   const reader = response.body?.getReader();
   const decoder = new TextDecoder();
+  let result = ""; // Variable to accumulate the result
 
   if (reader) {
     while (true) {
@@ -55,7 +58,7 @@ export async function GetMessages(
         }
         if (line.includes("complete")) {
           // Call the additional API when "complete" is found
-          await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/customer/create_history/th/SampleID`, {
+          await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/customer/create_history/th/${data.firebase_id}`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -67,7 +70,7 @@ export async function GetMessages(
               framework_id: 2, // Assuming framework_id is 2
               prompt: data.prompt,
               style_message_id: data.style_message_id,
-              result: "This is a sample result.", // Replace with actual result if available
+              result, // Use the accumulated result
               model: "sampleModel", // Replace with actual model if available
               completion_tokens: 150, // Replace with actual completion tokens if available
               prompt_tokens: 50, // Replace with actual prompt tokens if available
@@ -76,6 +79,7 @@ export async function GetMessages(
           continue;
         }
         const newChar = line.split(":")[1] || ""; // Extract the character part
+        result += newChar; // Accumulate the result
         onNewCharacter(newChar); // Pass each new character to the callback
         await new Promise((resolve) => setTimeout(resolve, 10)); // Control display speed
       }

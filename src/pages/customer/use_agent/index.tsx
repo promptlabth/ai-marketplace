@@ -58,7 +58,7 @@ const useAgent = () => {
     const filledPrompt = fullPrompt.replace("[user_input]", user_prompt);
   
     const data = {
-      firebase_id: localStorage.getItem("firebase_id") || "Test",
+      firebase_id: firebase_id|| "Test",
       agent_id: agent?.ID || 0,
       prompt: filledPrompt, // Send the modified prompt here
       style_message_id,
