@@ -57,7 +57,7 @@ export default function Home() {
               Prompt Lab
             </h1>
             <h1 className="font-extrabold text-[40px] bg-clip-text text-transparent bg-gradient-to-r from-[#02F6A9] to-[#0DC19A] animate-fly">
-              AI Marketplace
+              AI Creator Store
             </h1>
             
             <p className="text-white text-center">{t("home.title.sub.head")}</p>

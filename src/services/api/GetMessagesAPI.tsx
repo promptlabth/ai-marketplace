@@ -71,7 +71,7 @@ export async function GetMessages(
               prompt: data.prompt,
               style_message_id: data.style_message_id,
               result, // Use the accumulated result
-              model: "sampleModel", // Replace with actual model if available
+              model: "gpt-3.5-turbo", // Replace with actual model if available
               completion_tokens: 150, // Replace with actual completion tokens if available
               prompt_tokens: 50, // Replace with actual prompt tokens if available
             }),
