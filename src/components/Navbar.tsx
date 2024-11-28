@@ -48,7 +48,7 @@ const Navbar: React.FC = () => {
   }, []);
 
   return (
-    <div className="z-9 fixed top-5 right-5 max-h-[74px] flex items-center justify-end px-4 z-10">
+    <div className="fixed top-0 right-0 left-0 max-h-[74px] flex items-center justify-end px-0 z-10 bg-[#212529]">
       <div className="flex items-center">
         <ButtonChangeLanguage />
         {router.pathname.startsWith("/creator") && (
