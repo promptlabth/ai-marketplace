@@ -95,6 +95,23 @@ export default function ManageAgent() {
     );
   });
 
+  const handleStatusChange = async (agentId: number, status: number) => {
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/admin/${agentId}/${status}`, {
+        method: "POST",
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const updatedAgents = agents.map(agent => 
+        agent.ID === agentId ? { ...agent, Status: status === 1 ? "approve" : status === 2 ? "pending" : "reject" } : agent
+      );
+      setAgents(updatedAgents);
+    } catch (error) {
+      console.error("Error updating agent status:", error);
+    }
+  };
+
   if (!user) {
     return <div>Loading...</div>;
   }
@@ -191,6 +208,24 @@ export default function ManageAgent() {
                       onClick={() => setSelectedPrompt(agent.Prompt)}
                     >
                       View Prompt
+                    </button>
+                    <button
+                      className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-all duration-200 shadow-md ml-2"
+                      onClick={() => handleStatusChange(agent.ID, 1)}
+                    >
+                      Approve
+                    </button>
+                    <button
+                      className="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-700 transition-all duration-200 shadow-md ml-2"
+                      onClick={() => handleStatusChange(agent.ID, 2)}
+                    >
+                      Pending
+                    </button>
+                    <button
+                      className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-all duration-200 shadow-md ml-2"
+                      onClick={() => handleStatusChange(agent.ID, 3)}
+                    >
+                      Reject
                     </button>
                   </td>
                 </tr>
