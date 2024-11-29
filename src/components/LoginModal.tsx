@@ -95,6 +95,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
         localStorage.setItem("authorization", authorizationToken);
         localStorage.setItem("typeLogin", platform);
         localStorage.setItem("userData", JSON.stringify(profileUser));
+        localStorage.setItem("firebase_id", result.firebase_id); // Set firebase_id as a new item
         handleSetUser(profileUser);
         window.location.href = "/creator/profile";
       } else {

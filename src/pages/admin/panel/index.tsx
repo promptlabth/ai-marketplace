@@ -1,12 +1,53 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useRouter } from 'next/router';
 
-export default function Index() {
+export default function AdminPanel() {
   const { t } = useTranslation("common");
+  const router = useRouter();
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const firebaseId = localStorage.getItem("firebase_id");
+        if (!firebaseId) {
+          console.error("No firebase_id found in local storage");
+          router.push("/");
+          return;
+        }
+
+        console.log("Fetching user data...");
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/users/${firebaseId}`);
+        console.log("Response status:", response.status);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log("User data:", data);
+        setUser(data);
+
+        if (data.role !== "admin") {
+          console.log("User is not admin, redirecting...");
+          router.push("/");
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        router.push("/");
+      }
+    };
+
+    fetchUserData();
+  }, [router]);
+
+  if (!user) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="bg-[#212529] p-6 min-h-screen flex justify-center">
       <Head>
