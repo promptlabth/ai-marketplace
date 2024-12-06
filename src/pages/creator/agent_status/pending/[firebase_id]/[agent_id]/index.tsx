@@ -24,6 +24,15 @@ const Index = () => {
   const [agent, setAgent] = useState<Agent | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [userFirebaseID, setUserFirebaseID] = useState<string | null>(null);
+
+  useEffect(() => {
+    const storedUserData = localStorage.getItem("userData");
+    if (storedUserData) {
+      const userData = JSON.parse(storedUserData);
+      setUserFirebaseID(userData.user?.firebase_id);
+    }
+  }, []);
 
   useEffect(() => {
     if (agent_id) {
@@ -49,6 +58,12 @@ const Index = () => {
       fetchAgent();
     }
   }, [agent_id]);
+
+  const handleEdit = () => {
+    if (userFirebaseID && agent) {
+      router.push(`/creator/agent_status/edit/${userFirebaseID}/${agent.ID}`);
+    }
+  };
 
   if (loading) {
     return <Loading />;
@@ -92,6 +107,12 @@ const Index = () => {
                 <p className="text-white mb-2">{agent.TotalUsed}</p>
                 <p className="text-[#03FCA9] font-bold">Status:</p>
                 <p className={`text-white mb-2 ${agent.Status === 'pending' ? 'text-yellow-400' : ''}`}>{agent.Status}</p>
+                <button
+                  onClick={handleEdit}
+                  className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all duration-200"
+                >
+                  Edit
+                </button>
               </div>
             ) : (
               <p className="text-white">No agent found.</p>

@@ -27,13 +27,22 @@ interface Review {
   DateTime: string;
 }
 
-const Index = () => {
+const RejectPage = () => {
   const router = useRouter();
   const { agent_id } = router.query;
   const [agent, setAgent] = useState<Agent | null>(null);
   const [review, setReview] = useState<Review | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [userFirebaseID, setUserFirebaseID] = useState<string | null>(null);
+
+  useEffect(() => {
+    const storedUserData = localStorage.getItem("userData");
+    if (storedUserData) {
+      const userData = JSON.parse(storedUserData);
+      setUserFirebaseID(userData.user?.firebase_id);
+    }
+  }, []);
 
   useEffect(() => {
     if (agent_id) {
@@ -67,6 +76,12 @@ const Index = () => {
     }
   }, [agent_id]);
 
+  const handleEdit = () => {
+    if (userFirebaseID && agent) {
+      router.push(`/creator/agent_status/edit/${userFirebaseID}/${agent.ID}`);
+    }
+  };
+
   if (loading) {
     return <Loading />;
   }
@@ -91,7 +106,7 @@ const Index = () => {
           <div className="flex flex-col justify-center items-center w-full h-full">
             <h1 className="text-white font-bold text-[30px]">Agent Details</h1>
             {agent ? (
-              <div className={`bg-[#444B52] p-4 rounded-lg w-full mt-4 ${agent.Status === 'pending' ? 'border-yellow-400 border-2' : ''} ${agent.Status === 'reject' ? 'border-red-400 border-2' : ''}`}>
+              <div className={`bg-[#444B52] p-4 rounded-lg w-full mt-4 ${agent.Status === 'reject' ? 'border-red-400 border-2' : ''}`}>
                 <div className="flex items-center justify-center rounded-full h-[150px] w-[150px] bg-[#02ffac] mb-4">
                   <img src={agent.ImageURL} alt={agent.Name} className="h-full w-full object-cover rounded-full" />
                 </div>
@@ -108,7 +123,13 @@ const Index = () => {
                 <p className="text-[#03FCA9] font-bold">Total Used:</p>
                 <p className="text-white mb-2">{agent.TotalUsed}</p>
                 <p className="text-[#03FCA9] font-bold">Status:</p>
-                <p className={`text-white mb-2 ${agent.Status === 'pending' ? 'text-yellow-400' : ''} ${agent.Status === 'reject' ? 'text-red-400' : ''}`}>{agent.Status}</p>
+                <p className={`text-white mb-2 ${agent.Status === 'reject' ? 'text-red-400' : ''}`}>{agent.Status}</p>
+                <button
+                  onClick={handleEdit}
+                  className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all duration-200"
+                >
+                  Edit
+                </button>
               </div>
             ) : (
               <p className="text-white">No agent found.</p>
@@ -136,4 +157,4 @@ export const getServerSideProps = async ({ locale }: any) => ({
   },
 });
 
-export default Index;
+export default RejectPage;
