@@ -19,7 +19,7 @@ const Sidebar: React.FC = () => {
     const { t } = useTranslation('common');
 
     return (
-        <div className="fixed z-10 flex flex-col justify-between gap-6 md:visible invisible top-4 left-4 h-fit w-fit bg-gradient-to-b from-gray-800 to-gray-900 shadow-lg shadow-gray-900/50 p-4 rounded-xl animate-fade-right">
+        <div className="fixed z-10 flex flex-col justify-between gap-6 md:visible invisible top-4 left-4 h-fit w-fit bg-gradient-to-b from-gray-800 to-gray-900 shadow-lg shadow-gray-900/50 p-4 rounded-xl animate-fade-right mt-6">
             <div className='flex flex-col gap-6'>
                 <button onClick={() => navigateTo('/')} className={`flex justify-center items-center text-white focus:bg-gray-800 hover:scale-105 ${isActive('/')} hover:bg-gray-800 rounded-lg p-2 shadow-lg shadow-gray-600/30 transition-all duration-200`}>
                     <RiHome2Line color='white' size={30} />

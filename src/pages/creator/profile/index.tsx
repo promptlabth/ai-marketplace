@@ -96,7 +96,7 @@ const Profile = () => {
           </div>
           <div className="flex justify-between w-full">
             <p className="text-white">{userData?.count_ai} {t('creator.profile.count_ai')}</p>
-            <Link href="/creator/list_agent" className="underline text-white hover:text-gray-600 focus:text-gray-600">
+            <Link href="/creator/agent_dashboard" className="underline text-white hover:text-gray-600 focus:text-gray-600">
               {t('creator.profile.link')}
             </Link>
           </div>
