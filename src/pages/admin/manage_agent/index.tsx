@@ -16,27 +16,82 @@ interface Agent {
   Status: string;
 }
 
-const Modal: React.FC<{ prompt: object; onClose: () => void }> = ({ prompt, onClose }) => (
-  <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
-    <div className="bg-[#212529] border-2 border-[#d0d4db] rounded-lg shadow-xl w-full max-w-md p-6">
-      <h2 className="text-xl font-semibold text-center text-white mb-4">Prompt JSON</h2>
-      <pre className="text-white bg-gray-800 p-4 rounded overflow-auto">{JSON.stringify(prompt, null, 2)}</pre>
-      <button
-        onClick={onClose}
-        className="mt-4 bg-[#02ffac] text-black px-4 py-2 rounded-lg hover:bg-[#02e69c] transition-all duration-200 shadow-md"
-      >
-        Close
-      </button>
+interface User {
+  firebase_id: string;
+  role: string;
+}
+
+const Modal: React.FC<{ prompt: object; onClose: () => void; onAction: (status: string, reason?: string) => void }> = ({ prompt, onClose, onAction }) => {
+  const [showRejectForm, setShowRejectForm] = useState(false);
+  const [rejectReason, setRejectReason] = useState('');
+
+  const handleRejectSubmit = () => {
+    if (rejectReason.trim() === "") {
+      alert("Please provide a reason for rejection.");
+      return;
+    }
+    onAction('reject', rejectReason);
+  };
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
+      <div className="bg-[#212529] border-2 border-[#d0d4db] rounded-lg shadow-xl w-full max-w-md p-6">
+        <h2 className="text-xl font-semibold text-center text-white mb-4">Prompt JSON</h2>
+        <pre className="text-white bg-gray-800 p-4 rounded overflow-auto">{JSON.stringify(prompt, null, 2)}</pre>
+        <div className="flex gap-4 mt-4">
+          <button
+            onClick={() => onAction('approve')}
+            className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all duration-200"
+          >
+            Approve
+          </button>
+          <button
+            onClick={() => onAction('pending')}
+            className="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition-all duration-200"
+          >
+            Pending
+          </button>
+          <button
+            onClick={() => setShowRejectForm(true)}
+            className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200"
+          >
+            Reject
+          </button>
+        </div>
+        <button
+          onClick={onClose}
+          className="mt-4 bg-[#02ffac] text-black px-4 py-2 rounded-lg hover:bg-[#02e69c] transition-all duration-200 shadow-md"
+        >
+          Close
+        </button>
+        {showRejectForm && (
+          <div className="mt-4">
+            <textarea
+              value={rejectReason}
+              onChange={(e) => setRejectReason(e.target.value)}
+              className="w-full px-4 py-2 mb-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#02ffac]"
+              placeholder="Enter reason for rejection"
+            />
+            <button
+              onClick={handleRejectSubmit}
+              className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200"
+            >
+              Submit
+            </button>
+          </div>
+        )}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default function ManageAgent() {
   const { t } = useTranslation("common");
   const router = useRouter();
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User | null>(null);
   const [agents, setAgents] = useState<Agent[]>([]);
   const [selectedPrompt, setSelectedPrompt] = useState<object | null>(null);
+  const [selectedAgent, setSelectedAgent] = useState<Agent | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
 
@@ -95,18 +150,53 @@ export default function ManageAgent() {
     );
   });
 
-  const handleStatusChange = async (agentId: number, status: number) => {
-    try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/admin/${agentId}/${status}`, {
-        method: "POST",
-      });
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+  const handleAction = async (status: string, reason?: string) => {
+    if (!selectedAgent) return;
+
+    const statusCode = status === 'approve' ? 1 : status === 'pending' ? 2 : 3;
+
+    if (statusCode === 3 && !reason) {
+      alert('Please provide a reason for rejection.');
+      return;
+    }
+
+    if (statusCode === 3) {
+      try {
+        const reviewResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/review`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            admin_id: user?.firebase_id,
+            agent_id: selectedAgent.ID,
+            reason,
+          }),
+        });
+        if (!reviewResponse.ok) {
+          throw new Error(`HTTP error! status: ${reviewResponse.status}`);
+        }
+      } catch (error) {
+        console.error("Error submitting review:", error);
+        return;
       }
-      const updatedAgents = agents.map(agent => 
-        agent.ID === agentId ? { ...agent, Status: status === 1 ? "approve" : status === 2 ? "pending" : "reject" } : agent
+    }
+
+    try {
+      const adminResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/admin/${selectedAgent.ID}/${statusCode}`, {
+        method: 'POST',
+      });
+      if (!adminResponse.ok) {
+        throw new Error(`HTTP error! status: ${adminResponse.status}`);
+      }
+      alert(`Agent ${status} successfully`);
+
+      // Update the agent status in the state
+      setAgents(prevAgents =>
+        prevAgents.map(agent =>
+          agent.ID === selectedAgent.ID ? { ...agent, Status: status } : agent
+        )
       );
-      setAgents(updatedAgents);
     } catch (error) {
       console.error("Error updating agent status:", error);
     }
@@ -205,27 +295,12 @@ export default function ManageAgent() {
                     </button>
                     <button
                       className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-all duration-200 shadow-md ml-2"
-                      onClick={() => setSelectedPrompt(agent.Prompt)}
+                      onClick={() => {
+                        setSelectedPrompt(agent.Prompt);
+                        setSelectedAgent(agent);
+                      }}
                     >
                       View Prompt
-                    </button>
-                    <button
-                      className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-all duration-200 shadow-md ml-2"
-                      onClick={() => handleStatusChange(agent.ID, 1)}
-                    >
-                      Approve
-                    </button>
-                    <button
-                      className="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-700 transition-all duration-200 shadow-md ml-2"
-                      onClick={() => handleStatusChange(agent.ID, 2)}
-                    >
-                      Pending
-                    </button>
-                    <button
-                      className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-all duration-200 shadow-md ml-2"
-                      onClick={() => handleStatusChange(agent.ID, 3)}
-                    >
-                      Reject
                     </button>
                   </td>
                 </tr>
@@ -234,7 +309,16 @@ export default function ManageAgent() {
           </table>
         </div>
       </div>
-      {selectedPrompt && <Modal prompt={selectedPrompt} onClose={() => setSelectedPrompt(null)} />}
+      {selectedPrompt && (
+        <Modal
+          prompt={selectedPrompt}
+          onClose={() => {
+            setSelectedPrompt(null);
+            setSelectedAgent(null);
+          }}
+          onAction={handleAction}
+        />
+      )}
     </div>
   );
 }
