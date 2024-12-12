@@ -102,7 +102,7 @@ const Profile = () => {
           </div>
           <p className="mt-8 text-white text-xl"> {t('creator.profile.ai_type')}</p>
           <p className="text-white">{userData?.type_ai}</p>
-          <h1 className="text-white mt-8 text-xl">{t('creator.profile.ai_used')}</h1>
+          <h1 className="text-white mt-8 text-xl">{t('creator.profile.my_ai')}</h1>
           <div className='flex gap-4 flex-col'>
             {agents.map((agent, index) => (
               <Link key={index} href={`/customer/${agent.ID}`} legacyBehavior>
