@@ -233,7 +233,7 @@ export default function ManageAgent() {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentAgents = filteredAgents.slice(indexOfFirstItem, indexOfLastItem);
-  const totalPages = Math.ceil(agents.length / itemsPerPage);
+  const totalPages = Math.ceil(filteredAgents.length / itemsPerPage);
 
   if (!user) {
     return <div>Loading...</div>;
