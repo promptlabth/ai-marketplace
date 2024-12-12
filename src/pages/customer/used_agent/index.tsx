@@ -93,21 +93,56 @@ const useAgent = () => {
             />
           </div>
           <div className="flex flex-wrap justify-center gap-4 w-full mt-4">
+              <div
+                    className="flex flex-col items-center justify-between md:w-[250px] sm:w-[300px] lg:w-[300px] h-[300px] border border-blue-400 text-center p-4 rounded-lg bg-[#1a1d21] hover:bg-[#02ffac] transition-all duration-200 cursor-pointer shadow-lg transform hover:scale-105"
+                  >
+                    <div className="flex flex-col items-center justify-between mt-1">
+                      <div className="flex items-center justify-center rounded-full h-[75px] w-[75px] bg-[#02ffac] mb-4">
+                        <img src={""} alt="sfsf" className="h-full w-full object-cover rounded-full" />
+                      </div>
+                      <p className="text-white font-bold text-[15px] mb-1">test</p>
+                      <p className="text-white text-[12px] mb-1 line-clamp-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae porro voluptate vero, aspernatur architecto quasi sequi consequuntur quis dolorum sit.ntur quis dolorum sit.ntur quis dolorum sit.ntur quis dolorum sit.ntur quis dolorum sit.</p>
+                    </div>
+                    <p className="text-white text-[12px] mb-1">{t("list_ai.customer.recent_use")}{new Date().toLocaleString("en-GB", { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
+              </div>
+              <div
+                    className="flex flex-col items-center justify-between md:w-[250px] sm:w-[300px] lg:w-[300px] h-[300px] border border-blue-400 text-center p-4 rounded-lg bg-[#1a1d21] hover:bg-[#02ffac] transition-all duration-200 cursor-pointer shadow-lg transform hover:scale-105"
+                  >
+                    <div className="flex flex-col items-center justify-between mt-1">
+                      <div className="flex items-center justify-center rounded-full h-[75px] w-[75px] bg-[#02ffac] mb-4">
+                        <img src={""} alt="sfsf" className="h-full w-full object-cover rounded-full" />
+                      </div>
+                      <p className="text-white font-bold text-[15px] mb-1">test</p>
+                      <p className="text-white text-[12px] mb-1 line-clamp-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae porro voluptate vero, aspernatur architecto quasi sequi consequuntur quis dolorum sit.ntur quis dolorum sit.ntur quis dolorum sit.ntur quis dolorum sit.ntur quis dolorum sit.</p>
+                    </div>
+                    <p className="text-white text-[12px] mb-1">{t("list_ai.customer.recent_use")}{new Date().toLocaleString("en-GB", { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
+              </div>
+              <div
+                    className="flex flex-col items-center justify-between md:w-[250px] sm:w-[300px] lg:w-[300px] h-[300px] border border-blue-400 text-center p-4 rounded-lg bg-[#1a1d21] hover:bg-[#02ffac] transition-all duration-200 cursor-pointer shadow-lg transform hover:scale-105"
+                  >
+                    <div className="flex flex-col items-center justify-between mt-1">
+                      <div className="flex items-center justify-center rounded-full h-[75px] w-[75px] bg-[#02ffac] mb-4">
+                        <img src={""} alt="sfsf" className="h-full w-full object-cover rounded-full" />
+                      </div>
+                      <p className="text-white font-bold text-[15px] mb-1">test</p>
+                      <p className="text-white text-[12px] mb-1 line-clamp-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae porro voluptate vero, aspernatur architecto quasi sequi consequuntur quis dolorum sit.ntur quis dolorum sit.ntur quis dolorum sit.ntur quis dolorum sit.ntur quis dolorum sit.</p>
+                    </div>
+                    <p className="text-white text-[12px] mb-1">{t("list_ai.customer.recent_use")}{new Date().toLocaleString("en-GB", { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
+              </div>
             {filteredAgents.length > 0 ? (
               filteredAgents.map((agent: Agent, index: number) => (
                 <Link href={`/customer/${agent.AgentID}`} key={index}>
                   <div
-                    className="flex flex-col items-center md:w-[250px] sm:w-[300px] lg:w-[300px] border border-blue-400 p-4 rounded-lg bg-[#1a1d21] hover:bg-[#02ffac] transition-all duration-200 cursor-pointer shadow-lg transform hover:scale-105"
+                    className="flex flex-col items-center justify-between md:w-[250px] sm:w-[300px] lg:w-[300px] h-[300px] border border-blue-400 text-center p-4 rounded-lg bg-[#1a1d21] hover:bg-[#02ffac] transition-all duration-200 cursor-pointer shadow-lg transform hover:scale-105"
                   >
-                    <div className="flex items-center justify-center rounded-full h-[75px] w-[75px] bg-[#02ffac] mb-4">
-                      <img src={agent.ImageURL} alt={agent.Name} className="h-full w-full object-cover rounded-full" />
-                    </div>
-                    <div className="text-center">
+                    <div className="flex flex-col items-center justify-between mb-1">
+                      <div className="flex items-center justify-center rounded-full h-[75px] w-[75px] bg-[#02ffac] mb-4">
+                        <img src={""} alt="sfsf" className="h-full w-full object-cover rounded-full" />
+                      </div>
                       <p className="text-white font-bold text-[15px] mb-1">{agent.Name}</p>
-                      <p className="text-white text-[12px] mb-1">{agent.Description}</p>
-                      <p className="text-white text-[12px] mb-1">{agent.Prompt}</p>
-                      <p className="text-white text-[12px] mb-1">{t("list_ai.customer.recent_use")}{new Date(agent.TimeStamp).toLocaleString("en-GB", { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
+                      <p className="text-white text-[12px] mb-1 line-clamp-5">{agent.Description}</p>
                     </div>
+                    <p className="text-white text-[12px] mb-1">{t("list_ai.customer.recent_use")}{new Date().toLocaleString("en-GB", { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
                   </div>
                 </Link>
               ))
