@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useRouter } from 'next/router';
+import Pagination from "@/components/Pagination";
 
 interface Agent {
   ID: number;
@@ -14,11 +15,14 @@ interface Agent {
   TotalUsed: number;
   Prompt: object;
   Status: string;
+  FirebaseID: string;
+  User: User;
 }
 
 interface User {
   firebase_id: string;
   role: string;
+  name: string;
 }
 
 const Modal: React.FC<{ prompt: object; onClose: () => void; onAction: (status: string, reason?: string) => void }> = ({ prompt, onClose, onAction }) => {
@@ -133,7 +137,24 @@ export default function ManageAgent() {
         }
         const data = await response.json();
         console.log("Agents data:", data);
-        setAgents(data.agents);
+    
+        const agentsWithUsers = await Promise.all(
+          data.agents.map(async (agent: Agent) => {
+            try {
+              const userResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/users/${agent.FirebaseID}`);
+              if (!userResponse.ok) {
+                throw new Error(`Failed to fetch user for agent ${agent.ID}`);
+              }
+              const userData = await userResponse.json();
+              return { ...agent, User: userData }; // Merge user data into the agent
+            } catch (error) {
+              console.error(`Error fetching user for agent ${agent.ID}:`, error);
+              return { ...agent, User: null }; // Handle missing user data gracefully
+            }
+          })
+        );
+        console.log("agentsWithUsers data:", agentsWithUsers);
+        setAgents(agentsWithUsers); // Update state with enriched agents
       } catch (error) {
         console.error("Error fetching agents:", error);
       }
@@ -202,6 +223,18 @@ export default function ManageAgent() {
     }
   };
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+
+  const handlePageChange = (page:number) => {
+    setCurrentPage(page);
+    console.log(`Current page: ${page}`);
+  };
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentAgents = filteredAgents.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(agents.length / itemsPerPage);
+
   if (!user) {
     return <div>Loading...</div>;
   }
@@ -261,6 +294,7 @@ export default function ManageAgent() {
                 <th className="py-2 px-4 border-b border-gray-600">ID</th>
                 <th className="py-2 px-4 border-b border-gray-600">Image</th>
                 <th className="py-2 px-4 border-b border-gray-600">Name</th>
+                <th className="py-2 px-4 border-b border-gray-600">Created By</th>
                 <th className="py-2 px-4 border-b border-gray-600">Description</th>
                 <th className="py-2 px-4 border-b border-gray-600">Total Used</th>
                 <th className="py-2 px-4 border-b border-gray-600">Status</th>
@@ -268,19 +302,20 @@ export default function ManageAgent() {
               </tr>
             </thead>
             <tbody>
-              {filteredAgents.map((agent) => (
+              {currentAgents.map((agent) => (
                 <tr key={agent.ID} className="group relative">
                   <td className="py-2 px-4 border-b border-gray-600">{agent.ID}</td>
                   <td className="py-2 px-4 border-b border-gray-600">
                     {agent.ImageURL ? (
-                      <img src={agent.ImageURL} alt={agent.Name} className="h-16 w-16 object-cover rounded-full" />
+                      <img src={agent.ImageURL} alt={agent.Name} className="h-10 w-10 object-cover rounded-full" />
                     ) : (
-                      <div className="h-16 w-16 bg-gray-500 rounded-full flex items-center justify-center">
-                        <span className="text-white">No Image</span>
+                      <div className="h-10 w-10 bg-gray-500 rounded-full flex items-center justify-center">
+                        <span className="text-white"></span>
                       </div>
                     )}
                   </td>
                   <td className="py-2 px-4 border-b border-gray-600">{agent.Name}</td>
+                  <td className="py-2 px-4 border-b border-gray-600">{agent?.User?.name ?? ""}</td>
                   <td className="py-2 px-4 border-b border-gray-600">{agent.Description}</td>
                   <td className="py-2 px-4 border-b border-gray-600">{agent.TotalUsed}</td>
                   <td className={`py-2 px-4 border-b border-gray-600 ${agent.Status === "approve" ? "text-green-500" : agent.Status === "pending" ? "text-yellow-500" : agent.Status === "reject" ? "text-red-500" : ""}`}>
@@ -309,6 +344,11 @@ export default function ManageAgent() {
           </table>
         </div>
       </div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+      />
       {selectedPrompt && (
         <Modal
           prompt={selectedPrompt}
