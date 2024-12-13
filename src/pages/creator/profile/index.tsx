@@ -15,7 +15,8 @@ interface Agent {
 }
 
 interface UserData {
-  firebaseId: string;
+  id: number;
+  firebase_id: string;
   name: string;
   email: string | null;
   accessToken: string;
@@ -25,6 +26,7 @@ interface UserData {
   stripeId: string | null;
   count_ai: number | null;
   type_ai: string | null; 
+  role: string;
 }
 
 const Profile = () => {
@@ -35,21 +37,40 @@ const Profile = () => {
   const { t } = useTranslation('common');
 
   useEffect(() => {
-    const storedUserData = localStorage.getItem("userData");
-    if (storedUserData) {
-      const userData = JSON.parse(storedUserData);
-      setUserPic(userData.user?.profile_pic);
-      setUserFirebaseID(userData.user?.firebase_id);
-      setUserData(userData.user);
-    }
+    const fetchUserData = async () => {
+      const token = localStorage.getItem("authorization");
+      if (!token) return;
+
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/users/me`, {
+          headers: {
+            "Authorization": `Bearer ${token}`
+          }
+        });
+        const data: UserData = await response.json();
+        setUserPic(data.profile_pic);
+        setUserFirebaseID(data.firebase_id);
+        setUserData(data);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchUserData();
   }, []);
 
   useEffect(() => {
     const fetchAgents = async () => {
       if (!userFirebaseID) return;
-
+  
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/creator/agent/user_id/${userFirebaseID}`);
+        const token = localStorage.getItem("authorization");
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/creator/agent/user_id/${userFirebaseID}`, {
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+          },
+        });
         const data = await response.json();
         const sortedAgents = data.agents.sort((a: Agent, b: Agent) => b.TotalUsed - a.TotalUsed);
         setAgents(sortedAgents.slice(0, 3));
@@ -57,7 +78,7 @@ const Profile = () => {
         console.error('Error fetching agents:', error);
       }
     };
-
+  
     fetchAgents();
   }, [userFirebaseID]);
 

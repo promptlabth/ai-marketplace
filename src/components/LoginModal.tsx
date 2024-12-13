@@ -1,7 +1,7 @@
 import {
   ProfileUser,
   SignInUserCredential,
-  UserDetail
+  LoginResponse
 } from "@/models/interfaces/Login.interface";
 import signInWithFacebook from "@/services/firebase/auth/AuthFacebook";
 import signInWithGmail from "@/services/firebase/auth/AuthGmail";
@@ -76,26 +76,26 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
         access_token: authorizationToken,
       };
 
-      const result = await RegisterUser(userData, authorizationToken);
+      const result: LoginResponse | null = await RegisterUser(userData, authorizationToken);
       console.log("Login result:", result);
 
-      if (result && result.id) {
+      if (result && result.user && result.user.id) {
         const profileUser: ProfileUser = {
           user: {
-            id: result.id,
-            firebase_id: result.firebase_id,
-            name: result.name,
-            email: result.email,
-            platform: result.platform,
-            plan_id: result.plan_id,
-            profile_pic: result.profile_pic,
-            access_token: result.access_token,
+            id: result.user.id,
+            firebase_id: result.user.firebase_id,
+            name: result.user.name,
+            email: result.user.email,
+            platform: result.user.platform,
+            plan_id: result.user.plan_id,
+            profile_pic: result.user.profile_pic,
+            access_token: result.user.access_token,
           },
         };
-        localStorage.setItem("authorization", authorizationToken);
-        localStorage.setItem("typeLogin", platform);
-        localStorage.setItem("userData", JSON.stringify(profileUser));
-        localStorage.setItem("firebase_id", result.firebase_id); // Set firebase_id as a new item
+        localStorage.setItem("authorization", result.token);
+        // localStorage.setItem("typeLogin", platform);
+        // localStorage.setItem("userData", JSON.stringify(profileUser));
+        // localStorage.setItem("firebase_id", result.user.firebase_id); // Set firebase_id as a new item
         handleSetUser(profileUser);
         window.location.href = "/creator/profile";
       } else {
