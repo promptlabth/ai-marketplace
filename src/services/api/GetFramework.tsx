@@ -12,15 +12,39 @@ interface FramwwrokID {
     framework: Framwwork
 }
 
-const fetcher = (url: string) => fetch(url).then(res => res.json());
+const fetcher = async (url: string) => {
+  const token = localStorage.getItem("authorization");
+  if (!token) {
+    throw new Error("Authorization token not found");
+  }
+
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": token, // Attach the token
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Error: ${response.statusText}`);
+  }
+
+  return response.json();
+};
+
 
 export default function GetFramework(id: number) {
-    console.log("Framwork ID", id)
-    const { data, isLoading, error } = useSWR<FramwwrokID>(`${process.env.NEXT_PUBLIC_BASE_URL}/creator/framework/${id}`, fetcher); 
+  console.log("Framework ID", id);
+  const { data, isLoading, error } = useSWR<FramwwrokID>(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/creator/framework/${id}`,
+    fetcher // Use the updated fetcher
+  );
 
-    return {
-        data,
-        isLoading,
-        error
-    };
+  return {
+    data,
+    isLoading,
+    error,
+  };
 }
+

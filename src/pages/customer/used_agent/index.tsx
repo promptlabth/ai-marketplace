@@ -30,12 +30,12 @@ interface Agent {
   TotalUsed: number;
 }
 
-const useAgent = () => {
+const UsedAgentPage = () => {
   const { t } = useTranslation("common");
   const { user_prompt, setUserPrompt, style_message_id, agent } = useGlobal();
   const { i18n } = useTranslation();
   const [messages, setMessages] = useState(null);
-  const [firebaseId, setFirebaseId] = useState("");
+  const [firebaseId, setFirebaseId] = useState<string>("");
   const [agentList, setAgentList] = useState<Agent[]>([]); // Initialize as an empty array
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -47,7 +47,17 @@ const useAgent = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/customer/agent_usage/${firebaseId}`);
+      const token = localStorage.getItem("authorization");
+      if (!token) {
+        throw new Error("Authorization token not found");
+      }
+
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/customer/agent_usage`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+      });
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -101,7 +111,7 @@ const useAgent = () => {
                   >
                     <div className="flex flex-col items-center justify-between mb-1">
                       <div className="flex items-center justify-center rounded-full h-[75px] w-[75px] bg-[#02ffac] mb-4">
-                        <img src={""} alt="sfsf" className="h-full w-full object-cover rounded-full" />
+                        <img src={agent.ImageURL} alt={agent.Name} className="h-full w-full object-cover rounded-full" />
                       </div>
                       <p className="text-white font-bold text-[15px] mb-1">{agent.Name}</p>
                       <p className="text-white text-[12px] mb-1 line-clamp-5">{agent.Description}</p>
@@ -126,7 +136,7 @@ const useAgent = () => {
   );
 };
 
-export default useAgent;
+export default UsedAgentPage;
 
 export const getStaticProps = async ({ locale }: any) => ({
   props: {
