@@ -29,7 +29,7 @@ export async function GetMessages(
   const response = await fetch(apiUrl, {
     method: 'POST',
     headers: {
-      Authorization: "Bearer " + localStorage.getItem("authorization"),
+      Authorization: "Bearer " + localStorage.getItem("realtime_token"),
       'Content-Type': 'application/json',
     },
     body: requestData,
@@ -58,10 +58,11 @@ export async function GetMessages(
         }
         if (line.includes("complete")) {
           // Call the additional API when "complete" is found
-          await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/customer/create_history/th/${data.firebase_id}`, {
+          await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/customer/create_history/th`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
+              Authorization: "Bearer " + localStorage.getItem("authorization"),
             },
             body: JSON.stringify({
               firebase_id: data.firebase_id,

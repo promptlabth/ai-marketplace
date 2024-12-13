@@ -102,15 +102,20 @@ export default function ManageAgent() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const firebaseId = localStorage.getItem("firebase_id");
-        if (!firebaseId) {
-          console.error("No firebase_id found in local storage");
+        const token = localStorage.getItem("authorization");
+        if (!token) {
+          console.error("Authorization token not found");
           router.push("/");
           return;
         }
 
         console.log("Fetching user data...");
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/users/${firebaseId}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/users/me`, {
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+          },
+        });
         console.log("Response status:", response.status);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -131,7 +136,18 @@ export default function ManageAgent() {
 
     const fetchAgents = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/creator/agents`);
+        const token = localStorage.getItem("authorization");
+        if (!token) {
+          console.error("Authorization token not found");
+          router.push("/");
+          return;
+        }
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/creator/agents`,{
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+          },
+        });
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -183,10 +199,17 @@ export default function ManageAgent() {
 
     if (statusCode === 3) {
       try {
-        const reviewResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/review`, {
+        const token = localStorage.getItem("authorization");
+        if (!token) {
+          console.error("Authorization token not found");
+          router.push("/");
+          return;
+        }
+        const reviewResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/review/`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            "Authorization": `Bearer ${token}`,
           },
           body: JSON.stringify({
             admin_id: user?.firebase_id,

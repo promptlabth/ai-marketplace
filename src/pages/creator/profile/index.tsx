@@ -65,7 +65,7 @@ const Profile = () => {
   
       try {
         const token = localStorage.getItem("authorization");
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/creator/agent/user_id/${userFirebaseID}`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/creator/agent/user_id`, {
           headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`,

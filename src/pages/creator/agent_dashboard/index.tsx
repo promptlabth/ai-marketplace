@@ -21,15 +21,29 @@ const Index = () => {
   const [agents, setAgents] = useState<Agent[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
+  const [firebaseId, setFirebaseId] = useState<string>("");
+
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem("userData") || "{}");
+    const firebase_id = userData.user?.firebase_id || "";
+    setFirebaseId(firebase_id);
+  }, []);
 
   useEffect(() => {
     const fetchAgents = async () => {
-      const userData = JSON.parse(localStorage.getItem("userData") || "{}");
-      const firebase_id = userData.user?.firebase_id || "";
-
-      if (firebase_id) {
+      if (firebaseId) {
         try {
-          const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/creator/agent/user_id/${firebase_id}`);
+          const token = localStorage.getItem("authorization");
+          if (!token) {
+            throw new Error("Authorization token not found");
+          }
+
+          const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/creator/agent/user_id`, {
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${token}`,
+            },
+          });
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
           }
@@ -42,7 +56,7 @@ const Index = () => {
     };
 
     fetchAgents();
-  }, []);
+  }, [firebaseId]);
 
   const filteredAgents = agents.filter(agent => {
     const matchesSearch = agent.Name.toLowerCase().includes(searchQuery.toLowerCase());

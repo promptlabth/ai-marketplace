@@ -21,7 +21,7 @@ const ListAgent = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/creator/agent/user_id/${mock_firebase_id}`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/creator/agent/user_id`
       );
       console.log("successfully:", response.data);
       if (response.status === 201 && response.data.status === "success") {

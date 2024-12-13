@@ -48,14 +48,29 @@ const RejectPage = () => {
     if (agent_id) {
       const fetchAgentAndReview = async () => {
         try {
-          const agentResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/creator/agent/${agent_id}`);
+          const token = localStorage.getItem("authorization");
+          if (!token) {
+            throw new Error("Authorization token not found");
+          }
+
+          const agentResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/creator/agent/${agent_id}`, {
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${token}`,
+            },
+          });
           if (!agentResponse.ok) {
             throw new Error(`HTTP error! status: ${agentResponse.status}`);
           }
           const agentData = await agentResponse.json();
           setAgent(agentData.agent);
 
-          const reviewResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/review/latest/${agent_id}`);
+          const reviewResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/review/latest/${agent_id}`, {
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${token}`,
+            },
+          });
           if (!reviewResponse.ok) {
             throw new Error(`HTTP error! status: ${reviewResponse.status}`);
           }
