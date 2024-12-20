@@ -8,10 +8,10 @@ import RoleCategory from "@/components/RoleCategory";
 import FrameworkDetail from "@/components/FrameworkDetail";
 import ButtonChangeLanguage from "@/components/ButtonChangeLanguage";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import type { GetStaticPaths } from "next";
 import { useGlobal } from "@/context/context";
 import { useEffect } from "react";
 import { useTranslation } from "next-i18next";
+
 const AgentView = () => {
   const router = useRouter();
   const { view_agentID } = router.query;
@@ -19,11 +19,11 @@ const AgentView = () => {
   const { agent, setAgent } = useGlobal();
   const { t } = useTranslation("common");
   const { i18n } = useTranslation();
+
   useEffect(() => {
     console.log(data?.agent);
     setAgent(data?.agent);
   }, [data]);
-
 
   if (isLoading) {
     return <Loading />;
@@ -32,6 +32,7 @@ const AgentView = () => {
   if (error) {
     return <div>Fetch Data error</div>;
   }
+
   return (
     <div className="bg-[#212529] p-6 min-h-screen flex justify-center">
       <Head>
@@ -43,7 +44,33 @@ const AgentView = () => {
           <ButtonChangeLanguage />
         </div>
       </div>
-      <div className="flex flex-col justify-between sm:w-[600px] h-full bg-[#33393F] overflow-hidden rounded-xl py-4 px-4 gap-4 mb-10">
+      <div className="relative flex flex-col justify-between sm:w-[600px] h-full bg-[#33393F] overflow-hidden rounded-xl py-4 px-4 gap-4 mb-10">
+        {data?.agent?.Language && (
+          <div className="absolute top-0 right-0 bg-white text-black p-1 flex items-center">
+            {data.agent.Language === "th" && (
+              <>
+                <Image
+                  src="/png/thailand.png"
+                  alt="Thai flag"
+                  width={20}
+                  height={20}
+                />
+                <span className="ml-1">Thailand</span>
+              </>
+            )}
+            {data.agent.Language === "en" && (
+              <>
+                <Image
+                  src="/png/united-states-of-america.png"
+                  alt="English flag"
+                  width={20}
+                  height={20}
+                />
+                <span className="ml-1">English</span>
+              </>
+            )}
+          </div>
+        )}
         <div className="flex flex-col gap-12">
           <div className="flex flex-col justify-center items-center w-full h-full">
             <div className="w-full flex items-center justify-center">
@@ -88,6 +115,7 @@ const AgentView = () => {
     </div>
   );
 };
+
 export const getServerSideProps = async ({ locale }: any) => ({
   props: {
     ...(await serverSideTranslations(locale, ["common"])),

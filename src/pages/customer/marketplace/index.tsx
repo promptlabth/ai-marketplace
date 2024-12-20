@@ -172,6 +172,26 @@ const RoleCategory = ({
                 <p>Image not available</p>
               )}
             </div>
+            {agent.Language === "th" && (
+              <div className="absolute top-0 right-0 bg-white p-1 rounded-full">
+                <Image
+                  src="/png/thailand.png"
+                  alt="Thai flag"
+                  width={20}
+                  height={20}
+                />
+              </div>
+            )}
+            {agent.Language === "en" && (
+              <div className="absolute top-0 right-0 bg-white p-1 rounded-full">
+                <Image
+                  src="/png/united-states-of-america.png"
+                  alt="English flag"
+                  width={20}
+                  height={20}
+                />
+              </div>
+            )}
             <p className="text-[#FFFFFF] font-bold text-[16px] mt-4">
               {agent.Name}
             </p>

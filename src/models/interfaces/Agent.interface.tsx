@@ -7,4 +7,5 @@ export interface AgentInterface {
   FirebaseID: string;
   FrameworkID: number;
   RoleFrameID: number;
+  Language: string;
 }
