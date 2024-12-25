@@ -1,9 +1,11 @@
 import axios from "axios";
 
 export async function GetRoleFrameworks(language:string) {
+  const token = localStorage.getItem("authorization");
   const requestOptions = {
     headers: {
       "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`,
     },
   };
   const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/creator/roles/${language}`;

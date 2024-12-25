@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -41,8 +41,20 @@ const EditAgentPage = () => {
   useEffect(() => {
     if (agent_id) {
       const fetchAgent = async () => {
+        const token = localStorage.getItem("authorization");
+          if (!token) {
+            throw new Error("Authorization token not found");
+          }
         try {
-          const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/creator/agent/${agent_id}`);
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_BASE_URL}/creator/agent/${agent_id}`,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
           }
@@ -63,34 +75,52 @@ const EditAgentPage = () => {
     }
   }, [agent_id]);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
-    setAgent(prevAgent => prevAgent ? { ...prevAgent, [name]: value } : null);
+    setAgent((prevAgent) =>
+      prevAgent ? { ...prevAgent, [name]: value } : null
+    );
   };
 
-  const handlePromptChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handlePromptChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
-    setAgent(prevAgent => prevAgent ? { ...prevAgent, Prompt: { ...prevAgent.Prompt, [name]: value } } : null);
+    setAgent((prevAgent) =>
+      prevAgent
+        ? { ...prevAgent, Prompt: { ...prevAgent.Prompt, [name]: value } }
+        : null
+    );
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (agent) {
+      const token = localStorage.getItem("authorization");
+      if (!token) {
+        throw new Error("Authorization token not found");
+      }
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/creator/update_agent/${agent.ID}`, {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(agent),
-        });
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/creator/update_agent/${agent.ID}`,
+          {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(agent),
+          }
+        );
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
         setAgent(data.agent);
-        alert('Agent updated successfully');
-        router.push('/creator/agent_dashboard');
+        alert("Agent updated successfully");
+        router.push("/creator/agent_dashboard");
       } catch (error) {
         if (error instanceof Error) {
           setError(error.message);
@@ -125,9 +155,16 @@ const EditAgentPage = () => {
           <div className="flex flex-col justify-center items-center w-full h-full">
             <h1 className="text-white font-bold text-[30px]">Edit Agent</h1>
             {agent ? (
-              <form onSubmit={handleSubmit} className="bg-[#444B52] p-4 rounded-lg w-full mt-4">
+              <form
+                onSubmit={handleSubmit}
+                className="bg-[#444B52] p-4 rounded-lg w-full mt-4"
+              >
                 <div className="flex items-center justify-center rounded-full h-[150px] w-[150px] bg-[#02ffac] mb-4">
-                  <img src={agent.ImageURL} alt={agent.Name} className="h-full w-full object-cover rounded-full" />
+                  <img
+                    src={agent.ImageURL}
+                    alt={agent.Name}
+                    className="h-full w-full object-cover rounded-full"
+                  />
                 </div>
                 <label className="text-[#03FCA9] font-bold">Name:</label>
                 <input
@@ -146,7 +183,9 @@ const EditAgentPage = () => {
                 />
                 {Object.entries(agent.Prompt).map(([key, value]) => (
                   <div key={key}>
-                    <label className="text-[#03FCA9] font-bold">{key.charAt(0).toUpperCase() + key.slice(1)}:</label>
+                    <label className="text-[#03FCA9] font-bold">
+                      {key.charAt(0).toUpperCase() + key.slice(1)}:
+                    </label>
                     <input
                       type="text"
                       name={key}

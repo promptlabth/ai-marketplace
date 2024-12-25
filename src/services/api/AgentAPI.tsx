@@ -11,10 +11,12 @@ export async function CreatePostAgent(data: {
   total_used: number;
 }) {
   const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/creator/agent_detail`;
+  const token = localStorage.getItem("authorization");
   try {
     const response = await axios.post(apiUrl, data, {
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
       },
     });
     if (response.status === 201) {

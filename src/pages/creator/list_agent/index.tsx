@@ -16,12 +16,20 @@ const ListAgent = () => {
     setSearchQuery(e.target.value);
   };
 
-  const mock_firebase_id = "u123";
-
   const fetchData = async () => {
     try {
+      const token = localStorage.getItem("authorization");
+      if (!token) {
+        throw new Error("Authorization token not found");
+      }
+
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/creator/agent/user_id`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/creator/agent/user_id`,
+        {
+          headers: {
+            "Authorization": `Bearer ${token}`,
+          },
+        }
       );
       console.log("successfully:", response.data);
       if (response.status === 201 && response.data.status === "success") {
@@ -98,6 +106,7 @@ const ListAgent = () => {
 };
 
 export default ListAgent;
+
 export const getStaticProps = async ({ locale }: any) => ({
   props: {
     ...(await serverSideTranslations(locale, ["common"])),
