@@ -14,6 +14,7 @@ interface IGlobalExportContext {
   setRoleID: React.Dispatch<React.SetStateAction<number>>;
   setFramworkID: React.Dispatch<React.SetStateAction<number>>;
   setUserPrompt: React.Dispatch<React.SetStateAction<string>>;
+  setLanguage: React.Dispatch<React.SetStateAction<string>>;
   setStyleMessageID: React.Dispatch<React.SetStateAction<number>>;
   setAgent: React.Dispatch<React.SetStateAction<AgentInterface | undefined>>;
   setRealTimeMessage: React.Dispatch<React.SetStateAction<string | undefined>>;
@@ -24,16 +25,15 @@ interface IGlobalExportContext {
   prompt: any;
   role_framework_id: number;
   framework_id: number;
+  language: string;
   user_prompt: string;
   agent: AgentInterface | undefined;
   style_message_id: number;
   user?: ProfileUser;
   handleSetUser: (user: ProfileUser) => void;
-
 }
 
 const GlobalContext = createContext<IGlobalExportContext>({} as IGlobalExportContext);
-
 
 export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
   const [user, setUser] = useState<ProfileUser>();
@@ -44,44 +44,43 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
   const [prompt, setPrompt] = useState();
   const [role_framework_id, setRoleID] = useState<number>(0);
   const [framework_id, setFramworkID] = useState<number>(0);
-
-  //for customer useAgent
+  const [language, setLanguage] = useState<string>("EN"); // Set a default value for language
   const [user_prompt, setUserPrompt] = useState<string>("");
   const [agent, setAgent] = useState<AgentInterface>();
   const [style_message_id, setStyleMessageID] = useState<number>(0);
-  
   const [realTimeMessage, setRealTimeMessage] = useState<string>();
 
   const handleSetUser = (user: ProfileUser) => {
     setUser(user);
-  }
+  };
 
-  
   return (
     <GlobalContext.Provider
       value={{
-    agent_name,
-    agent_image,
-    agent_describe,
-    prompt,
-    role_framework_id,
-    framework_id,
-    setAgentName,
-    setAgentImage,
-    setAgentDescribe,
-    setPrompt,
-    setFramworkID,
-    setRoleID,
-    user_prompt,
-    setUserPrompt,
-    style_message_id,
-    setStyleMessageID,
-    agent,
-    setAgent,
-    handleSetUser,
-    setRealTimeMessage,
-    realTimeMessage,
-  }}
+        agent_name,
+        agent_image,
+        agent_describe,
+        prompt,
+        role_framework_id,
+        framework_id,
+        language,
+        setAgentName,
+        setAgentImage,
+        setAgentDescribe,
+        setPrompt,
+        setFramworkID,
+        setRoleID,
+        setLanguage,
+        user_prompt,
+        setUserPrompt,
+        style_message_id,
+        setStyleMessageID,
+        agent,
+        setAgent,
+        handleSetUser,
+        setRealTimeMessage,
+        realTimeMessage,
+      }}
     >
       {children}
     </GlobalContext.Provider>

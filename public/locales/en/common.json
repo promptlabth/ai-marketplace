@@ -51,6 +51,7 @@
     "components.sidebar.market_ai": "AI Shop",
     "components.sidebar.external_link": "PromptLab",
     "create_agent.title.agent_name": "Name your AI",
+    "create_agent.title.language" : "Language",
     "create_agent.profile.select": "Select profile",
     "create_agent.profile.select_status": "Profile picture not selected yet",
     "create_agent.title.detail": "Describe your AI",

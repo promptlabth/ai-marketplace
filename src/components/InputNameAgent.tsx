@@ -13,7 +13,7 @@ const InputNameAgent: React.FC<InputNameprops> = ({ name_label }) => {
       };
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col w-3/4">
             <label htmlFor="aiName" className="text-white">
                 {name_label}
             </label>

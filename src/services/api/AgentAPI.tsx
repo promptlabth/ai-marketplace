@@ -5,6 +5,7 @@ export async function CreatePostAgent(data: {
   description: string;
   image_url: string;
   prompt: any;
+  language: string;
   firebase_id: string;
   framework_id: number;
   role_framework_id: number;

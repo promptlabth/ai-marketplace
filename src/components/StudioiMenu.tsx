@@ -57,9 +57,9 @@ const StudioMenu: React.FC<StudioMenuProps> = ({ translations }) => {
                 {translations("studio.AIReportOverview")}
               </button>
               <button
-                onClick={() => navigateTo("/creator/list_agent")}
+                onClick={() => navigateTo("/creator/agent_dashboard")}
                 className={`flex justify-start w-full text-gray-200 p-2 hover:rounded-xl hover:border focus:rounded-xl focus:border ${isActive(
-                  "/creator/list_agent"
+                  "/creator/agent_dashboard"
                 )}`}
               >
                 {translations("studio.ListAI")}

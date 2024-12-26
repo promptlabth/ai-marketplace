@@ -3,6 +3,7 @@ import ButtonCancle from "@/components/ButtonCancle";
 import InputNameAgent from "@/components/InputNameAgent";
 import ImageUpload from "@/components/ImageUpload";
 import InputDetial from "@/components/InputDetial";
+import InputLanguage from "@/components/InputLanguage";
 import Head from "next/head";
 import Navbar from "@/components/Navbar";
 import { useGlobal } from "@/context/context";
@@ -22,7 +23,7 @@ const CreateAgent = () => {
   const { t } = useTranslation("common");
 
   return (
-    <div className="bg-gradient-to-r from-[#02ffac] to-[#212529] p-6 flex justify-center min-h-screen">
+    <div className="bg-gradient-to-r from-[#02ffac] to-[#212529] p-6 flex justify-center min-h-screen my-5">
       <Head>
         <title>Create Agent</title>
         <meta name="description" content="Create your AI agent" />
@@ -34,7 +35,10 @@ const CreateAgent = () => {
       </div>
       <div className="flex flex-col w-full sm:w-[700px] min-h-screen bg-[#33393F] rounded-xl py-4 px-6 gap-4 shadow-lg">
         <div className="flex flex-col gap-4 h-[80%]">
-          <InputNameAgent name_label={t("create_agent.title.agent_name")} />
+        <div className="flex gap-4">
+            <InputNameAgent name_label={t("create_agent.title.agent_name")} />
+            <InputLanguage language_label={t("create_agent.title.language")} />
+          </div>
           <ImageUpload />
           <InputDetial
             detail={t("create_agent.title.detail")}
