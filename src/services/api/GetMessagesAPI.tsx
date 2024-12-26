@@ -29,7 +29,7 @@ export async function GetMessages(
   const response = await fetch(apiUrl, {
     method: 'POST',
     headers: {
-      Authorization: "Bearer " + localStorage.getItem("realtime_token"),
+      Authorization: "Bearer " + localStorage.getItem("RealtimeGen"),
       'Content-Type': 'application/json',
     },
     body: requestData,
@@ -77,11 +77,15 @@ export async function GetMessages(
               prompt_tokens: 50, // Replace with actual prompt tokens if available
             }),
           });
-
+          const token = localStorage.getItem("authorization");
+          if (!token) {
+            throw new Error("Authorization token not found");
+          }
           await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/customer/increase_used/${data.agent_id}`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
+              "Authorization": `Bearer ${token}`,
             },
           });
           continue;

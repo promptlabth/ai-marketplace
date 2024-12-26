@@ -64,7 +64,9 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
     }
 
     if (authResult) {
-      const authorizationToken = await authResult.user.getIdToken();
+      const authorizationToken = await authResult.user.getIdToken()
+      console.log("Authorization token:", authorizationToken);
+      localStorage.setItem("RealtimeGen", authorizationToken);
       const userData = {
         firebase_id: authResult.user.uid,
         name: authResult.user.displayName || "Anonymous",
@@ -95,9 +97,9 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
         localStorage.setItem("authorization", result.token);
         // localStorage.setItem("typeLogin", platform);
         localStorage.setItem("userData", JSON.stringify(profileUser));
-        localStorage.setItem("access_token", result.user.access_token); // Set firebase_id as a new item
+        // localStorage.setItem("access_token", result.user.access_token); // Set firebase_id as a new item
         handleSetUser(profileUser);
-        window.location.href = "/creator/profile";
+        // window.location.href = "/creator/profile";
       } else {
         console.error("Login failed:", result);
       }
