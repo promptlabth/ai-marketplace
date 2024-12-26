@@ -24,8 +24,8 @@ const InputLanguage: React.FC<InputLanguageProps> = ({ language_label }) => {
         aria-label="Select language"
         className="mt-2 h-[40px] rounded p-2 bg-[#3D434A] ring-1 ring-[#6E6F70] focus:ring-white text-white"
       >
-        <option value="TH">ไทย</option>
-        <option value="EN">English</option>
+        <option value="th">ไทย</option>
+        <option value="en">English</option>
       </select>
     </div>
   );

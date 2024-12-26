@@ -13,19 +13,20 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 
 const CreateAgent = () => {
-  const { data, isLoading, error } = useAgents();
+  const { t } = useTranslation("common");
+  const [language, setLanguage] = useState<string>("th");
+  const { data, isLoading, error } = useAgents(language);
   const [clickOpencategory, setOpencategory] = useState<string>("flex-nowrap");
   const [filteredAgents, setFilteredAgents] = useState<any[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
   const categoryRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
   const [allRoles, setAllRoles] = useState<any[]>([]);
-  const { t } = useTranslation("common");
 
   useEffect(() => {
-    if (data?.agents) {
-      setFilteredAgents(data.agents);
+    if (data) {
+      setFilteredAgents(data);
       const uniqueRoles = Array.from(
-        new Set(data.agents.map((agent: any) => agent.RoleFrameID))
+        new Set(data.map((agent: any) => agent.RoleFrameID))
       );
       setAllRoles(uniqueRoles);
     }
@@ -49,10 +50,10 @@ const CreateAgent = () => {
 
   const handleCategoryClick = (roleFrameID: number) => {
     if (selectedCategory === roleFrameID) {
-      setFilteredAgents(data.agents);
+      setFilteredAgents(data);
       setSelectedCategory(null);
     } else {
-      const newFilteredAgents = data.agents.filter((agent: any) => {
+      const newFilteredAgents = data.filter((agent: any) => {
         const agentRoleFrameID = Number(agent.RoleFrameID);
         const comparedRoleFrameID = Number(roleFrameID);
         console.log(
@@ -67,10 +68,14 @@ const CreateAgent = () => {
 
   const handleSearch = (searchTerm: string) => {
     const searchLower = searchTerm.toLowerCase();
-    const newFilteredAgents = data.agents.filter((agent: any) =>
+    const newFilteredAgents = data.filter((agent: any) =>
       agent.Name.toLowerCase().includes(searchLower)
     );
     setFilteredAgents(newFilteredAgents);
+  };
+
+  const handleLanguageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setLanguage(event.target.value);
   };
 
   return (
@@ -91,6 +96,16 @@ const CreateAgent = () => {
             onSearch={handleSearch}
           />
         </div>
+        <div className="flex justify-end w-full sm:w-[750px] mt-4">
+          <select
+            value={language}
+            onChange={handleLanguageChange}
+            className="text-white bg-[#212529] border border-gray-300 rounded-lg p-2"
+          >
+            <option value="th">ไทย</option>
+            <option value="en">English</option>
+          </select>
+        </div>
         <div
           className={`flex items-center w-full sm:w-[750px] mt-4 gap-4 ${clickOpencategory} overflow-x-auto scroll-container`}
         >
@@ -102,6 +117,7 @@ const CreateAgent = () => {
             />
           ))}
         </div>
+        
 
         <div className="flex justify-end w-full sm:w-[750px]">
           <button
@@ -172,7 +188,7 @@ const RoleCategory = ({
                 <p>Image not available</p>
               )}
             </div>
-            {agent.Language === "th" && (
+            {agent.Role_Language === "th" && (
               <div className="absolute top-0 right-0 bg-white p-1 rounded-full">
                 <Image
                   src="/png/thailand.png"
@@ -182,7 +198,7 @@ const RoleCategory = ({
                 />
               </div>
             )}
-            {agent.Language === "en" && (
+            {agent.Role_Language === "en" && (
               <div className="absolute top-0 right-0 bg-white p-1 rounded-full">
                 <Image
                   src="/png/united-states-of-america.png"
