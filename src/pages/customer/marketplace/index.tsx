@@ -74,10 +74,25 @@ const CreateAgent = () => {
     setFilteredAgents(newFilteredAgents);
   };
 
-  const handleLanguageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleLanguageChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     setLanguage(event.target.value);
   };
 
+  const newLocal = (
+    <div
+      className={`flex items-center w-8/10 ${clickOpencategory} overflow-x-auto scroll-container gap-2`}
+    >
+      {allRoles.map((roleFrameID: number, index: number) => (
+      <RoleButton
+        key={index}
+        roleFrameID={roleFrameID}
+        onClick={() => handleCategoryClick(roleFrameID)}
+      />
+      ))}
+    </div>
+  );
   return (
     <div className="bg-[#212529] h-screen overflow-y-auto p-6">
       <Head>
@@ -96,29 +111,19 @@ const CreateAgent = () => {
             onSearch={handleSearch}
           />
         </div>
-        <div className="flex justify-end w-full sm:w-[750px] mt-4">
-          <select
-            value={language}
-            onChange={handleLanguageChange}
-            className="text-white bg-[#212529] border border-gray-300 rounded-lg p-2"
-          >
-            <option value="th">ไทย</option>
-            <option value="en">English</option>
-          </select>
+        <div className="flex justify-between w-full sm:w-[750px] mt-4 gap-4 ">
+          {newLocal}
+          <div className="w-2/10">
+            <select
+              value={language}
+              onChange={handleLanguageChange}
+              className="text-white bg-[#212529] border border-gray-300 rounded-lg p-2 w-full"
+            >
+              <option value="th">ไทย</option>
+              <option value="en">English</option>
+            </select>
+          </div>
         </div>
-        <div
-          className={`flex items-center w-full sm:w-[750px] mt-4 gap-4 ${clickOpencategory} overflow-x-auto scroll-container`}
-        >
-          {allRoles.map((roleFrameID: number, index: number) => (
-            <RoleButton
-              key={index}
-              roleFrameID={roleFrameID}
-              onClick={() => handleCategoryClick(roleFrameID)}
-            />
-          ))}
-        </div>
-        
-
         <div className="flex justify-end w-full sm:w-[750px]">
           <button
             onClick={() =>
