@@ -15,7 +15,7 @@ export default function GetRole(id: number) {
     const { data, isLoading, error } = useSWR<Roles>(`${process.env.NEXT_PUBLIC_BASE_URL}/creator/role/${id}`, fetcher);
     const roleName = data?.role?.Name;
     if (roleName) {
-        console.log("role", roleName)
+        // console.log("role", roleName)
     }   
 
     return {

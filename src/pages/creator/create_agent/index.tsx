@@ -23,7 +23,7 @@ const CreateAgent = () => {
   const { t } = useTranslation("common");
 
   return (
-    <div className="bg-gradient-to-r from-[#02ffac] to-[#212529] p-6 flex justify-center min-h-screen my-5">
+    <div className="bg-[#212529] p-6 flex justify-center min-h-screen my-5">
       <Head>
         <title>Create Agent</title>
         <meta name="description" content="Create your AI agent" />

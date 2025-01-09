@@ -24,13 +24,16 @@ const CreateAgent = () => {
 
   useEffect(() => {
     if (data) {
-      setFilteredAgents(data);
+      setFilteredAgents((prev) => (prev.length === data.length ? prev : data));
       const uniqueRoles = Array.from(
         new Set(data.map((agent: any) => agent.RoleFrameID))
       );
-      setAllRoles(uniqueRoles);
+      setAllRoles((prev) =>
+        prev.length === uniqueRoles.length ? prev : uniqueRoles
+      );
     }
   }, [data]);
+  
 
   if (isLoading) {
     return <Loading />;

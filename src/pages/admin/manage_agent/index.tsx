@@ -345,9 +345,20 @@ export default function ManageAgent() {
                     {agent.Status}
                   </td>
                   <td className="py-2 px-4 border-b border-gray-600">
-                    <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-all duration-200 shadow-md">
-                      Edit
-                    </button>
+                  <button
+                      className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-all duration-200 shadow-md ml-2"
+                      onClick={() => {
+                        const agentId = agent.ID; // Replace with the actual agent ID logic
+                        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL; // Use your environment variable
+                        if (baseUrl) {
+                          window.location.href = `/customer/${agentId}`;
+                        } else {
+                          console.error("Base URL is not defined in the environment variables.");
+                        }
+                      }}
+                    >
+                      Try AI
+                  </button>
                     <button className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-all duration-200 shadow-md ml-2">
                       Delete
                     </button>
