@@ -359,7 +359,33 @@ export default function ManageAgent() {
                     >
                       Try AI
                   </button>
-                    <button className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-all duration-200 shadow-md ml-2">
+                    <button
+                      className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-all duration-200 shadow-md ml-2"
+                      onClick={async () => {
+                      try {
+                        const token = localStorage.getItem("authorization");
+                        if (!token) {
+                        console.error("Authorization token not found");
+                        router.push("/");
+                        return;
+                        }
+                        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/creator/admin/${agent.ID}`, {
+                        method: 'DELETE',
+                        headers: {
+                          "Content-Type": "application/json",
+                          "Authorization": `Bearer ${token}`,
+                        },
+                        });
+                        if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        alert("Agent deleted successfully");
+                        setAgents(prevAgents => prevAgents.filter(a => a.ID !== agent.ID));
+                      } catch (error) {
+                        console.error("Error deleting agent:", error);
+                      }
+                      }}
+                    >
                       Delete
                     </button>
                     <button
