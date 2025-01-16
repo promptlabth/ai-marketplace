@@ -4,9 +4,9 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useRouter } from 'next/router';
 
 interface UserUsage {
-  profile_picture: string;
-  user_name: string;
-  usage_count: number;
+    profile_picture: string;
+    user_name: string;
+    usage_count: number;
 }
 
 interface Agent {
@@ -97,10 +97,10 @@ const AgentUsage = () => {
   );
 };
 
-export const getServerSideProps = async ({ locale }: any) => ({
-  props: {
-    ...(await serverSideTranslations(locale, ["common"])),
-  },
-});
+export const getStaticProps = async ({ locale }: any) => ({
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  });
 
 export default AgentUsage;
