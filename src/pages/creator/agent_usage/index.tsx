@@ -1,0 +1,92 @@
+import React, { useEffect, useState } from 'react';
+import Navbar from "@/components/Navbar";
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useRouter } from 'next/router';
+
+interface UserUsage {
+  profile_picture: string;
+  user_name: string;
+  usage_count: number;
+}
+
+interface Agent {
+  agent_name: string;
+  agent_id: number;
+  image: string;
+  user_usage: UserUsage[];
+  total_usage: number;
+}
+
+const AgentUsage = () => {
+  const [agentsData, setAgentsData] = useState<Agent[]>([]);
+  const router = useRouter();
+
+  useEffect(() => {
+    const fetchAgentUsage = async () => {
+      try {
+        const token = localStorage.getItem("authorization");
+        if (!token) {
+          console.error("Authorization token not found");
+          router.push("/");
+          return;
+        }
+
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/history/agent_usage`, {
+          headers: {
+            "Authorization": `Bearer ${token}`
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        setAgentsData(data);
+      } catch (error) {
+        console.error("Error fetching agent usage data:", error);
+      }
+    };
+
+    fetchAgentUsage();
+  }, [router]);
+
+  return (
+    <div className="bg-[#212529] p-6 min-h-screen flex flex-col justify-center items-center">
+      <Navbar />
+      <h1 className="font-bold text-white text-[25px] mb-4 mt-4">Agent Usage</h1>
+      <div className="w-full max-w-[940px]">
+        {agentsData.map((agent) => (
+          <div key={agent.agent_id} className="mb-8 bg-[#33393F] p-4 rounded-lg shadow-md">
+            <div className="flex items-center mb-4">
+              <img src={agent.image} alt={agent.agent_name} className="h-16 w-16 object-cover rounded-full mr-4" />
+              <div>
+                <h2 className="text-white text-[20px] font-bold">{agent.agent_name}</h2>
+                <p className="text-white">Total Usage: {agent.total_usage}</p>
+              </div>
+            </div>
+            <div className="flex gap-4 overflow-x-auto hide-scrollbar">
+              {agent.user_usage.map((user, index) => (
+                <div key={index} className="flex items-center bg-[#212529] p-4 rounded-lg shadow-md min-w-[300px]">
+                  <img src={user.profile_picture} alt={user.user_name} className="h-12 w-12 object-cover rounded-full mr-4" />
+                  <div>
+                    <p className="text-white font-bold">{user.user_name}</p>
+                    <p className="text-white">Usage Count: {user.usage_count}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export const getServerSideProps = async ({ locale }: any) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ["common"])),
+  },
+});
+
+export default AgentUsage;
