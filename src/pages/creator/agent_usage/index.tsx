@@ -19,6 +19,7 @@ interface Agent {
 
 const AgentUsage = () => {
   const [agentsData, setAgentsData] = useState<Agent[]>([]);
+  const [searchQuery, setSearchQuery] = useState('');
   const router = useRouter();
 
   useEffect(() => {
@@ -51,12 +52,25 @@ const AgentUsage = () => {
     fetchAgentUsage();
   }, [router]);
 
+  const filteredAgents = agentsData.filter(agent =>
+    agent.agent_name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div className="bg-[#212529] p-6 min-h-screen flex flex-col justify-center items-center">
       <Navbar />
       <h1 className="font-bold text-white text-[25px] mb-4 mt-4">Agent Usage</h1>
+      <div className="w-full max-w-[940px] mb-8">
+        <input
+          type="text"
+          className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#02ffac] mb-4"
+          placeholder="Search by agent name"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+      </div>
       <div className="w-full max-w-[940px]">
-        {agentsData.map((agent) => (
+        {filteredAgents.map((agent) => (
           <div key={agent.agent_id} className="mb-8 bg-[#33393F] p-4 rounded-lg shadow-md">
             <div className="flex items-center mb-4">
               <img src={agent.image} alt={agent.agent_name} className="h-16 w-16 object-cover rounded-full mr-4" />
