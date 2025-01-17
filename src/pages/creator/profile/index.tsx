@@ -120,6 +120,9 @@ const Profile = () => {
             <Link href="/creator/agent_dashboard" className="underline text-white hover:text-gray-600 focus:text-gray-600">
               {t('creator.profile.link')}
             </Link>
+            <Link href="/creator/agent_usage" className="underline text-white hover:text-gray-600 focus:text-gray-600">
+              {t('creator.profile.link2')}
+            </Link>
           </div>
           <p className="mt-8 text-white text-xl"> {t('creator.profile.ai_type')}</p>
           <p className="text-white">{userData?.type_ai}</p>
