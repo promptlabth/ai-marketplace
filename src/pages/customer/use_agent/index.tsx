@@ -10,6 +10,7 @@ import InputDetail from "@/components/InputDetial";
 import { useGlobal } from "@/context/context";
 import ButtonGenerate from "@/components/ButtonGenerate";
 import { GetMessages } from "@/services/api/GetMessagesAPI";
+import Navbar from "@/components/Navbar";
 import useGetFullPrompt from "@/components/hooks/GetFullPrompt"; // Import the custom hook
 
 const useAgent = () => {
@@ -80,10 +81,10 @@ const useAgent = () => {
       </Head>
       <div className="absolute top-4 right-4">
         <div className="flex gap-2">
-          <ButtonChangeLanguage />
+          <Navbar />
         </div>
       </div>
-      <div className="flex flex-col sm:w-[600px] w-full min-h-screen bg-[#33393F] rounded-xl py-4 px-4 gap-4 mb-10">
+      <div className="flex my-5 flex-col sm:w-[600px] w-full min-h-screen bg-[#33393F] rounded-xl py-4 px-4 gap-4 mb-10">
         <div className="flex flex-col justify-center items-center w-full">
           <div className="flex flex-col overflow-hidden rounded-full relative w-20 h-20 justify-center items-center">
             {agent?.ImageURL && <Image src={agent.ImageURL} alt="" width={100} height={100} />}

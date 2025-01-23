@@ -28,7 +28,13 @@ const Navbar: React.FC = () => {
             "Authorization": `Bearer ${token}`
           }
         });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
         const data = await response.json();
+        console.log("User data XD:", data);
         setUserPic(data.profile_pic);
         setUserData(data);
         setIsLoggedIn(true);
@@ -70,6 +76,15 @@ const Navbar: React.FC = () => {
   return (
     <div className="fixed top-0 right-0 left-0 max-h-[74px] flex items-center justify-end px-0 z-10 bg-[#212529]">
       <div className="flex items-center">
+        <div>
+          {userData && userData.max_messages !== undefined ? (
+            <div className="text-white font-bold animate-fade-down">
+              Max Messages: <span className="text-[#02ffac]">{userData.used_messages}/{userData.max_messages}</span>
+            </div>
+          ) : (
+            <div color="text-[#02ffac] animate-fade-down">Loading...</div>
+          )}
+        </div>
         <ButtonChangeLanguage />
         {router.pathname.startsWith("/creator") && (
           <StudioMenu translations={t} />

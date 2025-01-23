@@ -11,6 +11,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useGlobal } from "@/context/context";
 import { useEffect } from "react";
 import { useTranslation } from "next-i18next";
+import Navbar from "@/components/Navbar";
 
 const AgentView = () => {
   const router = useRouter();
@@ -41,10 +42,10 @@ const AgentView = () => {
       </Head>
       <div className="absolute top-4 right-4">
         <div className="flex gap-2">
-          <ButtonChangeLanguage />
+          <Navbar />
         </div>
       </div>
-      <div className="relative flex flex-col justify-between sm:w-[600px] h-full bg-[#33393F] overflow-hidden rounded-xl py-4 px-4 gap-4 mb-10">
+      <div className="relative my-5 flex flex-col justify-between sm:w-[600px] h-full bg-[#33393F] overflow-hidden rounded-xl py-4 px-4 gap-4 mb-10">
         {data?.agent?.Language && (
           <div className="absolute top-0 right-0 bg-white text-black p-1 flex items-center">
             {data.agent.Language === "th" && (
