@@ -20,8 +20,14 @@ const useAgent = () => {
   const [messages, setMessages] = useState(null);
   const [realTimeMessage, setRealTimeMessage] = useState("");
   const [isActive, setIsActive] = useState(false);
+  const [token, setToken] = useState<string | null>(null);
 
   const { fullPrompt, loading, error } = useGetFullPrompt(agent?.ID.toString() || ""); // Use the custom hook
+
+  useEffect(() => {
+    const storedToken = localStorage.getItem("authorization");
+    setToken(storedToken);
+  }, []);
 
   useEffect(() => {
     console.log('fullPrompt updated:', fullPrompt);
@@ -59,19 +65,38 @@ const useAgent = () => {
     const filledPrompt = fullPrompt.replace("[user_input]", user_prompt);
   
     const data = {
-      firebase_id: firebase_id|| "Test",
+      firebase_id: firebase_id || "Test",
       agent_id: agent?.ID || 0,
       prompt: filledPrompt, // Send the modified prompt here
       style_message_id,
     };
-  
+
     try {
+      const userResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/users/me`, {
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      });
+
+      if (!userResponse.ok) {
+        throw new Error(`HTTP error! status: ${userResponse.status}`);
+      }
+
+      const userData = await userResponse.json();
+      const { used_messages, max_messages } = userData;
+
+      if (used_messages >= max_messages) {
+        console.error("Used messages exceed or equal to max messages");
+        setIsActive(false);
+        console.error("Used messages exceed or equal to max messages");
+        return;
+      }
+
       await GetMessages(i18n.language, data, handleNewCharacter);
     } finally {
       setIsActive(false);
     }
   };
-  
 
   return (
     <div className="bg-[#212529] p-6 min-h-screen flex flex-col justify-center items-center">
