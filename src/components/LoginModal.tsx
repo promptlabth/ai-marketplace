@@ -14,9 +14,10 @@ import { useGlobal } from "@/context/context";
 
 interface LoginModalProps {
   onClose: () => void;
+  onSuccess: () => void; // Add onSuccess prop
 }
 
-const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
+const LoginModal: React.FC<LoginModalProps> = ({ onClose, onSuccess }) => {
   const [isClosing, setIsClosing] = useState(false);
   const { handleSetUser } = useGlobal();
 
@@ -95,11 +96,9 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
           },
         };
         localStorage.setItem("authorization", result.token);
-        // localStorage.setItem("typeLogin", platform);
         localStorage.setItem("userData", JSON.stringify(profileUser));
-        // localStorage.setItem("access_token", result.user.access_token); // Set firebase_id as a new item
         handleSetUser(profileUser);
-        // window.location.href = "/creator/profile";
+        onSuccess(); // Call onSuccess after successful login
       } else {
         console.error("Login failed:", result);
       }

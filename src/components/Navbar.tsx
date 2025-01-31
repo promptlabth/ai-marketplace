@@ -17,47 +17,49 @@ const Navbar: React.FC = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null); // Ref for dropdown
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      const token = localStorage.getItem("authorization");
-      if (!token) return;
+  const fetchUserData = async () => {
+    const token = localStorage.getItem("authorization");
+    if (!token) return;
 
-      try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/users/me`, {
-          headers: {
-            "Authorization": `Bearer ${token}`
-          }
-        });
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/users/me`, {
+        headers: {
+          "Authorization": `Bearer ${token}`
         }
+      });
 
-        const data = await response.json();
-        console.log("User data XD:", data);
-        setUserPic(data.profile_pic);
-        setUserData(data);
-        setIsLoggedIn(true);
-      } catch (error) {
-        console.error('Error fetching user data:', error);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-    };
 
+      const data = await response.json();
+      setUserPic(data.profile_pic);
+      setUserData(data);
+      setIsLoggedIn(true);
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  };
+
+  useEffect(() => {
     fetchUserData();
   }, []);
 
+  const handleLogin = () => {
+    setIsModalOpen(true);
+  };
+
   const handleLogout = () => {
     localStorage.removeItem("authorization");
-    localStorage.removeItem("userData");
     setIsLoggedIn(false);
     setUserData(null);
-    setUserPic(null);
     router.push("/");
   };
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
-  const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+  const handleLoginSuccess = () => {
+    setIsModalOpen(false);
+    fetchUserData();
+  };
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -97,7 +99,7 @@ const Navbar: React.FC = () => {
               src={userPic || ''}
               alt="Profile"
               className="w-10 h-10 rounded-full cursor-pointer mx-3"
-              onClick={toggleDropdown}
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             />
             {isDropdownOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
@@ -126,10 +128,10 @@ const Navbar: React.FC = () => {
             )}
           </div>
         ) : (
-          <ButtonLogin onClick={openModal} />
+          <ButtonLogin onClick={handleLogin} />
         )}
       </div>
-      {isModalOpen && <LoginModal onClose={closeModal} />}
+      {isModalOpen && <LoginModal onSuccess={handleLoginSuccess} onClose={() => setIsModalOpen(false)} />}
     </div>
   );
 };
