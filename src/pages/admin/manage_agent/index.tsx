@@ -99,6 +99,7 @@ export default function ManageAgent() {
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
 
+
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -265,7 +266,7 @@ export default function ManageAgent() {
   return (
     <div className="bg-[#212529] p-6 min-h-screen flex flex-col justify-center items-center m-5">
       <Head>
-        <title>Manage Agents</title>
+        <title>{t("admin.manageAgents.title")}</title>
         <meta name="description" content="Admin panel for managing agents" />
       </Head>
       <div className="absolute top-4 right-4">
@@ -274,11 +275,11 @@ export default function ManageAgent() {
         </div>
       </div>
       <div className="flex flex-col items-center justify-center w-full">
-        <h1 className="text-white text-2xl mb-4">Admin Agent Management</h1>
+        <h1 className="text-white text-2xl mb-4">{t("admin.manageAgents.heading")}</h1>
         <div className="w-full max-w-4xl mb-4">
           <input
             type="text"
-            placeholder="Search by name"
+            placeholder={t("admin.manageAgents.searchPlaceholder")}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
@@ -288,25 +289,25 @@ export default function ManageAgent() {
               className={`px-4 py-2 rounded-lg ${statusFilter === "" ? "bg-blue-500 text-white" : "bg-gray-500 text-white"} hover:bg-blue-700 transition-all duration-200`}
               onClick={() => setStatusFilter("")}
             >
-              All
+              {t("creator.agent_dashboard.options.all")}
             </button>
             <button
               className={`px-4 py-2 rounded-lg ${statusFilter === "approve" ? "bg-blue-500 text-white" : "bg-gray-500 text-white"} hover:bg-blue-700 transition-all duration-200`}
               onClick={() => setStatusFilter("approve")}
             >
-              Approve
+              {t("creator.agent_dashboard.options.approve")}
             </button>
             <button
               className={`px-4 py-2 rounded-lg ${statusFilter === "pending" ? "bg-blue-500 text-white" : "bg-gray-500 text-white"} hover:bg-blue-700 transition-all duration-200`}
               onClick={() => setStatusFilter("pending")}
             >
-              Pending
+              {t("creator.agent_dashboard.options.pending")}
             </button>
             <button
               className={`px-4 py-2 rounded-lg ${statusFilter === "reject" ? "bg-blue-500 text-white" : "bg-gray-500 text-white"} hover:bg-blue-700 transition-all duration-200`}
               onClick={() => setStatusFilter("reject")}
             >
-              Reject
+              {t("creator.agent_dashboard.options.reject")}
             </button>
           </div>
         </div>
@@ -314,14 +315,14 @@ export default function ManageAgent() {
           <table className="min-w-full bg-[#33393F] text-white">
             <thead>
               <tr>
-                <th className="py-2 px-4 border-b border-gray-600">ID</th>
-                <th className="py-2 px-4 border-b border-gray-600">Image</th>
-                <th className="py-2 px-4 border-b border-gray-600">Name</th>
-                <th className="py-2 px-4 border-b border-gray-600">Created By</th>
-                <th className="py-2 px-4 border-b border-gray-600">Description</th>
-                <th className="py-2 px-4 border-b border-gray-600">Total Used</th>
-                <th className="py-2 px-4 border-b border-gray-600">Status</th>
-                <th className="py-2 px-4 border-b border-gray-600">Actions</th>
+                <th className="py-2 px-4 border-b border-gray-600">{t("admin.manageAgents.agent.id")}</th>
+                <th className="py-2 px-4 border-b border-gray-600">{t("admin.manageAgents.agent.image")}</th>
+                <th className="py-2 px-4 border-b border-gray-600">{t("admin.manageAgents.agent.name")}</th>
+                <th className="py-2 px-4 border-b border-gray-600">{t("admin.manageAgents.agent.creator")}</th>
+                <th className="py-2 px-4 border-b border-gray-600">{t("admin.manageAgents.agent.desc")}</th>
+                <th className="py-2 px-4 border-b border-gray-600">{t("admin.manageAgents.agent.total_used")}</th>
+                <th className="py-2 px-4 border-b border-gray-600">{t("admin.manageAgents.agent.status")}</th>
+                <th className="py-2 px-4 border-b border-gray-600">{t("admin.manageAgents.agent.action")}</th>
               </tr>
             </thead>
             <tbody>

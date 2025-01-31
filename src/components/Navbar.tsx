@@ -48,7 +48,7 @@ const Navbar: React.FC = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("authorization");
-    // localStorage.removeItem("userData");
+    localStorage.removeItem("userData");
     setIsLoggedIn(false);
     setUserData(null);
     setUserPic(null);
@@ -79,10 +79,10 @@ const Navbar: React.FC = () => {
         <div>
           {userData && userData.max_messages !== undefined ? (
             <div className="text-white font-bold animate-fade-down">
-              Max Messages: <span className="text-[#02ffac]">{userData.used_messages}/{userData.max_messages}</span>
+              {t("nav.max_msg")} <span className="text-[#02ffac]">{userData.used_messages}/{userData.max_messages}</span>
             </div>
           ) : (
-            <div color="text-[#02ffac] animate-fade-down">Loading...</div>
+            <div color="text-[#02ffac] animate-fade-down"></div>
           )}
         </div>
         <ButtonChangeLanguage />

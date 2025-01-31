@@ -81,6 +81,16 @@
     "creator.profile.ai_type": "All AI types",
     "creator.profile.ai_used": "Most used AI",
     "creator.profile.my_ai": "My AI",
+    "creator.agent_dashboard.header.dashboard" : "Dashboard",
+    "creator.agent_dashboard.header.total_agents" : "Total Agents:",
+    "creator.agent_dashboard.header.approved_agents" : "Approved Agents",
+    "creator.agent_dashboard.header.pending_agents" : "Pending Agents",
+    "creator.agent_dashboard.header.reject_agents" : "Rejected Agents",
+    "creator.agent_dashboard.options.all" : "All",
+    "creator.agent_dashboard.options.approve" : "Approve",
+    "creator.agent_dashboard.options.pending" : "Pending",
+    "creator.agent_dashboard.options.reject" : "Rejected",
+
     "customer.marketplace.input": "Search for your AI",
     "customer.marketplace.more_role": "See more",
 
@@ -104,6 +114,21 @@
     "customer.marketplace.viewAgent.AIDescription": "AI Description",
     "customer.marketplace.viewAgent.Framework": "Framework AI",
     "customer.marketplace.viewAgent.FrameworkDetail": "Framework Detail",
-    "customer.marketplace.viewAgent.AIType": "AI type"
+    "customer.marketplace.viewAgent.AIType": "AI type",
+
+    "admin.manage_agent_button" : "Manage Agents",
+    "admin.manageAgents.title" : "Manage Agents",
+    "admin.manageAgents.heading" : "Admin Agent Management",
+    "admin.manageAgents.searchPlaceholder" : "Search by name" ,
+    "admin.manageAgents.agent.id" : "ID" ,
+    "admin.manageAgents.agent.image" : "Image" ,
+    "admin.manageAgents.agent.name" : "Name" ,
+    "admin.manageAgents.agent.creator" : "Created By" ,
+    "admin.manageAgents.agent.desc" : "Description" ,
+    "admin.manageAgents.agent.total_used" : "Total Used" ,
+    "admin.manageAgents.agent.status" : "Status" ,
+    "admin.manageAgents.agent.action" : "Actions",
+
+    "nav.max_msg" : "Max message"
 
 }

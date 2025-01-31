@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from "next/router";
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Navbar from "@/components/Navbar";
+import { useTranslation } from "next-i18next";
 
 interface Agent {
   ID: number;
@@ -17,6 +18,7 @@ interface Agent {
 }
 
 const Index = () => {
+  const { t } = useTranslation("common");
   const router = useRouter();
   const [agents, setAgents] = useState<Agent[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
@@ -112,10 +114,10 @@ const Index = () => {
   return (
     <div className="bg-[#212529] p-6 min-h-screen flex flex-col justify-center items-center">
       <Navbar />
-      <h1 className="font-bold text-white text-[25px] mb-4 mt-4">Dashboard</h1>
+      <h1 className="font-bold text-white text-[25px] mb-4 mt-4">{t("creator.agent_dashboard.header.dashboard")}</h1>
       <div className="w-full max-w-[940px] mb-8">
         <div className="text-white text-lg mb-4">
-          Total Agents: {agents.length}
+          {t("creator.agent_dashboard.header.total_agents")} {agents.length}
         </div>
         <input
           type="text"
@@ -129,22 +131,22 @@ const Index = () => {
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
         >
-          <option value="all">All</option>
-          <option value="approve">Approved</option>
-          <option value="pending">Pending</option>
-          <option value="reject">Rejected</option>
+          <option value="all">{t("creator.agent_dashboard.options.all")}</option>
+          <option value="approve">{t("creator.agent_dashboard.options.approve")}</option>
+          <option value="pending">{t("creator.agent_dashboard.options.pending")}</option>
+          <option value="reject">{t("creator.agent_dashboard.options.reject")}</option>
         </select>
       </div>
       <div className="w-full max-w-[940px]">
         {statusFilter === 'all' ? (
           <>
-            <h2 className="text-white text-[20px] mb-4">Approved Agents</h2>
+            <h2 className="text-white text-[20px] mb-4">{t("creator.agent_dashboard.header.approved_agents")}</h2>
             {approvedAgents.length > 0 ? renderAgents(approvedAgents) : <p className="text-white">No approved agents found.</p>}
             
-            <h2 className="text-white text-[20px] mb-4 mt-8">Pending Agents</h2>
+            <h2 className="text-white text-[20px] mb-4 mt-8">{t("creator.agent_dashboard.header.pending_agents")}</h2>
             {pendingAgents.length > 0 ? renderAgents(pendingAgents) : <p className="text-white">No pending agents found.</p>}
             
-            <h2 className="text-white text-[20px] mb-4 mt-8">Rejected Agents</h2>
+            <h2 className="text-white text-[20px] mb-4 mt-8">{t("creator.agent_dashboard.header.reject_agents")}</h2>
             {rejectedAgents.length > 0 ? renderAgents(rejectedAgents) : <p className="text-white">No rejected agents found.</p>}
           </>
         ) : (

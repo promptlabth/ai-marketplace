@@ -88,7 +88,6 @@ const useAgent = () => {
       if (used_messages >= max_messages) {
         console.error("Used messages exceed or equal to max messages");
         setIsActive(false);
-        console.error("Used messages exceed or equal to max messages");
         return;
       }
 

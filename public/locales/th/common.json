@@ -82,6 +82,17 @@
     "creator.profile.ai_type": "ประเภทของ AI ทั้งหมด",
     "creator.profile.ai_used": "AI ที่ถูกใช้งานมากที่สุด",
     "creator.profile.my_ai": "AI ของฉัน",
+    "creator.agent_dashboard.header.dashboard" : "แดชบอร์ด",
+    "creator.agent_dashboard.header.total_agents" : "ตัวแทนทั้งหมด:",
+    "creator.agent_dashboard.header.approved_agents" : "ตัวแทนที่อนุมัติ",
+    "creator.agent_dashboard.header.pending_agents" : "ตัวแทนที่รอการอนุมัติ",
+    "creator.agent_dashboard.header.reject_agents" : "ตัวแทนที่ถูกปฏิเสธ",
+    "creator.agent_dashboard.options.all" : "ทั้งหมด",
+    "creator.agent_dashboard.options.approve" : "อนุมัติ",
+    "creator.agent_dashboard.options.pending" : "รอดำเนินการ",
+    "creator.agent_dashboard.options.reject" : "ถูกปฏิเสธ",
+
+
     "customer.marketplace.input": "ค้นหา AI ของคุณ",
     "customer.marketplace.more_role": "ดูเพิ่มเติม",
 
@@ -104,6 +115,22 @@
     "customer.marketplace.viewAgent.AIDescription": "อธิบาย AI",
     "customer.marketplace.viewAgent.Framework": "อธิบายเฟรมเวิร์ค",
     "customer.marketplace.viewAgent.FrameworkDetail": "รายละเอียดเฟรมเวิร์ค",
-    "customer.marketplace.viewAgent.AIType": "รูปแบบ AI"
+    "customer.marketplace.viewAgent.AIType": "รูปแบบ AI",
+
+    "admin.manage_agent_button" : "ระบบจัดการ Agent",
+    "admin.manageAgents.title" : "จัดการเอเจนต์",
+    "admin.manageAgents.heading" : "การจัดการเอเจนต์ของแอดมิน",
+    "admin.manageAgents.searchPlaceholder" : "ค้นหาด้วยชื่อ",
+    "admin.manageAgents.agent.id" : "รหัส",
+    "admin.manageAgents.agent.image" : "รูปภาพ",
+    "admin.manageAgents.agent.name" : "ชื่อ",
+    "admin.manageAgents.agent.creator" : "สร้างโดย",
+    "admin.manageAgents.agent.desc" : "คำอธิบาย",
+    "admin.manageAgents.agent.total_used" : "จำนวนการใช้งานทั้งหมด",
+    "admin.manageAgents.agent.status" : "สถานะ",
+    "admin.manageAgents.agent.action" : "การดำเนินการ",
+
+    "nav.max_msg" : "ข้อความสูงสุด"
+
    
 }
