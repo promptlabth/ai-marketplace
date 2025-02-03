@@ -115,6 +115,7 @@
     "customer.marketplace.viewAgent.Framework": "Framework AI",
     "customer.marketplace.viewAgent.FrameworkDetail": "Framework Detail",
     "customer.marketplace.viewAgent.AIType": "AI type",
+    "customer.useAgent.maxMessagesReached" :  "You have reached the maximum number of messages." ,
 
     "admin.manage_agent_button" : "Manage Agents",
     "admin.manageAgents.title" : "Manage Agents",
@@ -129,6 +130,10 @@
     "admin.manageAgents.agent.status" : "Status" ,
     "admin.manageAgents.agent.action" : "Actions",
 
-    "nav.max_msg" : "Max message"
+    "nav.max_msg" : "Max message",
+    "notification": {
+        "title": "Notification",
+        "close": "Close"
+      }
 
 }

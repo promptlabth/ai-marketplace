@@ -116,6 +116,8 @@
     "customer.marketplace.viewAgent.Framework": "อธิบายเฟรมเวิร์ค",
     "customer.marketplace.viewAgent.FrameworkDetail": "รายละเอียดเฟรมเวิร์ค",
     "customer.marketplace.viewAgent.AIType": "รูปแบบ AI",
+    "customer.useAgent.maxMessagesReached" :  "คุณได้ใช้ข้อความถึงจำนวนสูงสุดแล้ว" ,
+
 
     "admin.manage_agent_button" : "ระบบจัดการ Agent",
     "admin.manageAgents.title" : "จัดการเอเจนต์",
@@ -130,7 +132,13 @@
     "admin.manageAgents.agent.status" : "สถานะ",
     "admin.manageAgents.agent.action" : "การดำเนินการ",
 
-    "nav.max_msg" : "ข้อความสูงสุด"
+
+
+    "nav.max_msg" : "ข้อความสูงสุด",
+    "notification": {
+        "title": "การแจ้งเตือน",
+        "close": "ปิด"
+    }
 
    
 }

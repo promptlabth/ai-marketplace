@@ -6,6 +6,7 @@ import StudioMenu from "@/components/StudioiMenu";
 import ButtonChangeLanguage from "@/components/ButtonChangeLanguage"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
+import Navbar from "@/components/Navbar";
 
 
 const Payment = () => {
@@ -18,7 +19,7 @@ const Payment = () => {
       </Head>
       <div className="absolute top-4 right-4">
         <div className="flex gap-2">
-          <ButtonChangeLanguage />
+          <Navbar />
           {/* <StudioMenu /> */}
         </div>
       </div>

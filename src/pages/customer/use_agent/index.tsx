@@ -12,6 +12,7 @@ import ButtonGenerate from "@/components/ButtonGenerate";
 import { GetMessages } from "@/services/api/GetMessagesAPI";
 import Navbar from "@/components/Navbar";
 import useGetFullPrompt from "@/components/hooks/GetFullPrompt"; // Import the custom hook
+import ModalComponent from "@/components/ModalComponent"; // Import the ModalComponent
 
 const useAgent = () => {
   const { t } = useTranslation("common");
@@ -21,6 +22,7 @@ const useAgent = () => {
   const [realTimeMessage, setRealTimeMessage] = useState("");
   const [isActive, setIsActive] = useState(false);
   const [token, setToken] = useState<string | null>(null);
+  const [showModal, setShowModal] = useState(false); // State to control modal visibility
 
   const { fullPrompt, loading, error } = useGetFullPrompt(agent?.ID.toString() || ""); // Use the custom hook
 
@@ -88,6 +90,7 @@ const useAgent = () => {
       if (used_messages >= max_messages) {
         console.error("Used messages exceed or equal to max messages");
         setIsActive(false);
+        setShowModal(true); // Show the modal
         return;
       }
 
@@ -145,6 +148,12 @@ const useAgent = () => {
           />
         </div>
       </div>
+      {showModal && (
+        <ModalComponent
+          message={t("customer.useAgent.maxMessagesReached")}
+          onClose={() => setShowModal(false)}
+        />
+      )}
     </div>
   );
 };
