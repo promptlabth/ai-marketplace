@@ -134,6 +134,20 @@
     "notification": {
         "title": "Notification",
         "close": "Close"
+      },
+
+    "customer": {
+      "subscription": {
+        "title": "Subscription",
+        "current": "Your current subscription plan is",
+        "upgrade": "If you want to upgrade your plan, please contact us at",
+        "price" : "per month",
+        "message": "message per month",
+        "support": "Community Support",
+        "buy": "Buy Now",
+        "select": "Please select the subscription plan you want."
       }
+    }
+    
 
 }
