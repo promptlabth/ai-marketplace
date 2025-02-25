@@ -7,6 +7,8 @@ import { useGlobal } from "@/context/context";
 import ButtonChangeLanguage from "@/components/ButtonChangeLanguage";
 import { GetMessages } from "@/services/api/GetMessagesAPI";
 import Navbar from "@/components/Navbar";
+import LoginModal from "@/components/LoginModal";
+import { useRouter } from 'next/router';
 
 interface Agent {
   ID: number;
@@ -39,6 +41,9 @@ const UsedAgentPage = () => {
   const [agentList, setAgentList] = useState<Agent[]>([]); // Initialize as an empty array
   const [searchQuery, setSearchQuery] = useState("");
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const router = useRouter();
+
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("userData") || "{}");
     const firebase_id = userData.user?.firebase_id || "";
@@ -49,7 +54,10 @@ const UsedAgentPage = () => {
     try {
       const token = localStorage.getItem("authorization");
       if (!token) {
-        throw new Error("Authorization token not found");
+        // throw new Error("Authorization token not found");
+        console.error("Authorization token not found");
+        setIsModalOpen(true);
+        return;
       }
 
       const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/customer/agent_usage`, {
@@ -58,9 +66,14 @@ const UsedAgentPage = () => {
           "Authorization": `Bearer ${token}`,
         },
       });
+
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        // throw new Error(`HTTP error! status: ${response.status}`);
+        console.error("Authorization token expired");
+        setIsModalOpen(true);
+        return;
       }
+
       const data: Agent[] = await response.json();
       setAgentList(data);
     } catch (error) {
@@ -73,6 +86,16 @@ const UsedAgentPage = () => {
       fetchData();
     }
   }, [firebaseId]);
+
+  const handleSuccess = () => {
+    setIsModalOpen(false);
+    fetchData();
+  }
+
+  const handleClose = () => {
+    setIsModalOpen(false);
+    router.push("/");
+  }
 
   const filteredAgents = (agentList || []).filter((agent: Agent) =>
     new RegExp(searchQuery, "i").test(agent.Name)
@@ -132,6 +155,7 @@ const UsedAgentPage = () => {
           </div>
         </div>
       </div>
+      {isModalOpen && <LoginModal onSuccess={handleSuccess} onClose={handleClose} />}
     </div>
   );
 };

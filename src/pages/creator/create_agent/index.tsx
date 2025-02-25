@@ -11,14 +11,59 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import StudioMenu from "@/components/StudioiMenu";
 import ButtonChangeLanguage from "@/components/ButtonChangeLanguage";
 import { useTranslation } from "next-i18next";
+import { useEffect, useState } from "react";
+import { useRouter } from 'next/router';
+import LoginModal from "@/components/LoginModal";
 
 const CreateAgent = () => {
   const { setAgentDescribe } = useGlobal();
+
+  const router = useRouter();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleDesChangeAgentDescribe = (value: string) => {
     setAgentDescribe(value);
     console.log("setAgentDescribe", value);
   };
+
+  const fetchUser = async () => { 
+    try {
+      const token = localStorage.getItem("authorization");
+      if (!token) {
+        console.error("Authorization token not found");
+        setIsModalOpen(true);
+        return;
+      }
+
+      const userResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/users/me`, {
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      });
+
+      if (!userResponse.ok) {
+        console.error("Authorization token expired");
+        setIsModalOpen(true);
+        return;
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  }
+
+  useEffect(() => {
+    fetchUser();
+  },[router]);
+
+  const handleSuccess = () => {
+    setIsModalOpen(false);
+    fetchUser();
+  }
+
+  const handleClose = () => {
+    setIsModalOpen(false);
+    router.push("/");
+  }
 
   const { t } = useTranslation("common");
 
@@ -58,6 +103,7 @@ const CreateAgent = () => {
           </div>
         </div>
       </div>
+      {isModalOpen && <LoginModal onSuccess={handleSuccess} onClose={handleClose} />}
     </div>
   );
 };

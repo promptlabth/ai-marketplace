@@ -3,6 +3,7 @@
     "nav.profile.title" : "Profile" ,
     "nav.dashboard.title" : "Dashboard" ,
     "nav.logout.title" : "Logout" ,
+    "nav.subscription.title" : "Subscription" ,
     "test": "test",
     "language": "Language",
     "listAgent.creator.title": "List Agent",

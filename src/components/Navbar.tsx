@@ -116,7 +116,13 @@ const Navbar: React.FC = () => {
                   >
                     {t("nav.dashboard.title")}
                   </Link>
-                    <Link
+                  <Link
+                    href="/customer/subscription"
+                    className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                  >
+                    {t("nav.subscription.title")}
+                  </Link>
+                  <Link
                     href="/"
                     className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
                     onClick={handleLogout}
