@@ -70,6 +70,7 @@ const UsedAgentPage = () => {
       if (!response.ok) {
         // throw new Error(`HTTP error! status: ${response.status}`);
         console.error("Authorization token expired");
+        localStorage.removeItem("authorization");
         setIsModalOpen(true);
         return;
       }

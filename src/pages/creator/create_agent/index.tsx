@@ -43,6 +43,7 @@ const CreateAgent = () => {
 
       if (!userResponse.ok) {
         console.error("Authorization token expired");
+        localStorage.removeItem("authorization");
         setIsModalOpen(true);
         return;
       }
