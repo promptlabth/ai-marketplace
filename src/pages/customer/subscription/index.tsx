@@ -1,13 +1,94 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, use } from "react";
 import Head from "next/head";
+import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { Card, CardHeader, CardBody, CardFooter, Typography, Button, } from "@material-tailwind/react";
+import { Card, CardBody, CardFooter, Typography, Button, } from "@material-tailwind/react";
 import { useTranslation } from "next-i18next";
+import LoginModal from "@/components/LoginModal";
+import FailedPaymentModal from "@/components/FailedPaymentModal";
+import { subscriptionPlanPrizeIdMap } from "@/constants/value.constant";
+import { CheckoutSessionRequest } from "@/models/types/requests/paymentRequest.type";
+import { apiGetCheckoutSessionUrl } from "@/services/api/PaymentAPI";
 
 const Subscription = () => {
     const { t } = useTranslation("common");
+    const router = useRouter();
+
     const [plan, setPlan] = useState<string | null>("Free")
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [failedModalOpen, setFailedModalOpen] = useState(false);
+
+    const [user, setUser] = useState<any>(null);
+
+    const fetchUserData = async () => {
+        const token = localStorage.getItem("authorization");
+        if (!token) {
+            console.error("Authorization token not found");
+            setIsModalOpen(true);
+            return;
+        }
+        const userResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/users/me`, {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        });
+
+        if (!userResponse.ok) {
+            console.error("Authorization token expired");
+            localStorage.removeItem("authorization");
+            setIsModalOpen(true);
+            return;
+        }
+
+        const data = await userResponse.json();
+        setIsLoggedIn(true);
+        setUser(data);
+        setPlan(data.plan_id);
+    }
+
+    useEffect(() => {
+        fetchUserData()
+    }, [router]);
+
+    const handleCheckoutSession = async (prizeId: string, planId: number) => {
+        try {
+            if (!user) {
+                console.warn("User not found");
+                setIsModalOpen(true);
+                return;
+            }
+    
+            const checkoutSessionRequest: CheckoutSessionRequest = {
+                PrizeID: prizeId,
+                WebUrl: window.location.origin,
+                PlanID: planId,
+            }
+            const checkoutSessionUrl = await apiGetCheckoutSessionUrl(checkoutSessionRequest);
+            if (!checkoutSessionUrl) {
+                console.warn("Error getting checkout session URL");
+                return;
+            }
+            // console.log("Success getting checkout session URL");
+            // router.push(checkoutSessionUrl);
+            setFailedModalOpen(true);
+        } catch (error){
+            console.error(error)
+            setFailedModalOpen(true);
+        }
+    }
+
+    const handleSuccess = () => {
+        setIsModalOpen(false);
+        router.refresh();
+      }
+    
+      const handleClose = () => {
+        setIsModalOpen(false);
+      }
+
+    /* ------------ Icon ------------ */
 
     function CheckIcon() {
         return (
@@ -42,7 +123,7 @@ const Subscription = () => {
                     </linearGradient>
                 </defs>
                 <circle cx="50" cy="50" r="45" strokeWidth="2" fill="url(#grad1)" />
-                <text x="50%" y="44%" textAnchor="middle" fill="white" strokeWidth="1px" dy=".3em" fontSize="24">0฿</text>
+                <text x="50%" y="44%" textAnchor="middle" fill="white" strokeWidth="1px" dy=".3em" fontSize="24">{subscriptionPlanPrizeIdMap["FREE"].price}฿</text>
                 <text x="50%" y="66%" textAnchor="middle" fill="white" strokeWidth="1px" dy=".3em" fontSize="12">{t("customer.subscription.price")}</text>
             </svg>
         );
@@ -62,7 +143,7 @@ const Subscription = () => {
                     </linearGradient>
                 </defs>
                 <circle cx="50" cy="50" r="45" strokeWidth="2" fill="url(#grad2)" />
-                <text x="50%" y="44%" textAnchor="middle" fill="white" strokeWidth="1px" dy=".3em" fontSize="24">59฿</text>
+                <text x="50%" y="44%" textAnchor="middle" fill="white" strokeWidth="1px" dy=".3em" fontSize="24">{subscriptionPlanPrizeIdMap["BRONZE"].price}฿</text>
                 <text x="50%" y="66%" textAnchor="middle" fill="white" strokeWidth="1px" dy=".3em" fontSize="12">{t("customer.subscription.price")}</text>
             </svg>
         );
@@ -82,7 +163,7 @@ const Subscription = () => {
                     </linearGradient>
                 </defs>
                 <circle cx="50" cy="50" r="45" strokeWidth="2" fill="url(#grad3)" />
-                <text x="50%" y="44%" textAnchor="middle" fill="white" strokeWidth="1px" dy=".3em" fontSize="24">199฿</text>
+                <text x="50%" y="44%" textAnchor="middle" fill="white" strokeWidth="1px" dy=".3em" fontSize="24">{subscriptionPlanPrizeIdMap["SILVER"].price}฿</text>
                 <text x="50%" y="66%" textAnchor="middle" fill="white" strokeWidth="1px" dy=".3em" fontSize="12">{t("customer.subscription.price")}</text>
             </svg>
         );
@@ -102,11 +183,13 @@ const Subscription = () => {
                     </linearGradient>
                 </defs>
                 <circle cx="50" cy="50" r="45" strokeWidth="2" fill="url(#grad4)" />
-                <text x="50%" y="44%" textAnchor="middle" fill="white" strokeWidth="1px" dy=".3em" fontSize="24">299฿</text>
+                <text x="50%" y="44%" textAnchor="middle" fill="white" strokeWidth="1px" dy=".3em" fontSize="24">{subscriptionPlanPrizeIdMap["GOLD"].price}฿</text>
                 <text x="50%" y="66%" textAnchor="middle" fill="white" strokeWidth="1px" dy=".3em" fontSize="12">{t("customer.subscription.price")}</text>
             </svg>
         );
     }
+
+    /* ------------ End of Icon ------------ */
 
   return (
     <div className="flex justify-center bg-[#212529] p-6 sm:min-h-screen min-h-screen relative">
@@ -128,7 +211,8 @@ const Subscription = () => {
                     </p>
                 </div>
                 <hr className="w-[50px] mx-auto border-gray-500" />
-                <div className="flex flex-col justify-center items-center w-full">
+                {isLoggedIn && (
+                    <div className="flex flex-col justify-center items-center w-full">
                     <p className="text-white text-[20px] mt-4">
                         {t("customer.subscription.current")}
                         {/* ตอนนี้แพลนสมาชิกของคุณคือ */}
@@ -140,6 +224,8 @@ const Subscription = () => {
                         <a> </a><u>isaman@promptlabai.com</u>
                     </p>
                 </div>
+                )}
+                
             </div>
             <div className="subscriptionList">
                 <div className="container text-center">
@@ -202,7 +288,7 @@ const Subscription = () => {
                                     </ul>
                                 </CardBody>
                                 <CardFooter placeholder="" onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}}>
-                                    <Button className="bg-orange-400 hover:bg-orange-600" placeholder="" onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}}>
+                                    <Button className="bg-orange-400 hover:bg-orange-600" placeholder="" onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}} onClick={async () => await handleCheckoutSession(subscriptionPlanPrizeIdMap["BRONZE"].prizeId, subscriptionPlanPrizeIdMap["BRONZE"].planId)}>
                                         {t("customer.subscription.buy")}
                                     </Button>
                                 </CardFooter>
@@ -236,7 +322,7 @@ const Subscription = () => {
                                     </ul>
                                 </CardBody>
                                 <CardFooter placeholder="" onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}}>
-                                    <Button className="bg-gray-400 hover:bg-gray-600" placeholder="" onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}}>
+                                    <Button className="bg-gray-400 hover:bg-gray-600" placeholder="" onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}} onClick={async () => await handleCheckoutSession(subscriptionPlanPrizeIdMap["SILVER"].prizeId, subscriptionPlanPrizeIdMap["SILVER"].planId)}>
                                         {t("customer.subscription.buy")}
                                     </Button>
                                 </CardFooter>
@@ -270,7 +356,7 @@ const Subscription = () => {
                                     </ul>
                                 </CardBody>
                                 <CardFooter placeholder="" onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}}>
-                                    <Button className="bg-yellow-400 hover:bg-yellow-600" placeholder="" onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}}>
+                                    <Button className="bg-yellow-400 hover:bg-yellow-600" placeholder="" onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}} onClick={async () => await handleCheckoutSession(subscriptionPlanPrizeIdMap["GOLD"].prizeId, subscriptionPlanPrizeIdMap["GOLD"].planId)}>
                                         {t("customer.subscription.buy")}
                                     </Button>
                                 </CardFooter>
@@ -282,6 +368,8 @@ const Subscription = () => {
                 </div>
             </div>
         </div>
+        {isModalOpen && (<LoginModal onSuccess={handleSuccess} onClose={handleClose} />)}
+        {failedModalOpen && (<FailedPaymentModal onClose={() => setFailedModalOpen(false)} />)}
     </div>
   )
 }

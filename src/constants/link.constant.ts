@@ -1,0 +1,1 @@
+export const paymentApiUrl = "https://ms-payment-uu4qhhj35a-as.a.run.app/"

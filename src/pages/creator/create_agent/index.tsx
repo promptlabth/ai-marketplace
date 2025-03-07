@@ -12,7 +12,7 @@ import StudioMenu from "@/components/StudioiMenu";
 import ButtonChangeLanguage from "@/components/ButtonChangeLanguage";
 import { useTranslation } from "next-i18next";
 import { useEffect, useState } from "react";
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import LoginModal from "@/components/LoginModal";
 
 const CreateAgent = () => {
@@ -58,7 +58,7 @@ const CreateAgent = () => {
 
   const handleSuccess = () => {
     setIsModalOpen(false);
-    fetchUser();
+    router.refresh();
   }
 
   const handleClose = () => {

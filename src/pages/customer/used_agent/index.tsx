@@ -8,7 +8,7 @@ import ButtonChangeLanguage from "@/components/ButtonChangeLanguage";
 import { GetMessages } from "@/services/api/GetMessagesAPI";
 import Navbar from "@/components/Navbar";
 import LoginModal from "@/components/LoginModal";
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 interface Agent {
   ID: number;
@@ -90,7 +90,7 @@ const UsedAgentPage = () => {
 
   const handleSuccess = () => {
     setIsModalOpen(false);
-    fetchData();
+    router.refresh();
   }
 
   const handleClose = () => {
