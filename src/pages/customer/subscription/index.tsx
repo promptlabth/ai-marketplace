@@ -71,8 +71,8 @@ const Subscription = () => {
                 return;
             }
             // console.log("Success getting checkout session URL");
-            // router.push(checkoutSessionUrl);
-            setFailedModalOpen(true);
+            router.push(checkoutSessionUrl);
+            // setFailedModalOpen(true);
         } catch (error){
             console.error(error)
             setFailedModalOpen(true);
