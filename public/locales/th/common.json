@@ -76,6 +76,7 @@
     "dashboard_overall.click_able.revenueReport": "รายงานรายได้",
     "dashboard_overall.viewAgent": "ดู AI",
 
+    "creator.profile.plan" : "แพลนสมัครสมาชิก",
     "creator.profile.ai_created": "จำนวน AI ที่สร้าง",
     "creator.profile.count_ai": "หน่วย",
     "creator.profile.link": "แดชบอร์ด AI",
@@ -152,6 +153,26 @@
         "buy": "เลือกซื้อ",
         "select": "กรุณาเลือกการสมัครสมาชิกที่ท่านต้องการ"
       }
+    },
+
+    "failedPayment.title": {
+      "title": "เกิดข้อผิดพลาด",
+      "message": "กรุณาลองใหม่อีกครั้งในภายหลัง",
+      "close": "ปิด"
+    },
+
+    "cancel": {
+      "title": "ยกเลิกการสั่งซื้อ",
+      "message" : "ทำการยกเลิกการสมัครสมาชิกแล้ว",
+      "back_to_home": "กลับไปที่หน้าโฮม",
+      "go_to_subscription": "ไปที่หน้าสมัครสมาชิก"
+    },
+
+    "success": {
+      "title": "สำเร็จ",
+      "message" : "ทำการอัพเกรดแพลนสมาชิกของคุณแล้ว",
+      "go_to_profile": "ไปที่หน้าโปรไฟล์",
+      "go_to_ai_shop": "ไปร้านค้า AI"
     }
 
    

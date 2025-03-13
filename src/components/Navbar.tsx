@@ -14,6 +14,7 @@ const Navbar: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userData, setUserData] = useState<any>(null);
   const [userPic, setUserPic] = useState<string | null>(null);
+  const [userPlan, setUserPlan] = useState<string | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null); // Ref for dropdown
 
@@ -35,6 +36,8 @@ const Navbar: React.FC = () => {
       const data = await response.json();
       setUserPic(data.profile_pic);
       setUserData(data);
+      setUserPlan(data.plan_id);
+      // setUserPlan("Bronze"); // Test
       setIsLoggedIn(true);
     } catch (error) {
       console.error('Error fetching user data:', error);
@@ -79,10 +82,21 @@ const Navbar: React.FC = () => {
     <div className="fixed top-0 right-0 left-0 max-h-[74px] flex items-center justify-end px-0 z-10 bg-[#212529]">
       <div className="flex items-center">
         <div>
-          {userData && userData.max_messages !== undefined ? (
-            <div className="text-white font-bold animate-fade-down">
-              {t("nav.max_msg")} <span className="text-[#02ffac]">{userData.used_messages}/{userData.max_messages}</span>
+          {userPlan ? (
+            <div className={`ml-2 mr-2 font-bold animate-fade-down ${userPlan === "Bronze" ? "text-orange-400" : userPlan === "Silver" ? "text-gray-400" : userPlan === "Gold" ? "text-yellow-400" : "text-[#02ffac]"}`}>
+              {userPlan} Tier
+          </div>
+          ) : (
+            <div className="ml-2 mr-2 font-bold animate-fade-down text-[#02ffac]">
+              
             </div>
+          )}
+        </div>
+        <div>
+          {userData && userData.max_messages !== undefined ? (
+              <div className="text-white font-bold animate-fade-down">
+                {t("nav.max_msg")} <span className="text-[#02ffac]">{userData.used_messages}/{userData.max_messages}</span>
+              </div>
           ) : (
             <div color="text-[#02ffac] animate-fade-down"></div>
           )}

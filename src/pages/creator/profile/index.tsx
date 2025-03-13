@@ -34,6 +34,7 @@ const Profile = () => {
   const [userFirebaseID, setUserFirebaseID] = useState<string | null>(null);
   const [agents, setAgents] = useState<Agent[]>([]);
   const [userData, setUserData] = useState<UserData | null>(null);
+  const [userPlan, setUserPlan] = useState<string | null>("Free");
   const { t } = useTranslation('common');
 
   useEffect(() => {
@@ -47,10 +48,11 @@ const Profile = () => {
             "Authorization": `Bearer ${token}`
           }
         });
-        const data: UserData = await response.json();
+        const data = await response.json();
         setUserPic(data.profile_pic);
         setUserFirebaseID(data.firebase_id);
         setUserData(data);
+        setUserPlan(data.plan_id);
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
@@ -111,7 +113,19 @@ const Profile = () => {
           <p className="text-white font-bold text-[15px]">{userData?.email}</p>
         </div>
         <div className="w-full h-full rounded-xl bg-[#33393F] p-6 pb-24">
-          <p className="text-white text-xl">{t('creator.profile.ai_created')}</p>
+          <p className="text-white text-xl">{t('creator.profile.plan')} : 
+            <span className={`ml-2 text-xl ${userPlan === "Bronze" ? "text-orange-400" : userPlan === "Silver" ? "text-gray-400" : userPlan === "Gold" ? "text-yellow-400" : "text-[#02ffac]"}`}>
+              {userPlan}
+            </span>
+            {/* <span>
+              <Link
+                href="/customer/subscription"
+                className='ml-2 underline text-sm text-[#02ffab] hover:text-[#02ffabb0] focus:text-[#02ffabb0]'>
+                  Subscription
+              </Link>
+            </span> */}
+          </p>
+          <p className="mt-8 text-white text-xl">{t('creator.profile.ai_created')}</p>
           <div className=''>
             <p className="text-white">{agents.length}</p>
           </div>

@@ -75,6 +75,7 @@
     "dashboard_overall.title.revenueThisWeek": "Revenue this week",
     "dashboard_overall.click_able.revenueReport": "Revenue Report",
     "dashboard_overall.viewAgent": "View Agent",
+    "creator.profile.plan" : "Subscription Plan",
     "creator.profile.ai_created": "Number of AIs created",
     "creator.profile.count_ai": "Units",
     "creator.profile.link": "Creation history",
@@ -148,6 +149,26 @@
         "buy": "Buy Now",
         "select": "Please select the subscription plan you want."
       }
+    },
+
+    "failedPayment.title": {
+      "title": "Error Occured",
+      "message": "Please try again later.",
+      "close": "Close"
+    },
+
+    "cancel": {
+      "title": "Canceled",
+      "message" : "The Payment has been canceled.",
+      "back_to_home": "Bact to Home",
+      "go_to_subscription": "Go to Subscription"
+    },
+
+    "success": {
+      "title": "Success",
+      "message" : "Your Subscription Membership has been successfully completed.",
+      "go_to_profile": "go to your profile",
+      "go_to_ai_shop": "go to the AI Shop"
     }
     
 

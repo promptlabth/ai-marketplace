@@ -46,6 +46,7 @@ const Subscription = () => {
         setIsLoggedIn(true);
         setUser(data);
         setPlan(data.plan_id);
+        // setPlan("Bronze")
     }
 
     useEffect(() => {
@@ -71,6 +72,7 @@ const Subscription = () => {
                 return;
             }
             // console.log("Success getting checkout session URL");
+            // console.log(checkoutSessionUrl);
             router.push(checkoutSessionUrl);
             // setFailedModalOpen(true);
         } catch (error){
@@ -205,7 +207,7 @@ const Subscription = () => {
         <div className="flex flex-col w-full sm:w-[1500px] min-h-screen rounded-xl py-4 px-4 gap-4">
             <div className="subscriptionHeader items-center">
                 <div className="flex flex-col justify-center items-center w-full">
-                    <p className="text-white font-bold text-[48px] mt-4 text-center">
+                    <p className="text-white font-bold text-[48px] mt-4 text-center animate-fade-down">
                         {t("customer.subscription.title")}
                         {/* สมัครแพลนสมาชิก */}
                     </p>
@@ -213,15 +215,16 @@ const Subscription = () => {
                 <hr className="w-[50px] mx-auto border-gray-500" />
                 {isLoggedIn && (
                     <div className="flex flex-col justify-center items-center w-full">
-                    <p className="text-white text-[20px] mt-4">
+                    <p className="text-white text-[20px] mt-4 animate-fade-down">
                         {t("customer.subscription.current")}
                         {/* ตอนนี้แพลนสมาชิกของคุณคือ */}
-                        <a className="font-bold"> {plan}</a> <br/>
+                        <span className={`ml-1 font-bold animate-fade-down ${plan === "Bronze" ? "text-orange-400" : plan === "Silver" ? "text-gray-400" : plan === "Gold" ? "text-yellow-400" : "text-[#02ffac]"}`}>{plan}</span> <br/>
+                        
                     </p>
-                    <p className="text-white text-[20px] mt-1">
+                    <p className="text-white text-[20px] mt-1 animate-fade-down">
                         {t("customer.subscription.upgrade")}
                         {/* ถ้าอยากอัพเกรดแพลน กรุณาติดต่อเราที่  */}
-                        <a> </a><u>isaman@promptlabai.com</u>
+                        <u className="ml-1">isaman@promptlabai.com</u>
                     </p>
                 </div>
                 )}
@@ -231,7 +234,7 @@ const Subscription = () => {
                 <div className="container text-center">
                     <div className="row text-center flex justify-center gap-8 flex-wrap">
                             { /* Free */}
-                            <Card className="flex-col mt-4 w-80 border-8 border-transparent hover:border-green-400" title="Subscription Card" placeholder="" onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}}>
+                            <Card className={`flex-col mt-4 w-80 border-8 ${plan === "Free" ? "border-green-600" : "border-transparent"} hover:border-green-400`} title="Subscription Card" placeholder="" onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}}>
                                 <p className="text-[28px] mt-4 font-bold tracking-wider">Free</p>
                                 <div className="flex justify-center">
                                     <FreeIcon />
@@ -260,7 +263,7 @@ const Subscription = () => {
                                 </CardBody>
                             </Card>
                             { /* Bronze */}
-                            <Card className="mt-4 w-80 border-8 border-transparent hover:border-orange-400" title="Subscription Card" placeholder="" onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}}>
+                            <Card className={`mt-4 w-80 border-8 ${plan === "Bronze" ? "border-orange-500" : "border-transparent"} hover:border-orange-400`} title="Subscription Card" placeholder="" onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}}>
                                 <p className="text-[28px] mt-4 font-bold tracking-wider">Bronze</p>
                                 <div className="flex justify-center">
                                     <BronzeIcon />
@@ -294,7 +297,7 @@ const Subscription = () => {
                                 </CardFooter>
                             </Card>
                             { /* Silver */}
-                            <Card className="mt-4 w-80 border-8 border-transparent hover:border-gray-400" title="Subscription Card" placeholder="" onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}}>
+                            <Card className={`mt-4 w-80 border-8 ${plan === "Silver" ? "border-gray-500" : "border-transparent"} hover:border-gray-400`} title="Subscription Card" placeholder="" onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}}>
                                 <p className="text-[28px] mt-4 font-bold tracking-wider">Silver</p>
                                 <div className="flex justify-center">
                                     <SilverIcon />
@@ -328,7 +331,7 @@ const Subscription = () => {
                                 </CardFooter>
                             </Card>
                             { /* Gold */}
-                            <Card className="mt-4 w-80 border-8 border-transparent hover:border-yellow-400" title="Subscription Card" placeholder="" onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}}>
+                            <Card className={`mt-4 w-80 border-8 ${plan === "Gold" ? "border-yellow-500" : "border-transparent"} hover:border-yellow-400`} title="Subscription Card" placeholder="" onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}}>
                                 <p className="text-[28px] mt-4 font-bold tracking-wider">Gold</p>
                                 <div className="flex justify-center">
                                     <GoldIcon />

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { IoCloseOutline } from "react-icons/io5";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 interface FailedPaymentModalProps {
   onClose: () => void;
@@ -7,6 +9,7 @@ interface FailedPaymentModalProps {
 
 const FailedPaymentModal: React.FC<FailedPaymentModalProps> = ({ onClose }) => {
   const [isClosing, setIsClosing] = useState(false);
+  const { t } = useTranslation("common");
 
   const handleClose = () => {
     setIsClosing(true);
@@ -48,13 +51,16 @@ const FailedPaymentModal: React.FC<FailedPaymentModalProps> = ({ onClose }) => {
             </div>
             <div className="p-6 space-y-4 justify-center items-center">
               <h2 className="text-xl font-semibold text-center text-white ">
-                เกิดข้อผิดพลาด
+                {/* เกิดข้อผิดพลาด */}
+                {t("failedPayment.title")}
               </h2>
               <p className="text-[16px] text-center text-white ">
-                กรุณาลองใหม่ในภายหลัง
+                {/* กรุณาลองใหม่ในภายหลัง */}
+                {t("failedPayment.message")}
               </p>
               <button className="w-full border border-gray-600 text-white py-2 px-4 rounded-md flex items-center justify-center space-x-2 hover:bg-gray-700" onClick={handleClose}>
-                <span >ปิด</span>
+                {/* <span >ปิด</span> */}
+                {t("failedPayment.close")}
               </button>
             </div>
           </div>
@@ -63,3 +69,9 @@ const FailedPaymentModal: React.FC<FailedPaymentModalProps> = ({ onClose }) => {
 }
 
 export default FailedPaymentModal;
+
+export const getStaticProps = async ({ locale }: any) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ["common"])),
+  },
+});
