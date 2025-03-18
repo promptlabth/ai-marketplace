@@ -27,7 +27,6 @@ export async function apiGetCheckoutSessionUrl(
       }
       return response.data.url;
     } catch (error) {
-  
       console.error(error);
       return "";
     }

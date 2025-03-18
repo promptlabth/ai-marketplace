@@ -53,7 +53,7 @@ const Subscription = () => {
         fetchUserData()
     }, [router]);
 
-    const handleCheckoutSession = async (prizeId: string, planId: number) => {
+    const handleCheckoutSession = async (prizeId: string, planId: number, paymentMethod: string) => {
         try {
             if (!user) {
                 console.warn("User not found");
@@ -65,7 +65,11 @@ const Subscription = () => {
                 PrizeID: prizeId,
                 WebUrl: window.location.origin,
                 PlanID: planId,
+                PaymentMethod: paymentMethod
             }
+
+            // console.log(checkoutSessionRequest);
+            
             const checkoutSessionUrl = await apiGetCheckoutSessionUrl(checkoutSessionRequest);
             if (!checkoutSessionUrl) {
                 console.warn("Error getting checkout session URL");
@@ -291,7 +295,7 @@ const Subscription = () => {
                                     </ul>
                                 </CardBody>
                                 <CardFooter placeholder="" onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}}>
-                                    <Button className="bg-orange-400 hover:bg-orange-600" placeholder="" onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}} onClick={async () => await handleCheckoutSession(subscriptionPlanPrizeIdMap["BRONZE"].prizeId, subscriptionPlanPrizeIdMap["BRONZE"].planId)}>
+                                    <Button className="bg-orange-400 hover:bg-orange-600" placeholder="" onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}} onClick={async () => await handleCheckoutSession(subscriptionPlanPrizeIdMap["BRONZE"].prizeId, subscriptionPlanPrizeIdMap["BRONZE"].planId, "card")}>
                                         {t("customer.subscription.buy")}
                                     </Button>
                                 </CardFooter>
@@ -325,7 +329,7 @@ const Subscription = () => {
                                     </ul>
                                 </CardBody>
                                 <CardFooter placeholder="" onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}}>
-                                    <Button className="bg-gray-400 hover:bg-gray-600" placeholder="" onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}} onClick={async () => await handleCheckoutSession(subscriptionPlanPrizeIdMap["SILVER"].prizeId, subscriptionPlanPrizeIdMap["SILVER"].planId)}>
+                                    <Button className="bg-gray-400 hover:bg-gray-600" placeholder="" onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}} onClick={async () => await handleCheckoutSession(subscriptionPlanPrizeIdMap["SILVER"].prizeId, subscriptionPlanPrizeIdMap["SILVER"].planId, "card")}>
                                         {t("customer.subscription.buy")}
                                     </Button>
                                 </CardFooter>
@@ -359,7 +363,7 @@ const Subscription = () => {
                                     </ul>
                                 </CardBody>
                                 <CardFooter placeholder="" onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}}>
-                                    <Button className="bg-yellow-400 hover:bg-yellow-600" placeholder="" onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}} onClick={async () => await handleCheckoutSession(subscriptionPlanPrizeIdMap["GOLD"].prizeId, subscriptionPlanPrizeIdMap["GOLD"].planId)}>
+                                    <Button className="bg-yellow-400 hover:bg-yellow-600" placeholder="" onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}} onClick={async () => await handleCheckoutSession(subscriptionPlanPrizeIdMap["GOLD"].prizeId, subscriptionPlanPrizeIdMap["GOLD"].planId, "card")}>
                                         {t("customer.subscription.buy")}
                                     </Button>
                                 </CardFooter>
