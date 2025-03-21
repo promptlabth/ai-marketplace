@@ -12,8 +12,10 @@ export async function apiGetCheckoutSessionUrl(
       const requestOption = {
         headers: {
           Authorization: `Bearer ${accessToken}`,
-        },
+        }
       };
+
+      // console.log("request:", requestOption);
   
       const response = await axios.post(
         apiUrl,
@@ -27,7 +29,7 @@ export async function apiGetCheckoutSessionUrl(
       }
       return response.data.url;
     } catch (error) {
-      console.error(error);
+      console.error("Error Occured:", error);
       return "";
     }
   }

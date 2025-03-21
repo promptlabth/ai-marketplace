@@ -3,7 +3,8 @@ import Head from "next/head";
 import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { Card, CardBody, CardFooter, Typography, Button, } from "@material-tailwind/react";
+import { Card, CardBody, CardFooter, Typography } from "@material-tailwind/react";
+import { Button } from "@material-tailwind/react";
 import { useTranslation } from "next-i18next";
 import LoginModal from "@/components/LoginModal";
 import FailedPaymentModal from "@/components/FailedPaymentModal";
@@ -19,6 +20,7 @@ const Subscription = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [failedModalOpen, setFailedModalOpen] = useState(false);
+    const [PaymentMode, setPaymentMode] = useState<string>("card");
 
     const [user, setUser] = useState<any>(null);
 
@@ -53,7 +55,15 @@ const Subscription = () => {
         fetchUserData()
     }, [router]);
 
-    const handleCheckoutSession = async (prizeId: string, planId: number, paymentMethod: string) => {
+    const handleClickPayment = (plan: string) => {
+        if (PaymentMode === "promptpay") {
+            handleCheckoutSession(subscriptionPlanPrizeIdMap[plan + "_ONETIME"].prizeId, subscriptionPlanPrizeIdMap[plan + "_ONETIME"].planId);
+        } else {
+            handleCheckoutSession(subscriptionPlanPrizeIdMap[plan].prizeId, subscriptionPlanPrizeIdMap[plan].planId);
+        }
+    }
+
+    const handleCheckoutSession = async (prizeId: string, planId: number) => {
         try {
             if (!user) {
                 console.warn("User not found");
@@ -65,18 +75,17 @@ const Subscription = () => {
                 PrizeID: prizeId,
                 WebUrl: window.location.origin,
                 PlanID: planId,
-                PaymentMethod: paymentMethod
+                PaymentMethod: PaymentMode,
             }
-
-            // console.log(checkoutSessionRequest);
             
             const checkoutSessionUrl = await apiGetCheckoutSessionUrl(checkoutSessionRequest);
+
             if (!checkoutSessionUrl) {
                 console.warn("Error getting checkout session URL");
+                setFailedModalOpen(true);
                 return;
             }
-            // console.log("Success getting checkout session URL");
-            // console.log(checkoutSessionUrl);
+
             router.push(checkoutSessionUrl);
             // setFailedModalOpen(true);
         } catch (error){
@@ -90,9 +99,9 @@ const Subscription = () => {
         router.refresh();
       }
     
-      const handleClose = () => {
+    const handleClose = () => {
         setIsModalOpen(false);
-      }
+    }
 
     /* ------------ Icon ------------ */
 
@@ -219,24 +228,35 @@ const Subscription = () => {
                 <hr className="w-[50px] mx-auto border-gray-500" />
                 {isLoggedIn && (
                     <div className="flex flex-col justify-center items-center w-full">
-                    <p className="text-white text-[20px] mt-4 animate-fade-down">
-                        {t("customer.subscription.current")}
-                        {/* ตอนนี้แพลนสมาชิกของคุณคือ */}
-                        <span className={`ml-1 font-bold animate-fade-down ${plan === "Bronze" ? "text-orange-400" : plan === "Silver" ? "text-gray-400" : plan === "Gold" ? "text-yellow-400" : "text-[#02ffac]"}`}>{plan}</span> <br/>
-                        
-                    </p>
-                    <p className="text-white text-[20px] mt-1 animate-fade-down">
-                        {t("customer.subscription.upgrade")}
-                        {/* ถ้าอยากอัพเกรดแพลน กรุณาติดต่อเราที่  */}
-                        <u className="ml-1">isaman@promptlabai.com</u>
-                    </p>
-                </div>
+                        <p className="text-white text-[20px] mt-4 animate-fade-down">
+                            {t("customer.subscription.current")}
+                            {/* ตอนนี้แพลนสมาชิกของคุณคือ */}
+                            <span className={`ml-1 font-bold animate-fade-down ${plan === "Bronze" ? "text-orange-400" : plan === "Silver" ? "text-gray-400" : plan === "Gold" ? "text-yellow-400" : "text-[#02ffac]"}`}>{plan}</span> <br/>
+                            
+                        </p>
+                        <p className="text-white text-[20px] mt-1 animate-fade-down">
+                            {t("customer.subscription.upgrade")}
+                            {/* ถ้าอยากอัพเกรดแพลน กรุณาติดต่อเราที่  */}
+                            <u className="ml-1">isaman@promptlabai.com</u>
+                        </p>
+                    </div>
                 )}
-                
             </div>
             <div className="subscriptionList">
                 <div className="container text-center">
                     <div className="row text-center flex justify-center gap-8 flex-wrap">
+                        <Button className={`mt-2 w-40 border-4 border-transparent ${PaymentMode === "promptpay" ? "bg-green-500 text-white" : "bg-slate-500 text-black"} hover:border-green-700`} 
+                            placeholder="" onPointerEnterCapture={() => { } } onPointerLeaveCapture={() => { } }
+                            onClick={() => setPaymentMode("promptpay")}>
+                            {t("customer.subscription.promptpay")}
+                        </Button>
+                        <Button className={`mt-2 w-40 border-4 border-transparent ${PaymentMode === "card" ? "bg-green-500 text-white" : "bg-slate-500 text-black"} hover:border-green-700`}
+                            placeholder="" onPointerEnterCapture={() => { } } onPointerLeaveCapture={() => { } }
+                            onClick={() => setPaymentMode("card")}>
+                            {t("customer.subscription.card")}
+                        </Button>
+                    </div>
+                    <div className="row text-center flex mt-2 justify-center gap-8 flex-wrap">
                             { /* Free */}
                             <Card className={`flex-col mt-4 w-80 border-8 ${plan === "Free" ? "border-green-600" : "border-transparent"} hover:border-green-400`} title="Subscription Card" placeholder="" onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}}>
                                 <p className="text-[28px] mt-4 font-bold tracking-wider">Free</p>
@@ -295,7 +315,8 @@ const Subscription = () => {
                                     </ul>
                                 </CardBody>
                                 <CardFooter placeholder="" onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}}>
-                                    <Button className="bg-orange-400 hover:bg-orange-600" placeholder="" onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}} onClick={async () => await handleCheckoutSession(subscriptionPlanPrizeIdMap["BRONZE"].prizeId, subscriptionPlanPrizeIdMap["BRONZE"].planId, "card")}>
+                                    <Button className="bg-orange-400 hover:bg-orange-600" placeholder="" onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}} 
+                                    onClick={() => handleClickPayment("BRONZE")}>
                                         {t("customer.subscription.buy")}
                                     </Button>
                                 </CardFooter>
@@ -329,7 +350,8 @@ const Subscription = () => {
                                     </ul>
                                 </CardBody>
                                 <CardFooter placeholder="" onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}}>
-                                    <Button className="bg-gray-400 hover:bg-gray-600" placeholder="" onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}} onClick={async () => await handleCheckoutSession(subscriptionPlanPrizeIdMap["SILVER"].prizeId, subscriptionPlanPrizeIdMap["SILVER"].planId, "card")}>
+                                    <Button className="bg-gray-400 hover:bg-gray-600" placeholder="" onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}} 
+                                    onClick={() => () => handleClickPayment("SILVER")}>
                                         {t("customer.subscription.buy")}
                                     </Button>
                                 </CardFooter>
@@ -363,7 +385,8 @@ const Subscription = () => {
                                     </ul>
                                 </CardBody>
                                 <CardFooter placeholder="" onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}}>
-                                    <Button className="bg-yellow-400 hover:bg-yellow-600" placeholder="" onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}} onClick={async () => await handleCheckoutSession(subscriptionPlanPrizeIdMap["GOLD"].prizeId, subscriptionPlanPrizeIdMap["GOLD"].planId, "card")}>
+                                    <Button className="bg-yellow-400 hover:bg-yellow-600" placeholder="" onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}} 
+                                    onClick={() => handleClickPayment("GOLD")}>
                                         {t("customer.subscription.buy")}
                                     </Button>
                                 </CardFooter>

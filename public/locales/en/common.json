@@ -147,11 +147,13 @@
         "message": "message per month",
         "support": "Community Support",
         "buy": "Buy Now",
-        "select": "Please select the subscription plan you want."
+        "select": "Please select the subscription plan you want.",
+        "promptpay": "One-time payment",
+        "card": "Monthly Subscription"
       }
     },
 
-    "failedPayment.title": {
+    "failedPayment": {
       "title": "Error Occured",
       "message": "Please try again later.",
       "close": "Close"
