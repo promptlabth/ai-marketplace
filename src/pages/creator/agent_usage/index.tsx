@@ -43,7 +43,11 @@ const AgentUsage = () => {
         }
 
         const data = await response.json();
-        setAgentsData(data);
+        if (data) {
+          setAgentsData(data);
+        } else {
+          setAgentsData([]);
+        }
       } catch (error) {
         console.error("Error fetching agent usage data:", error);
       }
@@ -52,47 +56,61 @@ const AgentUsage = () => {
     fetchAgentUsage();
   }, [router]);
 
-  const filteredAgents = agentsData.filter(agent =>
+  const filteredAgents = agentsData.length > 0 ? agentsData.filter(agent =>
     agent.agent_name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  ) : [];
 
   return (
     <div className="bg-[#212529] p-6 min-h-screen flex flex-col justify-center items-center">
       <Navbar />
-      <h1 className="font-bold text-white text-[25px] mb-4 mt-4">Agent Usage</h1>
-      <div className="w-full max-w-[940px] mb-8">
-        <input
-          type="text"
-          className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#02ffac] mb-4"
-          placeholder="Search by agent name"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-      </div>
-      <div className="w-full max-w-[940px]">
-        {filteredAgents.map((agent) => (
-          <div key={agent.agent_id} className="mb-8 bg-[#33393F] p-4 rounded-lg shadow-md">
-            <div className="flex items-center mb-4">
-              <img src={agent.image} alt={agent.agent_name} className="h-16 w-16 object-cover rounded-full mr-4" />
-              <div>
-                <h2 className="text-white text-[20px] font-bold">{agent.agent_name}</h2>
-                <p className="text-white">Total Usage: {agent.total_usage}</p>
-              </div>
-            </div>
-            <div className="flex gap-4 overflow-x-auto hide-scrollbar">
-              {agent.user_usage.map((user, index) => (
-                <div key={index} className="flex items-center bg-[#212529] p-4 rounded-lg shadow-md min-w-[300px]">
-                  <img src={user.profile_picture} alt={user.user_name} className="h-12 w-12 object-cover rounded-full mr-4" />
+      {agentsData.length > 0 ? (
+        <div>
+          <h1 className="font-bold text-white text-[25px] mb-4 mt-4">Agent Usage</h1>
+          <div className="w-full max-w-[940px] mb-8">
+            <input
+              type="text"
+              className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#02ffac] mb-4"
+              placeholder="Search by agent name"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
+          <div className="w-full max-w-[940px]">
+            {filteredAgents.map((agent) => (
+              <div key={agent.agent_id} className="mb-8 bg-[#33393F] p-4 rounded-lg shadow-md">
+                <div className="flex items-center mb-4">
+                  <img src={agent.image} alt={agent.agent_name} className="h-16 w-16 object-cover rounded-full mr-4" />
                   <div>
-                    <p className="text-white font-bold">{user.user_name}</p>
-                    <p className="text-white">Usage Count: {user.usage_count}</p>
+                    <h2 className="text-white text-[20px] font-bold">{agent.agent_name}</h2>
+                    <p className="text-white">Total Usage: {agent.total_usage}</p>
                   </div>
                 </div>
-              ))}
-            </div>
+                <div className="flex gap-4 overflow-x-auto hide-scrollbar">
+                  {agent.user_usage.map((user, index) => (
+                    <div key={index} className="flex items-center bg-[#212529] p-4 rounded-lg shadow-md min-w-[300px]">
+                      <img src={user.profile_picture} alt={user.user_name} className="h-12 w-12 object-cover rounded-full mr-4" />
+                      <div>
+                        <p className="text-white font-bold">{user.user_name}</p>
+                        <p className="text-white">Usage Count: {user.usage_count}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </div>
+      ) : (
+        <div className='w-full max-w-[940px] flex flex-col items-center justify-center'>
+          <h1 className='mt-8 text-2xl text-center text-gray-400'>No Agent Usage found.</h1>
+          <div className='w-1/2 mt-4 mb-4 flex flex-col items-center justify-center'>
+            <button className='w-full mt-2 border border-gray-600 text-white py-2 px-4 rounded-md flex items-center justify-center space-x-2 hover:bg-gray-700' 
+              onClick={() => router.push('/customer/marketplace')}>
+              <span>Ai Shop</span>
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -171,6 +171,11 @@
       "message" : "Your Subscription Membership has been successfully completed.",
       "go_to_profile": "go to your profile",
       "go_to_ai_shop": "go to the AI Shop"
+    },
+
+    "error":{
+      "title": "Error, this page is not found",
+      "close": "Back to Home"
     }
     
 

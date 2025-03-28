@@ -37,7 +37,7 @@ const SuccessPage = () => {
                     {/* ทำการยกเลิกการสมัครสมาชิกแล้ว */}
                 </p>
                 <button
-                    className="mt-4 w-full border border-gray-600 text-white py-2 px-4 rounded-md flex items-center justify-center space-x-2 hover:bg-gray-700"
+                    className="mt-4 w-1/2 border border-gray-600 text-white py-2 px-4 rounded-md flex items-center justify-center space-x-2 hover:bg-gray-700"
                     onClick={handleBackToHome}
                 >
                     <span>
@@ -45,7 +45,7 @@ const SuccessPage = () => {
                     </span>
                 </button>
                 <button
-                    className="w-full border border-gray-600 text-white py-2 px-4 rounded-md flex items-center justify-center space-x-2 hover:bg-gray-700"
+                    className="w-1/2 border border-gray-600 text-white py-2 px-4 rounded-md flex items-center justify-center space-x-2 hover:bg-gray-700"
                     onClick={handleToSubscribe}
                 >
                     <span>
