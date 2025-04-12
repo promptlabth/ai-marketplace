@@ -56,7 +56,7 @@ const Subscription = () => {
     }, [router]);
 
     const handleClickPayment = (plan: string) => {
-        if (PaymentMode === "promptpay") {
+        if (PaymentMode === "payment") {
             handleCheckoutSession(subscriptionPlanPrizeIdMap[plan + "_ONETIME"].prizeId, subscriptionPlanPrizeIdMap[plan + "_ONETIME"].planId);
         } else {
             handleCheckoutSession(subscriptionPlanPrizeIdMap[plan].prizeId, subscriptionPlanPrizeIdMap[plan].planId);
@@ -86,7 +86,9 @@ const Subscription = () => {
                 return;
             }
 
-            router.push(checkoutSessionUrl);
+            // console.log("Checkout session URL:", checkoutSessionUrl);
+
+            router.push(checkoutSessionUrl.url);
             // setFailedModalOpen(true);
         } catch (error){
             console.error(error)
@@ -245,9 +247,9 @@ const Subscription = () => {
             <div className="subscriptionList">
                 <div className="container text-center">
                     <div className="row text-center flex justify-center gap-8 flex-wrap">
-                        <Button className={`mt-2 w-40 border-4 border-transparent ${PaymentMode === "promptpay" ? "bg-green-500 text-white" : "bg-slate-500 text-black"} hover:border-green-700`} 
+                        <Button className={`mt-2 w-40 border-4 border-transparent ${PaymentMode === "payment" ? "bg-green-500 text-white" : "bg-slate-500 text-black"} hover:border-green-700`} 
                             placeholder="" onPointerEnterCapture={() => { } } onPointerLeaveCapture={() => { } }
-                            onClick={() => setPaymentMode("promptpay")}>
+                            onClick={() => setPaymentMode("payment")}>
                             {t("customer.subscription.promptpay")}
                         </Button>
                         <Button className={`mt-2 w-40 border-4 border-transparent ${PaymentMode === "card" ? "bg-green-500 text-white" : "bg-slate-500 text-black"} hover:border-green-700`}
