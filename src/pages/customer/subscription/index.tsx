@@ -10,7 +10,7 @@ import LoginModal from "@/components/LoginModal";
 import FailedPaymentModal from "@/components/FailedPaymentModal";
 import { subscriptionPlanPrizeIdMap } from "@/constants/value.constant";
 import { CheckoutSessionRequest } from "@/models/types/requests/paymentRequest.type";
-import { apiGetCheckoutSessionUrl } from "@/services/api/PaymentAPI";
+import { apiGetCheckoutSessionUrl, apiGetOneTimeCheckoutSessionUrl } from "@/services/api/PaymentAPI";
 
 const Subscription = () => {
     const { t } = useTranslation("common");
@@ -56,8 +56,9 @@ const Subscription = () => {
     }, [router]);
 
     const handleClickPayment = (plan: string) => {
+        // console.log("plan:", plan)
         if (PaymentMode === "payment") {
-            handleCheckoutSession(subscriptionPlanPrizeIdMap[plan + "_ONETIME"].prizeId, subscriptionPlanPrizeIdMap[plan + "_ONETIME"].planId);
+            handleOneTimeCheckoutSession(subscriptionPlanPrizeIdMap[plan + "_ONETIME"].prizeId, subscriptionPlanPrizeIdMap[plan + "_ONETIME"].planId);
         } else {
             handleCheckoutSession(subscriptionPlanPrizeIdMap[plan].prizeId, subscriptionPlanPrizeIdMap[plan].planId);
         }
@@ -75,8 +76,9 @@ const Subscription = () => {
                 PrizeID: prizeId,
                 WebUrl: window.location.origin,
                 PlanID: planId,
-                PaymentMethod: PaymentMode,
             }
+
+            // console.log("Checkout session request:", checkoutSessionRequest);
             
             const checkoutSessionUrl = await apiGetCheckoutSessionUrl(checkoutSessionRequest);
 
@@ -88,8 +90,37 @@ const Subscription = () => {
 
             // console.log("Checkout session URL:", checkoutSessionUrl);
 
-            router.push(checkoutSessionUrl.url);
+            router.push(checkoutSessionUrl);
             // setFailedModalOpen(true);
+        } catch (error){
+            console.error(error)
+            setFailedModalOpen(true);
+        }
+    }
+
+    const handleOneTimeCheckoutSession = async (prizeId: string, planId: number) => {
+        try {
+            if (!user) {
+                console.warn("User not found");
+                setIsModalOpen(true);
+                return;
+            }
+    
+            const checkoutSessionRequest: CheckoutSessionRequest = {
+                PrizeID: prizeId,
+                WebUrl: window.location.origin,
+                PlanID: planId,
+            }
+            
+            const checkoutSessionUrl = await apiGetOneTimeCheckoutSessionUrl(checkoutSessionRequest);
+
+            if (!checkoutSessionUrl) {
+                console.warn("Error getting checkout session URL");
+                setFailedModalOpen(true);
+                return;
+            }
+
+            router.push(checkoutSessionUrl);
         } catch (error){
             console.error(error)
             setFailedModalOpen(true);
@@ -352,8 +383,8 @@ const Subscription = () => {
                                     </ul>
                                 </CardBody>
                                 <CardFooter placeholder="" onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}}>
-                                    <Button className="bg-gray-400 hover:bg-gray-600" placeholder="" onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}} 
-                                    onClick={() => () => handleClickPayment("SILVER")}>
+                                <Button className="bg-gray-400 hover:bg-gray-600" placeholder="" onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}} 
+                                    onClick={() => handleClickPayment("SILVER")}>
                                         {t("customer.subscription.buy")}
                                     </Button>
                                 </CardFooter>
