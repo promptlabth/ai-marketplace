@@ -75,7 +75,6 @@ export async function apiGetCheckoutSessionUrl(
       const requestOption = {
         headers: {
           Authorization: `Bearer ${accessToken}`,
-          Origin:"http://localhost:3000"
         }
       };
   
