@@ -2,6 +2,7 @@ import axios from "axios";
 import { CheckoutSessionRequest } from "@/models/types/requests/paymentRequest.type";
 import  { paymentApiUrl } from "@/constants/link.constant";
 import { getAccessToken } from "../firebase/auth/GetTokenAuth";
+import { Content } from "next/font/google";
 
 export async function apiGetCheckoutSessionUrl(
     checkoutSessionRequest: CheckoutSessionRequest,
@@ -74,6 +75,7 @@ export async function apiGetCheckoutSessionUrl(
       const requestOption = {
         headers: {
           Authorization: `Bearer ${accessToken}`,
+          Origin:"http://localhost:3000"
         }
       };
   
@@ -82,6 +84,13 @@ export async function apiGetCheckoutSessionUrl(
         checkoutSessionRequest,
         requestOption,
       );
+
+      // const response = await axios.post(
+      //   'http://localhost:4000/proxy/subscription',
+      //   checkoutSessionRequest,
+      //   requestOption
+      // );
+      
   
       if (response.status != 201) {
 
